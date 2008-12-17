@@ -1,0 +1,58 @@
+= Safe Record
+
+== Overview
+
+Safe Record is a Rails plugin to detect potential SQL injection
+vulnerabilities with the taint mechanism of Ruby.  It will raise an
+exception when a tainted string is passed as SQL.
+
+Safe Record is experimental, so do NOT use in a production environment.
+
+== Example
+
+  # raises an exception!!
+  post = Post.find(:first,
+    :conditions => "title = '#{params[:title]}'")
+
+  # OK :)
+  post = Post.find(:first,
+    :conditions => [
+      "title = ?",
+      params[:title]
+    ])
+
+  # Good :)
+  post = Post.find_by_title(params[:title])
+
+== Installation
+
+This plugin depends on a Rails plugin, Safe ERB.
+((<URL|http://wiki.rubyonrails.com/rails/pages/Safe+ERB>))
+
+Please perform the following steps to install Safe ERB and Safe Record.
+
+(1) install Safe ERB
+
+      $ script/plugin install \
+        http://safe-erb.rubyforge.org/svn/plugins/safe_erb/
+
+(2) install Safe Record
+
+      $ script/plugin install \
+        git://github.com/authorNari/safe_record.git
+
+== Original Author
+
+Shugo Maeda
+
+== Maintainer
+
+Narihiro Nakamura
+
+== Special Thanks
+
+Shinya Kasatani (the author of Safe ERB)
+
+== Contact
+
+Narihiro Nakamura <authorNari at gmail.com>
