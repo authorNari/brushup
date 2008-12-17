@@ -1,0 +1,55 @@
+config:
+  font: MSUIGOTHIC.ttf
+  lang: en
+
+tables:
+  - name: reminder
+    columns:
+      - title:varchar(255)
+      - body:text
+      - public:boolean
+      - learned:boolean
+      - created_at:timestamp
+      - updated_at:timestamp
+
+  - name: schedules
+    columns:
+      - level:integer
+      - span:integer
+    foreignkeys:
+      has_many:
+        - reminder
+
+  - name: taggings
+    columns:
+      - created_at:timestamp
+      - updated_at:timestamp
+    foreignkeys:
+      polymorphic:
+        - name: taggable
+          type: taggable_type
+          tables:
+            - reminder
+
+  - name: tags
+    dependent: true
+    columns:
+      - name
+    foreignkeys:
+      has_many:
+        - taggings
+
+  - name: users
+    columns:
+      - login:varchar(255)
+      - name:varchar(255)
+      - email:varchar(255)
+      - crypted_password:varchar(255)
+      - salt:varchar(255)
+      - created_at:timestamp
+      - updated_at:timestamp
+      - remember_token:varchar(255)
+      - remember_token_expires_at:varchar(255)
+    foreignkeys:
+      has_many:
+        - reminder

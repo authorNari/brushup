@@ -1,0 +1,5 @@
+~
+#*#
+doc/api
+tmp/*
+config/secret.txt

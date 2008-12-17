@@ -1,0 +1,38 @@
+ja: 
+  activerecord: 
+    models: 
+      user: "ユーザ"
+      reminder: "リマインダー"
+      schedules: "スケジュール"
+    attributes: 
+      user: 
+        login: "ログイン"
+        name: "名前"
+        email: "メール"
+        crypted_password: "暗号化パスワード"
+        salt: "塩"
+        created_at: "に作られた"
+        updated_at: "で更新"
+        remember_token: "覚えているトークン"
+        remember_token_expires_at: "トークンを忘れないで期限が切れる"
+      reminder: 
+        title: "タイトル"
+        body: "体"
+        public: "公開"
+        leared: "Leared"
+        created_at: "に作られた"
+        updated_at: "で更新"
+      schedules: 
+        level: "レベル"
+        span: "スパン"
+        created_at: "に作られた"
+        updated_at: "で更新"
+  railties: 
+    scaffold: 
+      edit: "編集"
+      back: "後ろの"
+      listing: "リスティング"
+      new: "新しい"
+      editing: "編集"
+      show: "見せる"
+

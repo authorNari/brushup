@@ -1,0 +1,13 @@
+<p>
+  <b><%= Reminder.human_attribute_name('title') %>:</b>
+  <%=h @reminder.title %>
+</p>
+
+<p>
+  <b><%= Reminder.human_attribute_name('body') %>:</b>
+  <%=h @reminder.body %>
+</p>
+
+
+<%= link_to translate(:edit, :default => 'Edit', :scope => [:railties, :scaffold]), edit_reminder_path(@reminder) %> |
+<%= link_to translate(:back, :default => 'Back', :scope => [:railties, :scaffold]), reminders_path %>
