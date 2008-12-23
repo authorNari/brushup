@@ -4,11 +4,11 @@
   <%= f.error_messages %>
 
   <p>
-    <%= f.label :title %><br />
+    <%= f.label :title, h(Reminder.human_attribute_name('title')) %><br />
     <%= f.text_field :title %>
   </p>
   <p>
-    <%= f.label :body %><br />
+    <%= f.label :body, h(Reminder.human_attribute_name('body')) %><br />
     <%= f.text_area :body %>
   </p>
   <p>

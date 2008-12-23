@@ -1,10 +1,10 @@
 <p>
-  <b><%= Reminder.human_attribute_name('title') %>:</b>
+  <b><%=h Reminder.human_attribute_name('title') %>:</b>
   <%=h @reminder.title %>
 </p>
 
 <p>
-  <b><%= Reminder.human_attribute_name('body') %>:</b>
+  <b><%=h Reminder.human_attribute_name('body') %>:</b>
   <%=h @reminder.body %>
 </p>
 

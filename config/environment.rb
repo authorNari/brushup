@@ -54,24 +54,15 @@ Rails::Initializer.run do |config|
   # If you change this key, all old sessions will become invalid!
   # Make sure the secret is at least 30 characters and all random, 
   # no regular words or you'll be exposed to dictionary attacks.
-  secret_path = File.join(RAILS_ROOT, "config/secret.txt")
-  if File.exist?(secret_path)
-    secret = open(secret_path) { |io| io.read }.gsub(/\s/, '')
-  end
-  if secret.empty?
-    characters = ("0".."9").to_a + ("a".."f").to_a
-    secret = Array.new(128) { characters[rand(characters.size)] }.join
-    open(secret_path, "w") { |io| io.write(secret) }
-  end
-  config.action_controller.session = {
-    :session_key => '_forget_me_not_session',
-    :secret      => secret
-  }
+  #   config.action_controller.session = {
+  #     :session_key => '_forget_me_not_session',
+  #     :secret      => secret
+  #   }
 
   # Use the database for sessions instead of the cookie-based default,
   # which shouldn't be used to store highly confidential information
   # (create the session table with "rake db:sessions:create")
-  # config.action_controller.session_store = :active_record_store
+  config.action_controller.session_store = :active_record_store
 
   # Use SQL instead of Active Record's schema dumper when creating the test database.
   # This is necessary if your schema can't be completely dumped by the schema dumper,

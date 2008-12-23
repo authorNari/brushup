@@ -6,7 +6,17 @@ class ApplicationController < ActionController::Base
 
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store
-  protect_from_forgery # :secret => '501f02d0dd08ecc4d2bcf1ca7548fe6b'
+  secret_path = File.join(RAILS_ROOT, "config/secret.txt")
+  if File.exist?(secret_path)
+    secret = open(secret_path) { |io| io.read }.gsub(/\s/, '')
+  end
+  if secret.empty?
+    characters = ("0".."9").to_a + ("a".."f").to_a
+    secret = Array.new(128) { characters[rand(characters.size)] }.join
+    open(secret_path, "w") { |io| io.write(secret) }
+  end
+
+  protect_from_forgery :secret => secret
   
   # See ActionController::Base for details 
   # Uncomment this to filter the contents of submitted sensitive data parameters

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081217131456) do
+ActiveRecord::Schema.define(:version => 20081223093641) do
 
   create_table "reminders", :force => true do |t|
     t.integer  "user_id"
@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(:version => 20081217131456) do
     t.string   "title"
     t.text     "body"
     t.boolean  "public"
-    t.boolean  "leared"
+    t.boolean  "learned"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -28,6 +28,16 @@ ActiveRecord::Schema.define(:version => 20081217131456) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "sessions", :force => true do |t|
+    t.string   "session_id", :null => false
+    t.text     "data"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
+  add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
   create_table "taggings", :force => true do |t|
     t.integer  "tag_id"

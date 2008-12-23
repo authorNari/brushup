@@ -1,22 +1,15 @@
-<h1><%= translate(:listing, :default => "Listing {{model}}", :model => Reminder.human_name(:count => @reminders.size), :count => @reminders.size, :scope => [:railties, :scaffold]) %></h1>
+<h1><%= t(:listing, :scope => [:railties, :scaffold]) %></h1>
 
-<table>
-  <tr>
-    <th><%= Reminder.human_attribute_name('title') %></th>
-    <th><%= Reminder.human_attribute_name('body') %></th>
-  </tr>
+<ul class="menu">
+  <li><%= link_to t(:today, :scope => [:controller, :reminders]) -%></li>
+  <li><%= link_to t(:list, :scope => [:controller, :reminders]) -%></li>
+  <li><%= link_to t(:memory, :scope => [:controller, :reminders]) -%></li>
+</ul>
 
-<% for reminder in @reminders %>
-  <tr>
-    <td><%=h reminder.title %></td>
-    <td><%=h reminder.body %></td>
-    <td><%= link_to translate(:show, :default => 'Show', :scope => [:railties, :scaffold]), reminder %></td>
-    <td><%= link_to translate(:edit, :default => 'Edit', :scope => [:railties, :scaffold]), edit_reminder_path(reminder) %></td>
-    <td><%= link_to translate(:destroy, :default => 'Destroy', :scope => [:railties, :scaffold]), reminder, :confirm => translate(:confirmation, :default => 'Are you sure?', :scope => [:railties, :scaffold]), :method => :delete %></td>
-  </tr>
-<% end %>
-</table>
+<div class="main">
+  <%= render :partial => "reminder", :collection => @reminders %>
+</div>
 
-<br />
+<%= render :partial => "tags" %>
 
-<%= link_to translate(:new, :default => "New {{model}}", :model => Reminder.human_name, :scope => [:railties, :scaffold]), new_reminder_path %>
+<%= link_to t(:new, :default => "New {{model}}", :model => Reminder.human_name, :scope => [:railties, :scaffold]), new_reminder_path %>
