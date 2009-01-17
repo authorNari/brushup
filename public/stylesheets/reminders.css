@@ -1,0 +1,16 @@
+/* for tagging */
+.tag_very_many {
+  font-size: 1.0em;
+}
+
+.tag_many {
+  font-size: 1.2em;
+}
+
+.tag_normal {
+  font-size: 1.4em;
+}
+
+.tag_light {
+  font-size: 1.6em;
+}
