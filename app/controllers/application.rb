@@ -24,4 +24,25 @@ class ApplicationController < ActionController::Base
   # filter_parameter_logging :password
   
   I18n.default_locale = "ja"
+
+  def authorize
+    unless session[:user_id]
+      flash[:notice] = "Please log in"
+      # save the URL the user requested so we can hop back to it
+      # after login
+      redirect_to(openid_path)
+    end
+  end
+
+  def set_jumpto
+    session[:jumpto] = request.parameters
+  end
+  
+  def set_user
+    if session[:user_id]
+      @user = session[:user_id]
+    else
+      @user = User.find(params[:user])
+    end
+  end
 end

@@ -4,6 +4,7 @@ ja:
       user: "ユーザ"
       reminder: "リマインダー"
       schedules: "スケジュール"
+      tag: "タグ"
     attributes: 
       user: 
         login: "ログイン"
@@ -20,11 +21,12 @@ ja:
         body: "本文"
         public: "公開"
         learned: ""
+        tag_list: "タグ"
         created_at: "作成日"
         updated_at: "更新日"
       schedules: 
         level: "レベル"
-        span: ""
+        span: "期間"
         created_at: "作成日"
         updated_at: "更新日"
   railties: 
@@ -38,9 +40,16 @@ ja:
       update: "更新"
       show: "表示"
       confirmation: "%sしますか？"
+      create: "登録"
+      check: "復習が終わったらここをクリック"
     tag: "タグ"
   controller:
     reminders:
       today: "今日の復習"
       list: "復習一覧"
       memory: "覚えてしまったもの"
+      check_ok: "復習完了しました"
+  links:
+    logout: "ログアウト"
+    signup: ユーザー登録
+    login: ログイン

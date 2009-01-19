@@ -8,6 +8,10 @@
     <%= f.text_field :title %>
   </p>
   <p>
+    <%= f.label :tag_list, h(Reminder.human_attribute_name('tag_list')) %><br />
+    <%= f.text_field :tag_list %>
+  </p>
+  <p>
     <%= f.label :body, h(Reminder.human_attribute_name('body')) %><br />
     <%= f.text_area :body %>
   </p>
@@ -17,4 +21,4 @@
 <% end %>
 
 <%= link_to translate(:show, :default => 'Show', :scope => [:railties, :scaffold]), @reminder %> |
-<%= link_to translate(:back, :default => 'Back', :scope => [:railties, :scaffold]), reminders_path %>
+<%= link_to translate(:back, :default => 'Back', :scope => [:railties, :scaffold]), action_path(:index) %>

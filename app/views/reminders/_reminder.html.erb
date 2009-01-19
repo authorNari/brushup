@@ -1,22 +1,38 @@
-<% fields_for reminder do |f| -%>
-<div>
-  <table>
-    <tr>
-      <th><%=h Reminder.human_attribute_name('title') %></th>
-      <td><%=h reminder.title %></td>
-    </tr>
-    <tr>
-      <td><%=h reminder.body %></td>
-    </tr>
-    <tr>
-      <td><%= link_to t(:show, :scope => [:railties, :scaffold]), reminder %></td>
-      <td><%= link_to t(:edit, :scope => [:railties, :scaffold]), edit_reminder_path(reminder) %></td>
-      <td><%= link_to t(:destroy, 
-	      :scope => [:railties, :scaffold]), reminder, 
-	:confirm => t(:confirmation, :scope => [:railties, :scaffold],
-	:value => t(:destroy, :scope => [:railties, :scaffold])),
-	:method => :delete -%></td>
-    </tr>
-  </table>
+<div id="reminder">
+  <% @reminders.each do |reminder| %>
+  <% fields_for reminder do |f| -%>
+  <div>
+    <table>
+      <tr>
+	<th><%=h Reminder.human_attribute_name('title') %></th>
+	<td><%=h reminder.title %> </td>
+	<td>
+	  <span id="reminders_check_<%= reminder.id -%>">
+	    <%= link_to_remote t(:check, :scope => [:railties, :scaffold]), 
+	    :url => {:action => :check, :id => reminder.id} if logged_in? && reminder.today_remind? -%>
+	  </span>
+	</td>
+      </tr>
+      <tr>
+	<th><%=h Tag.human_name %></th>
+	<td><%=h reminder.tag_list %></td>
+      </tr>
+      <tr>
+	<td><%=h reminder.body %></td>
+      </tr>
+      <tr>
+	<td><%= link_to t(:show, :scope => [:railties, :scaffold]), action_path(:show, :id => reminder.id) %></td>
+	<% if logged_in? %>
+	<td><%= link_to t(:edit, :scope => [:railties, :scaffold]), edit_reminder_path(reminder) %></td>
+	<td><%= link_to t(:destroy, 
+		:scope => [:railties, :scaffold]), reminder, 
+	  :confirm => t(:confirmation, :scope => [:railties, :scaffold],
+	  :value => t(:destroy, :scope => [:railties, :scaffold])),
+	  :method => :delete -%></td>
+	<% end %>
+      </tr>
+    </table>
+  </div>
+  <% end -%>
+  <% end -%>
 </div>
-<% end -%>

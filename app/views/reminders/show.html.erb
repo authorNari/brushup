@@ -4,10 +4,28 @@
 </p>
 
 <p>
+  <b><%=h Reminder.human_attribute_name('tag_list') %>:</b>
+  <%=h @reminder.tag_list %>
+</p>
+
+<p>
   <b><%=h Reminder.human_attribute_name('body') %>:</b>
   <%=h @reminder.body %>
 </p>
 
+<p>
+  <b><%=h Reminder.human_attribute_name('next_learn_date') %>:</b>
+  <%=h @reminder.next_learn_date %>
+</p>
 
+<p>
+  <b><%=h Reminder.human_attribute_name('learned_at') %>:</b>
+  <%=h @reminder.learned_at %>
+</p>
+
+<span id="reminders_check_<%= @reminder.id -%>">
+  <%= link_to_remote t(:check, :scope => [:railties, :scaffold]), 
+  :url => {:action => :check, :id => @reminder.id} if @reminder.today_remind? -%>
+</span>
 <%= link_to translate(:edit, :default => 'Edit', :scope => [:railties, :scaffold]), edit_reminder_path(@reminder) %> |
-<%= link_to translate(:back, :default => 'Back', :scope => [:railties, :scaffold]), reminders_path %>
+<%= link_to translate(:back, :default => 'Back', :scope => [:railties, :scaffold]), action_path(:index) %>

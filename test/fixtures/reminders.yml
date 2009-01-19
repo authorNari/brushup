@@ -1,25 +1,40 @@
 # == Schema Information
-# Schema version: 20081217131456
+# Schema version: 20090118140308
 #
 # Table name: reminders
 #
-#  id          :integer       not null, primary key
-#  user_id     :integer       
-#  schedule_id :integer       
-#  title       :string(255)   
-#  body        :text          
-#  public      :boolean       
-#  leared      :boolean       
-#  created_at  :datetime      
-#  updated_at  :datetime      
+#  id              :integer       not null, primary key
+#  user_id         :integer       
+#  schedule_id     :integer       
+#  title           :string(255)   
+#  body            :text          
+#  completed       :boolean       
+#  learned_at      :date          
+#  created_at      :datetime      
+#  updated_at      :datetime      
+#  next_learn_date :date          
 #
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
-  title: MyString
-  body: MyText
+DEFAULT: &DEFAULT
+  user: nari
+  schedule: level_1
+  learned_at: <%= Time.now %>
+  next_learn_date: <%= Date.yesterday %>
+  title: default
+  body: don_t forget one
+  completed: false
+  
 
-two:
-  title: MyString
-  body: MyText
+learned_remined_1:
+  <<: *DEFAULT
+  title: Memo1
+  body: don_t forget one
+  completed: false
+
+not_learned_remind_2:
+  <<: *DEFAULT
+  title: Memo2
+  body: don_t forget two
+  completed: true

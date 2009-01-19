@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20081217131456
+# Schema version: 20090118140308
 #
 # Table name: schedules
 #
@@ -12,10 +12,14 @@
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
+level_1:
   level: 1
-  span: 1
+  span: 7
 
-two:
-  level: 1
-  span: 1
+level_2:
+  level: 2
+  span: 14
+
+level_3:
+  level: 3
+  span: 30

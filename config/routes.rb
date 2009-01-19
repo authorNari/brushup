@@ -1,14 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
-  map.root :controller => "reminders"
+  map.root :controller => "sessions"
   map.resources :reminders
-
-  map.logout '/logout', :controller => 'sessions', :action => 'destroy'
-  map.login '/login', :controller => 'sessions', :action => 'new'
-  map.register '/register', :controller => 'users', :action => 'create'
-  map.signup '/signup', :controller => 'users', :action => 'new'
-  map.resources :users
-
-  map.resource :session
+  map.resources :sessions
 
   # The priority is based upon order of creation: first created -> highest priority.
 
@@ -49,6 +42,13 @@ ActionController::Routing::Routes.draw do |map|
   # Install the default routes as the lowest priority.
   # Note: These default routes make all actions in every controller accessible via GET requests. You should
   # consider removing the them or commenting them out if you're using named routes and resources.
+  map.openid "login", :controller => "sessions" , :requirements => { :method => :get }
+  map.logout 'logout', :controller => "sessions", :action => "destroy", :requirements => { :method => :delete }
+  
+  map.connect ':user', :controller => "reminders", :action => "index"
+  map.connect ':user/:action', :controller => "reminders"
+  map.connect ':user/:action/:id', :controller => "reminders"
+
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
 

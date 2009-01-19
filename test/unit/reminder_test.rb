@@ -1,8 +1,19 @@
-require 'test_helper'
+require File.join(File.dirname(__FILE__), '../test_helper')
 
 class ReminderTest < ActiveSupport::TestCase
-  # Replace this with your real tests.
-  test "the truth" do
-    assert true
+  test "todays truth" do
+    assert_equal 1, Reminder.todays(users(:quentin).id).size
+  end
+
+  test "update_learned truth" do
+    reminders(:learned_remined_1).update_learned!
+    assert_equal 2, reminders(:learned_remined_1).schedule.level
+    assert_equal reminders(:learned_remined_1).next_learn_date, Date.today + schedules(:level_2).span
+  end
+
+  test "attributes truth" do
+    r = Reminder.new(:title => "hoge")
+    assert_not_nil r.schedule
+    assert_not_nil r.next_learn_date
   end
 end

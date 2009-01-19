@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090117134249
+# Schema version: 20090118140308
 #
 # Table name: schedules
 #
@@ -15,5 +15,9 @@ class Schedule < ActiveRecord::Base
 
   def next_level
     return Schedule.find_by_level(level.succ)
+  end
+
+  def self.first_level
+    return Schedule.find(:first, :order => :level)
   end
 end
