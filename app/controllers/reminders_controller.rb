@@ -42,15 +42,11 @@ class RemindersController < ApplicationController
   def create
     @reminder = Reminder.new(params[:reminder])
 
-    respond_to do |format|
-      if @reminder.save
-        flash[:notice] = I18n.t(:created_success, :default => '{{model}} was successfully created.', :model => Reminder.human_name, :scope => [:railties, :scaffold])
-        format.html { redirect_to(@reminder) }
-        format.xml  { render :xml => @reminder, :status => :created, :location => @reminder }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @reminder.errors, :status => :unprocessable_entity }
-      end
+    if @reminder.save
+      flash[:notice] = I18n.t(:created_success, :default => '{{model}} was successfully created.', :model => Reminder.human_name, :scope => [:railties, :scaffold])
+      redirect_to(:action => :index)
+    else
+      render :action => "new"
     end
   end
 
@@ -59,15 +55,11 @@ class RemindersController < ApplicationController
   def update
     @reminder = Reminder.find(params[:id])
 
-    respond_to do |format|
-      if @reminder.update_attributes(params[:reminder])
-        flash[:notice] = I18n.t(:updated_success, :default => '{{model}} was successfully updated.', :model => Reminder.human_name, :scope => [:railties, :scaffold])
-        format.html { redirect_to(@reminder) }
-        format.xml  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @reminder.errors, :status => :unprocessable_entity }
-      end
+    if @reminder.update_attributes(params[:reminder])
+      flash[:notice] = I18n.t(:updated_success, :default => '{{model}} was successfully updated.', :model => Reminder.human_name, :scope => [:railties, :scaffold])
+      redirect_to(:action => :index)
+    else
+      render :action => "edit"
     end
   end
 

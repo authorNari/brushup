@@ -15,8 +15,10 @@
       <%= render :partial => "/sessions/user_bar"  -%>
     </div>
 
-    <p style="color: green"><%= flash[:notice] %></p>
-    <p style="color: red"><%= flash[:error] %></p>
+    <div id="annotation">
+      <% if flash[:notice] %><p style="color: green"><%= flash[:notice].untaint %></p><% end %>
+      <% if flash[:error] %><p style="color: red"><%= flash[:error].untaint %></p><% end %>
+    </div>
 
     <%= yield  %>
 

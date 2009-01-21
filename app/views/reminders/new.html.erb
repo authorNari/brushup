@@ -1,23 +1,32 @@
-<h1><%= translate(:new, :default => "New {{model}}", :model => Reminder.human_name, :scope => [:railties, :scaffold]) %></h1>
+<div id="forget-header">
+  <h2>
+    <%= translate(:new, :default => "New {{model}}", :model => Reminder.human_name, :scope => [:railties, :scaffold]) %>
+  </h2>
+  <ul class="menu"/>
+</div>
 
-<% form_for(@reminder) do |f| %>
-  <%= f.error_messages %>
+<div id="forget-body">
+  <div class="main">
+    <% form_for(@reminder) do |f| %>
+    <%= f.error_messages %>
 
-  <p>
-    <%=h Reminder.human_attribute_name 'title' %><br />
-    <%= f.text_field :title %>
-  </p>
-  <p>
-    <%=h Reminder.human_attribute_name 'tag_list' %><br />
-    <%= f.text_field :tag_list %>
-  </p>
-  <p>
-    <%=h Reminder.human_attribute_name 'body' %><br />
-    <%= f.text_area :body %>
-  </p>
-  <p>
-    <%= f.submit translate(:create, :default => "Create", :scope => [:railties, :scaffold]) %>
-  </p>
-<% end %>
+    <p>
+      <%=h Reminder.human_attribute_name 'title' %><br />
+      <%= f.text_field :title %>
+    </p>
+    <p>
+      <%=h Reminder.human_attribute_name 'tag_list' %><br />
+      <%= f.text_field :tag_list %>
+    </p>
+    <p>
+      <%=h Reminder.human_attribute_name 'body' %><br />
+      <%= f.text_area :body %>
+    </p>
+    <p>
+      <%= f.submit translate(:create, :default => "Create", :scope => [:railties, :scaffold]) %>
+    </p>
+    <% end %>
+  </div>
+</div>
 
 <%= link_to translate(:back, :default => 'Back', :scope => [:railties, :scaffold]), action_path(:index) %>

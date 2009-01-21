@@ -1,16 +1,212 @@
 /* for tagging */
-.tag_very_many {
-  font-size: 1.0em;
+body, h1, h2, h3, h4, h5, h5, ul, ol, li, dl, dt, dd, form, input, select, blockquote {
+  -x-system-font:none;
+  font-family:"Arial","Helvetica",sans-serif;
+  font-size:100%;
+  font-size-adjust:none;
+  font-stretch:normal;
+  font-style:normal;
+  font-variant:normal;
+  font-weight:normal;
+  line-height:1.4;
+  list-style-image:none;
+  list-style-position:outside;
+  list-style-type:none;
+  margin:0;
+  padding:0;
 }
 
-.tag_many {
-  font-size: 1.2em;
+a {
+  color:#0000DD;
 }
 
-.tag_normal {
+a:visited {
+  color:#883388;
+}
+
+h2 {
+  display:inline;
+  font-size:1.7em;
+  font-weight:bold;
+}
+
+.tag-very-many {
+  font-size: 1.6em;
+}
+
+.tag-many {
   font-size: 1.4em;
 }
 
-.tag_light {
-  font-size: 1.6em;
+.tag-normal {
+  font-size: 1.2em;
+}
+
+.tag-light {
+  font-size: 1.0em;
+}
+
+.openid-url {
+  width: 260px;
+  background-image: url(../images/login-bg.gif);
+  background-repeat: no-repeat;
+  padding-left: 18px;
+}
+
+/* refereced by hatena bookmark */
+#forget-header {
+  background: #FFFFFF none repeat scroll 0 0;
+  color: #222222;
+  padding:20px 26px 0 30px;
+}
+
+#forget-body {
+  border-top:1px solid #DDDDDD;
+  margin:-1px 0 0;
+  overflow:hidden;
+  padding:0 290px 10px 10px;
+}
+
+#annotation {
+  background:#F9F9F9 none repeat scroll 0 0;
+  padding:0px 0px 0px 25px;
+}
+
+#header {
+  background:#57B3E0 none repeat scroll 0 0;
+  color:#FFFFFF;
+  font-size:0.8em;
+  height:1.8em;
+  padding:2px 2px 0 6px;
+}
+
+#header ul {
+  float:right;
+  vertical-align:bottom;
+}
+
+#header ul li {
+  display:inline;
+  font-size:80%;
+  margin:0 10px 0 0;
+  vertical-align:middle;
+}
+
+#header h1 {
+  float:left;
+  height:35px;
+  left:9px;
+  padding-left:9px;
+  top:0;
+  width:143px;
+}
+
+ul.menu {
+  font-size:90%;
+  margin-top:35px;
+  overflow:hidden;
+  position:relative;
+}
+
+ul.menu li {
+  background: transparent url(/images/kakumaru_base.gif) no-repeat scroll left -160px;
+  float:left;
+  font-size:90%;
+  margin-right:6px;
+  padding-left:4px;
+}
+
+ul.menu li a {
+  background: transparent url(../images/kakumaru_base.gif) no-repeat scroll right -160px;
+  display:block;
+  padding:5px 10px 5px 6px;
+  text-decoration:none;
+}
+
+ul.menu li.current-menu {
+  background-position:left 0;
+  border-bottom:1px solid #FFFFFF;
+}
+
+ul.menu li.current-menu a {
+  background-position:right 0;
+  color:#333333;
+  font-weight:bold;
+}
+
+div.sidebar {
+  float:left;
+  font-size:90%;
+  margin-right:-350px;
+  margin-top:20px;
+  position:relative;
+  right:0;
+  top:0;
+  width:220px;
+}
+
+div.sidebar div.tags {
+  background-color:#F6F6F6;
+  border:1px solid #E4E4E4;
+  color:#505050;
+  line-height:1.5em;
+  margin-bottom:10px;
+  padding:6px;
+  margin:0 0 15px;
+  padding-bottom:5px;
+}
+
+div.sidebar h3 {
+  border-bottom:1px solid #BBBBBB;
+  color:#444444;
+  font-size:16px;
+  margin:0 0 10px;
+  padding:2px 10px 1px 0;
+}
+
+div.sidebar div.title {
+  
+}
+
+div.sidebar div.body {
+  color:#505050;
+  line-height:1.5em;
+}
+
+div#forget-body div.main {
+  background:#FFFFFF none repeat scroll 0 0;
+  float:left;
+  margin:0 0 0 0;
+  padding:20px 20px 0;
+  width:100%;
+}
+
+div#forget-body div.main ul.show {
+  overflow:hidden;
+  padding-left:20px;
+}
+
+div#forget-body div.main ul.show li.show {
+  clear:both;
+  margin:0 0 1.8em;
+}
+
+div#forget-body div.main div.show {
+  border:1px solid #E4E4E4;
+  padding: 7px;
+  clear:both;
+  color:#505050;
+}
+
+div#forget-body div.main div.show-title h2 {
+  font-size:1.5em;
+}
+
+div#forget-body div.main div.show-title h2 a {
+  color:#0000DD;
+  text-decoration:none;
+}
+
+div#forget-body div.main div.show td.link {
+  padding-right: 15px;
 }

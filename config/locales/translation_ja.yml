@@ -49,7 +49,11 @@ ja:
       list: "復習一覧"
       memory: "覚えてしまったもの"
       check_ok: "復習完了しました"
+      index: "すべての復習"
+      completed: "覚えてしまった復習"
   links:
-    logout: "ログアウト"
+    logout: ログアウト
     signup: ユーザー登録
     login: ログイン
+  text:
+    logged_in: ログイン中

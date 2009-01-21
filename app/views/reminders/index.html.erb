@@ -1,15 +1,21 @@
-<h1><%= t(:listing, :scope => [:railties, :scaffold]) %></h1>
+<div id="forget-header">
+  <h2><%= t(params["action"], :scope => [:controller, :reminders]) %></h2>
 
-<ul class="menu">
-  <li><%= link_to t(:today, :scope => [:controller, :reminders]), action_path(:today) -%></li>
-  <li><%= link_to t(:list, :scope => [:controller, :reminders]), action_path(:index) -%></li>
-  <li><%= link_to t(:memory, :scope => [:controller, :reminders]), action_path(:completed) -%></li>
-</ul>
-
-<div class="main">
-  <%= render :partial => "reminder" %>
+  <ul class="menu">
+    <li class="<%= current_tag('today')-%>"><%= link_to t(:today, :scope => [:controller, :reminders]), action_path(:today) -%></li>
+    <li class="<%= current_tag('index')-%>"><%= link_to t(:index, :scope => [:controller, :reminders]), action_path(:index) -%></li>
+    <li class="<%= current_tag('completed')-%>"><%= link_to t(:completed, :scope => [:controller, :reminders]), action_path(:completed) -%></li>
+  </ul>
 </div>
 
-<%= render :partial => "tags" %>
+<div id="forget-body">
+  <div class="main">
+    <ul class="show">
+      <%= render :partial => "reminder" %>
+    </ul>
+  </div>
+  <%= render :partial => "tags" %>
+</div>
+
 
 <%= link_to(t(:new, :default => "New {{model}}", :model => Reminder.human_name, :scope => [:railties, :scaffold]), new_reminder_path) if logged_in? %>

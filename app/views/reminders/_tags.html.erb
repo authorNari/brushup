@@ -4,7 +4,7 @@
       <h3><%= t(:tag, :scope => [:railties]) %> </h3>
     </div>
     <div class="body">
-      <% tag_cloud Reminder.tag_counts, %w(tag_light tag_normal tag_many tag_very_many) do |tag, css_class| %>
+      <% tag_cloud Reminder.tag_counts, %w(tag-very-many tag-many tag-normal tag-light) do |tag, css_class| %>
       <%= link_to tag.name, { :action => :tag, :id => tag.name }, :class => css_class %>
       <% end %>
     </div>
