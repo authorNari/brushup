@@ -145,7 +145,15 @@ div.sidebar {
   width:220px;
 }
 
-div.sidebar div.tags {
+div.sidebar div.clearness-box {
+  line-height:1.5em;
+  margin-bottom:10px;
+  padding:6px;
+  margin:0 0 15px;
+  padding-bottom:5px;
+}
+
+div.sidebar div.box {
   background-color:#F6F6F6;
   border:1px solid #E4E4E4;
   color:#505050;

@@ -2,7 +2,7 @@ ja:
   activerecord: 
     models: 
       user: "ユーザ"
-      reminder: "リマインダー"
+      reminder: "復習"
       schedules: "スケジュール"
       tag: "タグ"
     attributes: 
@@ -57,3 +57,6 @@ ja:
     login: ログイン
   text:
     logged_in: ログイン中
+  notice:
+    created_sucess: '{{model}}を作成しました。'
+    updated_sucess: '{{model}}を更新しました。'

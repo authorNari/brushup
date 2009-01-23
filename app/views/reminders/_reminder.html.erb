@@ -15,18 +15,18 @@
       <div class="show-body">
 	<%=h reminder.body %>
       </div>
-      <% if logged_in? %>
+      <% if current_user? %>
       <table>
 	<tr>
 	  <td class="link">
-	<%= link_to t(:edit, :scope => [:railties, :scaffold]), edit_reminder_path(reminder) %>
+	    <%= link_to t(:edit, :scope => [:railties, :scaffold]), action_path(:edit, :id => reminder.id) %>
 	  </td>
 	  <td class="link">
-	<%= link_to t(:destroy, 
-	    :scope => [:railties, :scaffold]), reminder, 
-            :confirm => t(:confirmation, :scope => [:railties, :scaffold],
-	    :value => t(:destroy, :scope => [:railties, :scaffold])),
-	    :method => :delete -%>
+	    <%= link_to t(:destroy, 
+		:scope => [:railties, :scaffold]), reminder, 
+                :confirm => t(:confirmation, :scope => [:railties, :scaffold],
+	        :value => t(:destroy, :scope => [:railties, :scaffold])),
+  	        :method => :delete -%>
 	  </td>
 	</tr>
       </div>

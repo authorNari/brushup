@@ -6,18 +6,7 @@ class RemindersController < ApplicationController
   # GET /reminders
   # GET /reminders.xml
   def index
-    p session[:user_id]
-    @reminders ||=  @user.reminders
-
-    respond_to do |format|
-      format.html { render :action => :index}
-      format.js do
-        render :update do |page|
-          page['reminder'].reload 
-        end
-      end
-      format.xml { render :action => :rss }
-    end
+    redirect_to(:action => :today, :user => (params["user"] || @user.login))
   end
 
   # GET /reminders/1
@@ -40,11 +29,11 @@ class RemindersController < ApplicationController
   # POST /reminders
   # POST /reminders.xml
   def create
-    @reminder = Reminder.new(params[:reminder])
+    @reminder = Reminder.new(params[:reminder].merge!(:user_id => @user.id))
 
     if @reminder.save
-      flash[:notice] = I18n.t(:created_success, :default => '{{model}} was successfully created.', :model => Reminder.human_name, :scope => [:railties, :scaffold])
-      redirect_to(:action => :index)
+      flash[:notice] = I18n.t(:created_success, :model => Reminder.human_name, :scope => [:notice])
+      redirect_to(:action => :list, :user => @user.login)
     else
       render :action => "new"
     end
@@ -56,8 +45,8 @@ class RemindersController < ApplicationController
     @reminder = Reminder.find(params[:id])
 
     if @reminder.update_attributes(params[:reminder])
-      flash[:notice] = I18n.t(:updated_success, :default => '{{model}} was successfully updated.', :model => Reminder.human_name, :scope => [:railties, :scaffold])
-      redirect_to(:action => :index)
+      flash[:notice] = I18n.t(:updated_success, :model => Reminder.human_name, :scope => [:notice])
+      redirect_to(:action => :list, :user => @user.login)
     else
       render :action => "edit"
     end
@@ -69,20 +58,31 @@ class RemindersController < ApplicationController
     @reminder = Reminder.find(params[:id])
     @reminder.destroy
 
-    respond_to do |format|
-      format.html { redirect_to(reminders_url) }
-      format.xml  { head :ok }
-    end
+    redirect_to(:action => :list, :user => @user.login)
   end
 
   def today
     @reminders = Reminder.todays(@user.id)
-    index
+    list
   end
 
   def completed
     @reminders = Reminder.completeds(@user.id)
-    index
+    list
+  end
+
+  def list
+    @reminders ||=  @user.reminders
+
+    respond_to do |format|
+      format.html { render :action => :index}
+      format.js do
+        render :update do |page|
+          page['reminder'].reload 
+        end
+      end
+      format.xml { render :action => :rss }
+    end
   end
 
   def check

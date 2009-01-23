@@ -59,9 +59,6 @@ class SessionsController < ApplicationController
 
   def success_login
     session[:user_id] = @user
-
-    jumpto = session[:jumpto] || { :controller => "reminders", :user => @user.login }
-    session[:jumpto] = nil
-    redirect_to(jumpto)
+    redirect_to(:controller => "reminders", :user => @user.login, :action => :today)
   end
 end

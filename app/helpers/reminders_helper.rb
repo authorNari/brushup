@@ -1,8 +1,8 @@
 module RemindersHelper
   include TagsHelper
 
-  def action_path(action, params={})
-    return {:user => @user.login, :controller => :reminders, :action => action}.merge(params)
+  def action_path(action, options={})
+    return {:user => (params["user"] || @user.login), :controller => :reminders, :action => action}.merge(options)
   end
 
   def current_tag(action_name)

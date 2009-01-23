@@ -23,10 +23,16 @@
       <%= f.text_area :body %>
     </p>
     <p>
-      <%= f.submit translate(:create, :default => "Create", :scope => [:railties, :scaffold]) %>
+      <table><tr>
+	  <td>
+	    <%= f.submit translate(:create, :default => "Create", :scope => [:railties, :scaffold]) %>
+	    <% end %>
+	  </td>
+	  <td>
+	    <%= button_to translate(:back, :default => 'Back', :scope => [:railties, :scaffold]), action_path(:index) %>
+	  </td>
+      </tr></table>
     </p>
-    <% end %>
   </div>
 </div>
 
-<%= link_to translate(:back, :default => 'Back', :scope => [:railties, :scaffold]), action_path(:index) %>

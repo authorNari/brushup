@@ -16,9 +16,17 @@
     <%= f.text_area :body %>
   </p>
   <p>
-    <%= f.submit translate(:update, :default => "Update", :scope => [:railties, :scaffold]) %>
-  </p>
+    <table><tr>
+	<td>
+	  <%= f.submit translate(:update, :scope => [:railties, :scaffold]) %>
 <% end %>
+	</td>
+	<td>
+	  <%= button_to translate(:show, :scope => [:railties, :scaffold]), action_path(:show, :id => @reminder.id), :method => :get %>
+	</td>
+	<td>
+	  <%= button_to translate(:listing, :scope => [:railties, :scaffold]), action_path(:index) %>
+	</td>
+    </tr></table>
+  </p>
 
-<%= link_to translate(:show, :default => 'Show', :scope => [:railties, :scaffold]), @reminder %> |
-<%= link_to translate(:back, :default => 'Back', :scope => [:railties, :scaffold]), action_path(:index) %>
