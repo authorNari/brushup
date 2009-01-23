@@ -1,0 +1,6 @@
+<% form_for :user, @user, :html => {"method" => "put"}, :url => {:action => :update} do |f| -%>
+  <p>
+    login: <%= f.text_field :login %>
+  </p>
+  <%= submit_tag "Update" -%>
+<% end -%>
