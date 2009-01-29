@@ -3,3 +3,5 @@
 doc/api
 tmp/*
 config/secret.txt
+log/*
+db/*.sqlite3

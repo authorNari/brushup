@@ -1,5 +1,5 @@
 <div class="sidebar">
-  <% if current_user? %>
+  <% if logged_in? && current_user? %>
   <div class="clearness-box">
     <%= button_to(t(:new, :default => "New {{model}}", :model => Reminder.human_name, :scope => [:railties, :scaffold]), action_path(:new)) -%>
   </div>
@@ -9,7 +9,7 @@
       <h3><%= t(:tag, :scope => [:railties]) %> </h3>
     </div>
     <div class="body">
-      <% tag_cloud Reminder.tag_counts, %w(tag-very-many tag-many tag-normal tag-light) do |tag, css_class| %>
+      <% tag_cloud @tags, tag_cloud_styles() do |tag, css_class| %>
       <%= link_to tag.name, { :action => :tag, :id => tag.name }, :class => css_class %>
       <% end %>
     </div>

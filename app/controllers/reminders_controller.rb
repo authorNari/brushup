@@ -1,5 +1,5 @@
 class RemindersController < ApplicationController
-  before_filter :authorize, :except => %w(index today completed show check)
+  before_filter :authorize, :except => %w(index today list completed show check)
   before_filter :set_user, :except => %w(check)
   before_filter :set_jumpto
 
@@ -73,6 +73,7 @@ class RemindersController < ApplicationController
 
   def list
     @reminders ||=  @user.reminders
+    @tags = tag_counts(@reminders)
 
     respond_to do |format|
       format.html { render :action => :index}
@@ -95,6 +96,12 @@ class RemindersController < ApplicationController
   end
 
   private
+  def tag_counts(reminders)
+    tags = []
+    tags << reminders.each{|r| tags += r.tag_counts }
+    return tags.flatten.compact
+  end
+  
   def get_user_id(id)
     user_id = current_user.id unless id
     user_id ||= User.find(id).id
