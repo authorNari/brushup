@@ -60,3 +60,13 @@ ja:
   notice:
     created_sucess: '{{model}}を作成しました。'
     updated_sucess: '{{model}}を更新しました。'
+  title:
+    reminder: もう忘れない
+    reminders:
+      list: 復習一覧
+      today: 今日の復習
+      completed: 覚えてしまった復習
+      new: 新規登録
+      edit: 編集
+      show: 表示
+      
