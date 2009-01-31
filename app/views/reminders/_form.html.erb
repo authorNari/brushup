@@ -1,0 +1,26 @@
+<div id="forget-body">
+  <div class="main">
+    <% form_for(@reminder, :url => action_path(action, :id => @reminder.id)) do |f| %>
+    <%= f.error_messages.untaint %>
+    <div>
+      <%=h Reminder.human_attribute_name("title") %><br/>
+      <%= f.text_field :title %>
+    </div>
+    <div>
+      <%=h Reminder.human_attribute_name("tag_list") %> <br/>
+      <%= f.text_field :tag_list %><br/>
+      <small>※タグは半角スペース区切り</small>
+    </div>
+    <div>
+      <%=h Reminder.human_attribute_name("body") %><br/>
+      <%= f.text_area :body %>
+    </div>
+    <div class="controll_left">
+      <%= f.submit translate(action, :scope => [:railties, :scaffold]) %>
+    </div>
+    <% end %>
+    <div>
+      <%= button_to translate(:list, :scope => [:controller, :reminders]), action_path(:list) %>
+    </div>
+  </div>
+</div>
