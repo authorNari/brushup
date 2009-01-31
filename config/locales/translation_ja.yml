@@ -20,8 +20,10 @@ ja:
         title: "タイトル"
         body: "本文"
         public: "公開"
-        learned: ""
-        tag_list: "タグ"
+        learned_at: 復習した日
+        tag_list: タグ
+        completed: 覚えましたか？
+        next_learn_date: 次の復習日
         created_at: "作成日"
         updated_at: "更新日"
       schedules: 
@@ -39,18 +41,24 @@ ja:
       destroy: "削除"
       update: "更新"
       show: "表示"
-      confirmation: "%sしますか？"
+      confirmation: "{{value}}しますか？"
       create: "登録"
       check: "復習が終わったらここをクリック"
     tag: "タグ"
   controller:
+    reminder: もう忘れない
     reminders:
-      today: "今日の復習"
-      list: "復習一覧"
-      memory: "覚えてしまったもの"
-      check_ok: "復習完了しました"
-      index: "すべての復習"
-      completed: "覚えてしまった復習"
+      today: 今日の復習
+      list: 復習一覧
+      memory: 覚えてしまったもの
+      check_ok: 復習完了しました
+      index: すべての復習
+      completed: 覚えてしまった復習
+      new: 新規登録
+      create: 新規登録
+      edit: 編集
+      update: 編集
+      show: 表示
   links:
     logout: ログアウト
     signup: ユーザー登録
@@ -58,15 +66,5 @@ ja:
   text:
     logged_in: ログイン中
   notice:
-    created_sucess: '{{model}}を作成しました。'
-    updated_sucess: '{{model}}を更新しました。'
-  title:
-    reminder: もう忘れない
-    reminders:
-      list: 復習一覧
-      today: 今日の復習
-      completed: 覚えてしまった復習
-      new: 新規登録
-      edit: 編集
-      show: 表示
-      
+    created_success: "{{model}}を作成しました。"
+    updated_success: "{{model}}を更新しました。"

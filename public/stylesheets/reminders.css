@@ -1,3 +1,10 @@
+input.openid-url {
+  width: 260px;
+  background-image: url(../images/login-bg.gif);
+  background-repeat: no-repeat;
+  padding-left: 18px;
+}
+
 /* for tagging */
 body, h1, h2, h3, h4, h5, h5, ul, ol, li, dl, dt, dd, form, input, select, blockquote {
   -x-system-font:none;
@@ -25,7 +32,7 @@ a:visited {
 }
 
 h2 {
-  display:inline;
+/*  display:inline; */
   font-size:1.7em;
   font-weight:bold;
 }
@@ -46,12 +53,6 @@ h2 {
   font-size: 1.0em;
 }
 
-.openid-url {
-  width: 260px;
-  background-image: url(../images/login-bg.gif);
-  background-repeat: no-repeat;
-  padding-left: 18px;
-}
 
 /* refereced by hatena bookmark */
 #forget-header {
@@ -217,4 +218,9 @@ div#forget-body div.main div.show-title h2 a {
 
 div#forget-body div.main div.show td.link {
   padding-right: 15px;
+}
+
+div.controll_left {
+  float: left;
+  margin-right: 4px;
 }

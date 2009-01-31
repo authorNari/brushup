@@ -46,8 +46,14 @@ ActionController::Routing::Routes.draw do |map|
   map.logout 'logout', :controller => "sessions", :action => "destroy", :requirements => { :method => :delete }
   
   map.connect ':user', :controller => "reminders", :action => "index"
-  map.connect ':user/:action', :controller => "reminders"
+  map.connect ':user/list/:tag', :controller => "reminders", :action => "list"
+  map.connect ':user/today/:tag', :controller => "reminders", :action => "list"
+  map.connect ':user/completed/:tag', :controller => "reminders", :action => "list"
+  map.connect ':user/list/:tag.:format', :controller => "reminders", :action => "list"
+  map.connect ':user/today/:tag.:format', :controller => "reminders", :action => "list"
+  map.connect ':user/completed/:tag.format', :controller => "reminders", :action => "list"
   map.connect ':user/:action/:id', :controller => "reminders"
+  map.connect ':user/:action.:format', :controller => "reminders"
 
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'

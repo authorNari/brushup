@@ -5,6 +5,10 @@ module ApplicationHelper
   end
 
   def current_user?
-    session[:user_id].login == params["user"]
+    logged_in? && session[:user_id].login == params["user"]
+  end
+
+  def display_date(date)
+    return date.strftime("%Y年%m月%d日")
   end
 end

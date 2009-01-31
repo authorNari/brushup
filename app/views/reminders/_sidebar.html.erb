@@ -1,5 +1,5 @@
 <div class="sidebar">
-  <% if logged_in? && current_user? %>
+  <% if current_user? %>
   <div class="clearness-box">
     <%= button_to(t(:new, :default => "New {{model}}", :model => Reminder.human_name, :scope => [:railties, :scaffold]), action_path(:new)) -%>
   </div>
@@ -10,7 +10,7 @@
     </div>
     <div class="body">
       <% tag_cloud @tags, tag_cloud_styles() do |tag, css_class| %>
-      <%= link_to tag.name, { :action => :tag, :id => tag.name }, :class => css_class %>
+      <%= link_to tag.name, { :action => params["action"], :tag => tag.name }, :class => css_class %>
       <% end %>
     </div>
   </div>

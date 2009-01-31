@@ -4,19 +4,16 @@ class RemindersController < ApplicationController
   before_filter :set_jumpto
 
   # GET /reminders
-  # GET /reminders.xml
   def index
     redirect_to(:action => :today, :user => (params["user"] || @user.login))
   end
 
   # GET /reminders/1
-  # GET /reminders/1.xml
   def show
     @reminder = Reminder.find(params[:id])
   end
 
   # GET /reminders/new
-  # GET /reminders/new.xml
   def new
     @reminder = Reminder.new
   end
@@ -27,7 +24,6 @@ class RemindersController < ApplicationController
   end
 
   # POST /reminders
-  # POST /reminders.xml
   def create
     @reminder = Reminder.new(params[:reminder].merge!(:user_id => @user.id))
 
@@ -35,12 +31,12 @@ class RemindersController < ApplicationController
       flash[:notice] = I18n.t(:created_success, :model => Reminder.human_name, :scope => [:notice])
       redirect_to(:action => :list, :user => @user.login)
     else
-      render :action => "new"
+      logger.debug "DEBUG(create): @reminder = <#{@reminder.to_yaml}>"
+      render(:user => @user.login, :action => "new")
     end
   end
 
   # PUT /reminders/1
-  # PUT /reminders/1.xml
   def update
     @reminder = Reminder.find(params[:id])
 
@@ -48,12 +44,12 @@ class RemindersController < ApplicationController
       flash[:notice] = I18n.t(:updated_success, :model => Reminder.human_name, :scope => [:notice])
       redirect_to(:action => :list, :user => @user.login)
     else
-      render :action => "edit"
+      logger.debug "DEBUG(update): @reminder = <#{@reminder.to_yaml}>"
+      render(:user => @user.login, :action => "new")
     end
   end
 
   # DELETE /reminders/1
-  # DELETE /reminders/1.xml
   def destroy
     @reminder = Reminder.find(params[:id])
     @reminder.destroy
@@ -62,17 +58,17 @@ class RemindersController < ApplicationController
   end
 
   def today
-    @reminders = Reminder.todays(@user.id)
+    @reminders = Reminder.todays(@user.id, params["tag"])
     list
   end
 
   def completed
-    @reminders = Reminder.completeds(@user.id)
+    @reminders = Reminder.completeds(@user.id, params["tag"])
     list
   end
 
   def list
-    @reminders ||=  @user.reminders
+    @reminders ||=  Reminder.list(@user.id, params["tag"])
     @tags = tag_counts(@reminders)
 
     respond_to do |format|
@@ -82,7 +78,7 @@ class RemindersController < ApplicationController
           page['reminder'].reload 
         end
       end
-      format.xml { render :action => :rss }
+      format.rss { render :action => :rss }
     end
   end
 
@@ -97,9 +93,9 @@ class RemindersController < ApplicationController
 
   private
   def tag_counts(reminders)
-    tags = []
-    tags << reminders.each{|r| tags += r.tag_counts }
-    return tags.flatten.compact
+    tags = {}
+    reminders.each{|r| r.tag_counts.each{|t| tags[t.name] ||= []; tags[t.name] << t }}
+    return tags.values
   end
   
   def get_user_id(id)

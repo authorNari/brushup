@@ -3,32 +3,41 @@
   <li class="show">
     <div class="show">
       <div class="show-title">
-	    <h2><%= link_to h(reminder.title), action_path(:show, :id => reminder.id) -%></h2>
-	    <span id="reminders_check_<%= reminder.id -%>">
-	      <%= link_to_remote t(:check, :scope => [:railties, :scaffold]), 
-	      :url => {:action => :check, :id => reminder.id} if logged_in? && reminder.today_remind? -%>
-	    </span>
-      </div>
-      <div class="show-tags">
-	    <%=h reminder.tag_list %>
+	<h2><%= h(reminder.title) -%></h2>
       </div>
       <div class="show-body">
-	    <%=h reminder.body %>
+        <pre>
+<%=h reminder.body %>
+        </pre>
       </div>
-      <% if logged_in? && current_user? %>
+      <div class="show-tags">
+        <b><%=h Reminder.human_attribute_name("tag_list") %> : </b><%=h reminder.tag_list %>
+      </div>
+      <div class="show-date">
+        <b><%=h Reminder.human_attribute_name('learned_at') %> : </b><%=h display_date(reminder.learned_at) %>
+      </div>
+      <div class="show-date">
+        <b><%=h Reminder.human_attribute_name('next_learn_date') %> : </b><%=h display_date(reminder.next_learn_date) %>
+      </div>
+      <% if current_user? %>
       <table>
-	    <tr>
-	      <td class="link">
-	        <%= link_to t(:edit, :scope => [:railties, :scaffold]), action_path(:edit, :id => reminder.id) %>
-	      </td>
-	      <td class="link">
-	        <%= link_to t(:destroy, 
-		        :scope => [:railties, :scaffold]), reminder, 
-            :confirm => t(:confirmation, :scope => [:railties, :scaffold],
-	        :value => t(:destroy, :scope => [:railties, :scaffold])),
-  	        :method => :delete -%>
-	      </td>
-	    </tr>
+	<tr>
+	  <td id="reminders_check_<%= reminder.id -%>">
+	    <%= link_to_remote t(:check, :scope => [:railties, :scaffold]), 
+	    :url => {:action => :check, :id => reminder.id} if reminder.today_remind? -%>
+	  </td>
+	  <td class="link">
+	    <%= link_to t(:edit, :scope => [:railties, :scaffold]), action_path(:edit, :id => reminder.id) %>
+	  </td>
+	  <td class="link">
+	    <%= link_to t(:destroy, 
+		:scope => [:railties, :scaffold]), reminder, 
+                :confirm => t(:confirmation, :scope => [:railties, :scaffold],
+	    :value => t(:destroy, :scope => [:railties, :scaffold])),
+  	    :method => :delete -%>
+	  </td>
+	</tr>
+      </table>
     </div>
     <% end %>
   </li>

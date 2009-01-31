@@ -2,7 +2,7 @@ require File.join(File.dirname(__FILE__), '../test_helper')
 
 class ReminderTest < ActiveSupport::TestCase
   test "todays truth" do
-    assert_equal 1, Reminder.todays(users(:quentin).id).size
+    assert_equal 2, Reminder.todays(users(:nari).id).size
   end
 
   test "update_learned truth" do

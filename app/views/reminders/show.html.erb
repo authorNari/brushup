@@ -9,18 +9,20 @@
 </p>
 
 <p>
-  <b><%=h Reminder.human_attribute_name('body') %>:</b>
-  <%=h @reminder.body %>
+  <b><%=h Reminder.human_attribute_name('body') %></b>
+<pre>
+<%=h @reminder.body %>
+</pre>
 </p>
 
 <p>
   <b><%=h Reminder.human_attribute_name('next_learn_date') %>:</b>
-  <%=h @reminder.next_learn_date %>
+  <%=h display_date(@reminder.next_learn_date) %>
 </p>
 
 <p>
   <b><%=h Reminder.human_attribute_name('learned_at') %>:</b>
-  <%=h @reminder.learned_at %>
+  <%=h display_date(@reminder.learned_at) %>
 </p>
 
 <table><tr>

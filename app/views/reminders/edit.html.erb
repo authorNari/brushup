@@ -1,32 +1,7 @@
-<h1><% translate(:editing, :default => "Editing {{model}}", :model => Reminder.human_name, :scope => [:railties, :scaffold]) %></h1>
+<div id="forget-header">
+  <h1>
+    <% translate(:editing, :default => "Editing {{model}}", :model => Reminder.human_name, :scope => [:railties, :scaffold]) %>
+  </h1>
+</div>
 
-<% form_for(@reminder) do |f| %>
-  <%= f.error_messages %>
-
-  <p>
-    <%= f.label :title, h(Reminder.human_attribute_name('title')) %><br />
-    <%= f.text_field :title %>
-  </p>
-  <p>
-    <%= f.label :tag_list, h(Reminder.human_attribute_name('tag_list')) %><br />
-    <%= f.text_field :tag_list %>
-  </p>
-  <p>
-    <%= f.label :body, h(Reminder.human_attribute_name('body')) %><br />
-    <%= f.text_area :body %>
-  </p>
-  <p>
-    <table><tr>
-	<td>
-	  <%= f.submit translate(:update, :scope => [:railties, :scaffold]) %>
-<% end %>
-	</td>
-	<td>
-	  <%= button_to translate(:show, :scope => [:railties, :scaffold]), action_path(:show, :id => @reminder.id), :method => :get %>
-	</td>
-	<td>
-	  <%= button_to translate(:listing, :scope => [:railties, :scaffold]), action_path(:index) %>
-	</td>
-    </tr></table>
-  </p>
-
+<%= render :partial => "form", :locals => {:action => "update"} %>

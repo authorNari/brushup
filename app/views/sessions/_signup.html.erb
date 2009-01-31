@@ -1,11 +1,11 @@
-<% form_tag :controller => "sessions", :action => "create", :method => :post do |f| -%>
+<% form_tag(:controller => "sessions", :action => "create", :method => :post) do -%>
 <ul>
   <li>
     <label for="openid_url" >
       OpenID
     </label>
   </li>
-  <li><%= text_field_tag :openid_url, {}, :class => "openid_url" -%></li>
-  <li><%= submit_tag t("login", :scope => [:links]) -%></li>
+  <li><%= text_field_tag(:openid_url, {}, :class => "openid-url") -%></li>
+  <li><%= submit_tag(t("login", :scope => [:links])) -%></li>
 </ul>
 <% end -%>

@@ -1,8 +1,6 @@
 module RemindersHelper
-  include TagsHelper
-
   def action_path(action, options={})
-    return {:user => (params["user"] || @user.login), :controller => :reminders, :action => action}.merge(options)
+    return {:user => (params["user"] || @user.login), :controller => :reminders, :action => action, :tag => nil}.merge(options)
   end
 
   def current_tag(action_name)
@@ -10,6 +8,21 @@ module RemindersHelper
   end
 
   def tag_cloud_styles
-    return %w(tag-very-many tag-many tag-normal tag-light)
+    return %w(tag-light tag-normal tag-many tag-very-many)
+  end
+
+  def title_tag_prefix
+    return h("/ #{params['tag']}(#{@reminders.size})") if params["tag"]
+  end
+  
+  def tag_cloud(tags, classes)
+    return if tags.empty?
+    
+    max_count = tags.sort_by(&:size).last.size.to_f
+    
+    tags.each do |tag|
+      index = ((tag.size / max_count) * (classes.size - 1)).round
+      yield tag.first, classes[index]
+    end
   end
 end

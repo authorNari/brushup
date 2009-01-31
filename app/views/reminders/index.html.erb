@@ -1,5 +1,8 @@
 <div id="forget-header">
-  <h2><%= t(params["action"], :scope => [:controller, :reminders]) %></h2>
+  <h2>
+    <%= t(params["action"], :scope => [:controller, :reminders]) %>
+    <%= title_tag_prefix %>
+  </h2>
 
   <ul class="menu">
     <li class="<%= current_tag('today')-%>"><%= link_to t(:today, :scope => [:controller, :reminders]), action_path(:today) -%></li>
