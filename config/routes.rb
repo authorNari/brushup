@@ -44,14 +44,15 @@ ActionController::Routing::Routes.draw do |map|
   # consider removing the them or commenting them out if you're using named routes and resources.
   map.openid "login", :controller => "sessions" , :requirements => { :method => :get }
   map.logout 'logout', :controller => "sessions", :action => "destroy", :requirements => { :method => :delete }
+  map.connect ':user/sessions/:action', :controller => "sessions"
   
   map.connect ':user', :controller => "reminders", :action => "index"
   map.connect ':user/list/:tag', :controller => "reminders", :action => "list"
-  map.connect ':user/today/:tag', :controller => "reminders", :action => "list"
-  map.connect ':user/completed/:tag', :controller => "reminders", :action => "list"
+  map.connect ':user/today/:tag', :controller => "reminders", :action => "today"
+  map.connect ':user/completed/:tag', :controller => "reminders", :action => "completed"
   map.connect ':user/list/:tag.:format', :controller => "reminders", :action => "list"
-  map.connect ':user/today/:tag.:format', :controller => "reminders", :action => "list"
-  map.connect ':user/completed/:tag.format', :controller => "reminders", :action => "list"
+  map.connect ':user/today/:tag.:format', :controller => "reminders", :action => "today"
+  map.connect ':user/completed/:tag.format', :controller => "reminders", :action => "completed"
   map.connect ':user/:action/:id', :controller => "reminders"
   map.connect ':user/:action.:format', :controller => "reminders"
 

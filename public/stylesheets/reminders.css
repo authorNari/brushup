@@ -76,7 +76,7 @@ h2 {
 #header {
   background:#57B3E0 none repeat scroll 0 0;
   color:#FFFFFF;
-  font-size:0.8em;
+  font-size:1em;
   height:1.8em;
   padding:2px 2px 0 6px;
 }
@@ -223,4 +223,9 @@ div#forget-body div.main div.show td.link {
 div.controll_left {
   float: left;
   margin-right: 4px;
+}
+
+a.not_effect {
+  color: white;
+  text-decoration: none;
 }

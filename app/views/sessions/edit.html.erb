@@ -1,6 +1,14 @@
-<% form_for :user, @user, :html => {"method" => "put"}, :url => {:action => :update} do |f| -%>
-  <p>
-    login: <%= f.text_field :login %>
-  </p>
-  <%= submit_tag "Update" -%>
-<% end -%>
+<%= render :partial => "/share/header" %>
+
+<div id="forget-body">
+  <div class="main">
+    <% form_for :edit_user, @user, :html => {"method" => "put"}, :url => {:action => :update} do |f| -%>
+    <div >
+      <%=h User.human_attribute_name("login")  %> : <%= f.text_field :login %>
+    </div>
+    <div >
+      <%= submit_tag t(:update, :scope => %w(railties scaffold)) -%>
+    </div>
+    <% end -%>
+  </div>
+</div>

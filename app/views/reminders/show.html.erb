@@ -34,10 +34,10 @@
       </span>
     </td>
     <td>
-      <%= button_to translate(:edit, :default => 'Edit', :scope => [:railties, :scaffold]), action_path(:edit, :id => @reminder.id) %>
+      <%= button_to translate(:edit, :scope => [:railties, :scaffold]), action_path(:edit, :id => @reminder.id) %>
     <% end %>
     </td>
     <td>
-      <%= button_to translate(:listing, :default => 'Back', :scope => [:railties, :scaffold]), action_path(:index) %>
+      <%= button_to translate(:listing, :scope => [:railties, :scaffold]), action_path(:index) %>
     </td>
 </tr></table>

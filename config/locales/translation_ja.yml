@@ -7,7 +7,7 @@ ja:
       tag: "タグ"
     attributes: 
       user: 
-        login: "ログイン"
+        login: アカウント名
         name: "名前"
         email: "メールアドレス"
         crypted_password: "暗号化パスワード"
@@ -52,13 +52,16 @@ ja:
       list: 復習一覧
       memory: 覚えてしまったもの
       check_ok: 復習完了しました
-      index: すべての復習
+      index: このサイトについて
       completed: 覚えてしまった復習
       new: 新規登録
       create: 新規登録
       edit: 編集
       update: 編集
       show: 表示
+    sessions:
+      index: このサイトについて
+      edit: アカウント名設定
   links:
     logout: ログアウト
     signup: ユーザー登録
@@ -66,5 +69,7 @@ ja:
   text:
     logged_in: ログイン中
   notice:
-    created_success: "{{model}}を作成しました。"
-    updated_success: "{{model}}を更新しました。"
+    created_success: "{{model}}を作成しました"
+    updated_success: "{{model}}を更新しました"
+    please_log_in: ログインしてください
+    permission_denied: 権限がありません

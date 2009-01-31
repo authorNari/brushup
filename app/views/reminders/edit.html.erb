@@ -1,7 +1,2 @@
-<div id="forget-header">
-  <h1>
-    <% translate(:editing, :default => "Editing {{model}}", :model => Reminder.human_name, :scope => [:railties, :scaffold]) %>
-  </h1>
-</div>
-
+<%= render :partial => "/share/header" %>
 <%= render :partial => "form", :locals => {:action => "update"} %>

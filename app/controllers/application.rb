@@ -25,9 +25,12 @@ class ApplicationController < ActionController::Base
   
   I18n.default_locale = "ja"
 
+  private
   def authorize
-    unless session[:user_id]
-      flash[:notice] = "Please log in"
+    unless session[:user_id] && (same_user = (session[:user_id].id == User.find(params["user"]).id))
+      logger.debug "DEBUG(authorize) : session = <#{session[:user_id]} user = <#{User.find(params["id"] || params["user"]).to_yaml}>"
+      flash[:notice] = t("permission_denied", :scope => %w(notice)) unless same_user
+      flash[:notice] = t("please_log_in", :scope => %w(notice)) if same_user
       # save the URL the user requested so we can hop back to it
       # after login
       redirect_to(openid_path)
@@ -39,10 +42,19 @@ class ApplicationController < ActionController::Base
   end
   
   def set_user
-    if session[:user_id]
-      @user = session[:user_id]
+    @user = User.find(params[:user])
+  end
+
+  def local_request?
+    false
+  end
+  
+  def rescue_action_in_public(exception)
+    case exception
+    when ::ActionController::RoutingError, ::ActionController::UnknownAction, ::ActiveRecord::RecordNotFound
+      render :file=>"#{RAILS_ROOT}/public/404.html", :status=>'404 Not Found'
     else
-      @user = User.find(params[:user])
+      render :file=>"#{RAILS_ROOT}/public/500.html", :status=>'500 Error'
     end
   end
 end

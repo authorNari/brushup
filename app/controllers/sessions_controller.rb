@@ -1,4 +1,10 @@
 class SessionsController < ApplicationController
+  before_filter :authorize, :except => %w(index new create authenticate root_url destroy)
+
+  def index
+    @user = session[:user_id] if session[:user_id]
+  end
+  
   def new
   end
 
@@ -10,9 +16,13 @@ class SessionsController < ApplicationController
     end
   end
 
+  def edit
+    @user = User.find(params[:user])
+  end
+  
   def update
-    @user = User.find(params[:id])
-    @user.update_attributes(params[:user])
+    @user = User.find(params[:user])
+    @user.update_attributes(params[:edit_user])
     session[:user_id] = @user
     success_login
   end

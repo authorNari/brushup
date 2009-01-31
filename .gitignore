@@ -3,5 +3,7 @@
 doc/api
 tmp/*
 config/secret.txt
-log/*
+config/datebase.yml
+log/*.log
 db/*.sqlite3
+db/schema.rb
