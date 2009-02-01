@@ -1,13 +1,10 @@
 class SessionsController < ApplicationController
-  before_filter :authorize, :except => %w(index new create authenticate root_url destroy)
+  before_filter :authorize, :except => %w(index new create authenticate destroy)
 
   def index
     @user = session[:user_id] if session[:user_id]
   end
   
-  def new
-  end
-
   def create
     if using_open_id?
       authenticate
@@ -15,16 +12,18 @@ class SessionsController < ApplicationController
       redirect_to sessions_path
     end
   end
-
+  
   def edit
-    @user = User.find(params[:user])
+    @user = session[:user_id]
   end
   
   def update
-    @user = User.find(params[:user])
-    @user.update_attributes(params[:edit_user])
-    session[:user_id] = @user
-    success_login
+    @user = User.find(session[:user_id].id)
+    if @user.update_attributes(params[:edit_user])
+      session[:user_id] = @user
+      return success_login
+    end
+    render :action => :edit
   end
 
   def destroy
@@ -34,7 +33,7 @@ class SessionsController < ApplicationController
 
   protected
   def authenticate(identity_url = "")
-    if RAILS_ENV == "development"
+    if RAILS_ENV == "development" || RAILS_ENV == "test"
       after_autenticate(true, params[:openid_url], "OK", :nickname => "hoge")
     else
       authenticate_with_open_id(params[:openid_url], :require => [:email, :nickname]) do |result, identity_url, registration|
@@ -43,23 +42,21 @@ class SessionsController < ApplicationController
     end
   end
 
-  def root_url
-    openid_url
-  end
-
   private
   def setup_user(identity_url, registration)
     @user = User.new(:openid_url => identity_url)
+    @user.login = unique_nickname(registration[:nickname])
     @user.save!
-    @user.login = registration[:nickname]
+    session[:user_id] = @user
     return @user
   end
 
   def after_autenticate(successful, identity_url, message, registration={})
     if successful
       @user = User.find_by_openid_url(identity_url)
-      return redirect_to(edit_session_path(:id => setup_user(identity_url, registration).id)) unless @user
-      return redirect_to(edit_session_path(:id => @user.id)) unless @user.login
+      unless @user
+        return redirect_to(:action => :edit, :user => setup_user(identity_url, registration).id)
+      end
       success_login
     else
       flash[:error] = message
@@ -70,5 +67,12 @@ class SessionsController < ApplicationController
   def success_login
     session[:user_id] = @user
     redirect_to(:controller => "reminders", :user => @user.login, :action => :today)
+  end
+
+  def unique_nickname(nickname)
+    if User.find_by_login(nickname)
+      return unique_nickname("#{nickname}_#{rand(1000)}")
+    end
+    return nickname
   end
 end

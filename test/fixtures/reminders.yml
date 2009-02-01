@@ -20,7 +20,7 @@
 DEFAULT: &DEFAULT
   user: nari
   schedule: level_1
-  learned_at: <%= Time.now %>
+  learned_at: <%= Date.yesterday %>
   next_learn_date: <%= Date.yesterday %>
   title: default
   body: don_t forget one

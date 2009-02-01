@@ -12,6 +12,10 @@ module ApplicationHelper
     logged_in? && session[:user_id].login == params["user"]
   end
 
+  def current_user
+    return session[:user_id]
+  end
+  
   def display_date(date)
     return date.strftime("%Y年%m月%d日")
   end

@@ -1,11 +1,20 @@
 <%= render :partial => "/share/header" %>
 
+
 <div id="forget-body">
   <div class="main">
     <% form_for :edit_user, @user, :html => {"method" => "put"}, :url => {:action => :update} do |f| -%>
-    <div >
-      <%=h User.human_attribute_name("login")  %> : <%= f.text_field :login %>
-    </div>
+    <%= f.error_messages.untaint %>
+    <table>
+      <tr>
+        <td><%=h User.human_attribute_name("login")  %></td>
+        <td><%= f.text_field :login %></td>
+      </tr>
+      <tr>
+        <td><%=h User.human_attribute_name("openid_url")  %></td>
+        <td><%=h @user.openid_url %></td>
+      </tr>
+    </table>
     <div >
       <%= submit_tag t(:update, :scope => %w(railties scaffold)) -%>
     </div>

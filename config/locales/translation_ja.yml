@@ -9,6 +9,7 @@ ja:
       user: 
         login: アカウント名
         name: "名前"
+        openid_url: OPEN ID
         email: "メールアドレス"
         crypted_password: "暗号化パスワード"
         salt: "塩"
@@ -52,7 +53,7 @@ ja:
       list: 復習一覧
       memory: 覚えてしまったもの
       check_ok: 復習完了しました
-      index: このサイトについて
+      index: 復習一覧
       completed: 覚えてしまった復習
       new: 新規登録
       create: 新規登録
@@ -60,8 +61,11 @@ ja:
       update: 編集
       show: 表示
     sessions:
+      new: アカウント新規作成
+      create: アカウント新規作成
       index: このサイトについて
       edit: アカウント名設定
+      update: アカウント名設定
   links:
     logout: ログアウト
     signup: ユーザー登録

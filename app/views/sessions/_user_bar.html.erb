@@ -1,8 +1,8 @@
 <% if logged_in? -%>
 <ul>
-  <li><%= t("logged_in", :scope => [:text]) -%>: <%= link_to @user.login, action_path(:index, :user => @user.login) -%></li>
+  <li><%= t("logged_in", :scope => [:text]) -%>: <%= link_to h(current_user.login), action_path(:index, :user => current_user.login) -%></li>
   <li><%= link_to t("logout", :scope => [:links]), logout_path -%></li>
-  <li><%= link_to t(:edit, :scope => [:controller, :sessions]), :user => @user.login, :action => :edit, :controller => :sessions -%></li>
+  <li><%= link_to t(:edit, :scope => [:controller, :sessions]), :user => current_user.login, :action => :edit, :controller => :sessions -%></li>
 </ul>
 <% else -%>
   <%= render :partial => "/sessions/signup" %>

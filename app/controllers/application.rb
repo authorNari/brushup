@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
   private
   def authorize
     unless session[:user_id] && (same_user = (session[:user_id].id == User.find(params["user"]).id))
-      logger.debug "DEBUG(authorize) : session = <#{session[:user_id]} user = <#{User.find(params["id"] || params["user"]).to_yaml}>"
+      logger.debug "DEBUG(authorize) : session = <#{(session[:user_id]&&session[:user_id].to_yaml)}>, user = <#{User.find(params["id"] || params["user"]).to_yaml}>"
       flash[:notice] = t("permission_denied", :scope => %w(notice)) unless same_user
       flash[:notice] = t("please_log_in", :scope => %w(notice)) if same_user
       # save the URL the user requested so we can hop back to it
