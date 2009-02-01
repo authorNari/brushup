@@ -47,7 +47,7 @@ ja:
       check: "復習が終わったらここをクリック"
     tag: "タグ"
   controller:
-    reminder: もう忘れない
+    reminder: 絶対復習
     reminders:
       today: 今日の復習
       list: 復習一覧

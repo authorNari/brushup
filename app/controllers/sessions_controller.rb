@@ -28,7 +28,7 @@ class SessionsController < ApplicationController
 
   def destroy
     session[:user_id] = nil
-    redirect_to session[:jumpto]
+    redirect_to openid_path
   end
 
   protected
