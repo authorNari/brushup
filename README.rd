@@ -10,7 +10,7 @@
 
 この実験の結果は驚くべきものでした．
 
-<image src="/images/forget_graph.png" alt ="Forget_Graph">
+<img src="/images/forget_graph.png" alt="Forget_Graph"/>
 
 結果
  20分後には，42%を忘却し，58%を覚えていた．
