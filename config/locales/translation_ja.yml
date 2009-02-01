@@ -19,7 +19,7 @@ ja:
         remember_token_expires_at: ""
       reminder: 
         title: "タイトル"
-        body: "本文"
+        body: "復習内容"
         public: "公開"
         learned_at: 復習した日
         tag_list: タグ
