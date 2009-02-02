@@ -230,19 +230,19 @@ a.not_effect {
   text-decoration: none;
 }
 
-div#forget-body div.explain {
+div#forget-explain-body {
   background:#FFFFFF none repeat scroll 0 0;
-  float:left;
   margin:0 0 0 0;
   padding:20px 20px 0;
-  width:100%;
+  margin: 0 auto;
+  width: 60em;
 }
 
-div#forget-body div.explain h2 {
+div#forget-explain-body div.explain h2 {
   font-size:1.5em;
   border-bottom:1px solid #DDDDDD;
 }
 
-div#forget-body div.explain h2 a {
+div#forget-explain-body div.explain h2 a {
   color: black;
 }
