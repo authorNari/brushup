@@ -1,0 +1,20 @@
+development:
+  adapter: mysql
+  database: brushup_development
+  username: rails
+  password: rails
+  encoding: utf8
+
+test:
+  adapter: mysql
+  database: brushup_test
+  username: rails
+  password: rails
+  encoding: utf8
+
+production:
+  adapter: mysql
+  database: brushup_production
+  username: rails
+  password: rails
+  encoding: utf8

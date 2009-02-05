@@ -1,0 +1,17 @@
+development:
+  adapter: postgresql
+  database: brushup_development
+  username: rails
+  password: rails
+
+test:
+  adapter: postgresql
+  database: brushup_test
+  username: rails
+  password: rails
+
+production:
+  adapter: postgresql
+  database: brushup_production
+  username: rails
+  password: rails
