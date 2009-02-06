@@ -10,7 +10,7 @@
     </div>
     <div class="body">
       <% tag_cloud @tags, tag_cloud_styles() do |tag, css_class| %>
-      <%= link_to tag.name, { :action => params["action"], :tag => tag.name }, :class => css_class %>
+      <%= link_to h(tag.name), { :action => params["action"], :tag => tag.name }, :class => css_class %>
       <% end %>
     </div>
   </div>
