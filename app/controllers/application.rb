@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   if File.exist?(secret_path)
     secret = open(secret_path) { |io| io.read }.gsub(/\s/, '')
   end
-  if secret.empty?
+  if !secret || secret.empty?
     characters = ("0".."9").to_a + ("a".."f").to_a
     secret = Array.new(128) { characters[rand(characters.size)] }.join
     open(secret_path, "w") { |io| io.write(secret) }
