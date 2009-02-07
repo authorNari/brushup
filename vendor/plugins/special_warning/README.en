@@ -1,0 +1,54 @@
+= SpecialWarning
+
+== OverView
+Special Warning is a Rails plugin to detect potential bug. It will warn 
+when detect potencial bug code.
+
+potentially fatal bugs :
+ * Compare string with integer.
+
+The warning output to standard output. The backtrace output to log file.
+Special Warning is experimental, so do NOT use in a production environment.
+
+== Example
+
+  # Warning!
+  "1" == 1
+
+  # OK
+  1 == 1
+  
+  class FooController < ApplicationController
+    def index
+       # Warning!!
+       params["numeric"] == 1
+    end
+  end
+ 
+  class FooController < ApplicationController
+    def index
+      # OK
+      params["numeric"].to_i == 1
+    end
+  end
+
+== Installation
+
+Please perform the following steps to install Special Warning.
+
+  $ script/plugin install \
+    git://github.com/authorNari/special_warning.git
+
+
+== Hack!Hack!
+
+When you want to add a new warn item.
+
+ special_warning/lib/specal_warning/
+
+Please make new file in this directory.
+
+And, give me a patch file.
+
+
+Copyright (c) 2009 Narihiro Nakamura, released under the MIT license
