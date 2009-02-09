@@ -1,0 +1,4 @@
+= DB構築手順
+
+(1) rake db:migrate
+(2) rake db:load_master
