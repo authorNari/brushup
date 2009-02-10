@@ -15,3 +15,7 @@
 nari:
   openid_url: http://www.hatena.ne.jp/authorNari
   login: authorNari
+
+aaron:
+  openid_url: http://www.hatena.ne.jp/aaron
+  login: aaron

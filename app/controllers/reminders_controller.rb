@@ -45,7 +45,7 @@ class RemindersController < ApplicationController
       redirect_to(:action => :list, :user => @user.login)
     else
       logger.debug "DEBUG(update): @reminder = <#{@reminder.to_yaml}>"
-      render(:user => @user.login, :action => "new")
+      render(:user => @user.login, :action => "edit")
     end
   end
 
@@ -96,10 +96,5 @@ class RemindersController < ApplicationController
     tags = {}
     reminders.each{|r| r.tag_counts.each{|t| tags[t.name] ||= []; tags[t.name] << t }}
     return tags.values
-  end
-  
-  def get_user_id(id)
-    user_id = current_user.id unless id
-    user_id ||= User.find(id).id
   end
 end

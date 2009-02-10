@@ -38,3 +38,8 @@ not_learned_remind_2:
   title: Memo2
   body: don_t forget two
   completed: true
+
+next_level_complete_remind:
+  <<: *DEFAULT
+  schedule: level_4
+  completed: false

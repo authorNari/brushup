@@ -33,22 +33,25 @@ class Reminder < ActiveRecord::Base
 
   # get today reminders
   def self.todays(user_id, tag=nil)
-    options = find_options(:conditions => ["next_learn_date <= ? AND completed = ? AND user_id = ?", Date.today, false, user_id])
-    return find_or_find_tagged_with(options, tag)
+    return find_or_find_tagged_with(
+            find_options(:conditions =>
+                         ["next_learn_date <= ? AND (completed is null OR completed = ?) AND user_id = ?",
+                          Date.today,
+                          false,
+                          user_id]),
+           tag)
   end
 
   def self.completeds(user_id, tag=nil)
-    options = find_options(:conditions => {:completed => true, :user_id => user_id})
-    return find_or_find_tagged_with(options, tag)
+    return find_or_find_tagged_with(find_options(:conditions => {:completed => true, :user_id => user_id}), tag)
   end
 
   def self.list(user_id, tag=nil)
-    options = find_options(:conditions => {:user_id => user_id})
-    return find_or_find_tagged_with(options, tag)
+    return find_or_find_tagged_with(find_options(:conditions => {:user_id => user_id}), tag)
   end
   
   def today_remind?
-    return true if(self.next_learn_date && self.next_learn_date <= Date.today && !self.completed)
+    return (self.next_learn_date && self.next_learn_date <= Date.today && !self.completed)
   end
   
   def update_learned!

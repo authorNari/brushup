@@ -10,16 +10,18 @@
 #  updated_at :datetime      
 #
 
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
 level_1:
   level: 1
-  span: 7
+  span: 1
 
 level_2:
   level: 2
-  span: 14
+  span: 7
 
 level_3:
   level: 3
   span: 30
+
+level_4:
+  level: 4
+  span: 182

@@ -3,7 +3,7 @@ require File.join(File.dirname(__FILE__), '../test_helper')
 class RemindersControllerTest < ActionController::TestCase
   def setup
     @user = users(:nari)
-    RemindersController.skip_filter :authorize
+    @request.session[:user_id] = @user
     RemindersController.skip_filter :set_jumpto
   end
   
@@ -42,6 +42,14 @@ class RemindersControllerTest < ActionController::TestCase
     assert_redirected_to :action => :list, :user => @user.login
   end
 
+  test "should create reminder fail" do
+    assert_difference('Reminder.count', 0) do
+      post :create, :reminder => {:title => nil}, :user => @user.login
+    end
+
+    assert_template 'new'
+  end
+
   test "should show reminder" do
     get :show, :user => @user.login, :id => reminders(:learned_remined_1).id
     assert_response :success
@@ -57,11 +65,47 @@ class RemindersControllerTest < ActionController::TestCase
     assert_redirected_to :action => :list, :user => @user.login
   end
 
+  test "should update reminder fail" do
+    put :update, :id => reminders(:learned_remined_1).id, :reminder => {:title => nil}, :user => @user.login
+    assert_template 'edit'
+  end
+
   test "should destroy reminder" do
     assert_difference('Reminder.count', -1) do
       delete :destroy, :id => reminders(:learned_remined_1).id, :user => @user.login
     end
 
     assert_redirected_to :action => :list, :user => @user.login
+  end
+
+  test "should get today" do
+    get :today, :user => @user.login
+    assert_not_nil assigns(:reminders)
+    assert_response :success
+    assert_template "index"
+  end
+
+  test "should get completed" do
+    get :completed, :user => @user.login
+    assert_not_nil assigns(:reminders)
+    assert_response :success
+    assert_template "index"
+  end
+
+  test "should xhr list" do
+    xhr :get, :list, :user => @user.login
+    assert_select_rjs :chained_replace, 'reminder'
+  end
+
+  test "should xhr check" do
+    xhr :get, :check, :id => reminders(:learned_remined_1).id, :user => @user.login
+    assert_select_rjs :replace, "reminders_check_#{reminders(:learned_remined_1).id}"
+  end
+
+  test "should authorize fail" do
+    @user = users(:aaron)
+    get :edit, :user => @user.login
+    assert_equal I18n.t("permission_denied", :scope => :notice), flash[:notice]
+    assert_redirected_to openid_path
   end
 end
