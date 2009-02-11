@@ -78,3 +78,7 @@ ja:
     updated_success: "{{model}}を更新しました"
     please_log_in: ログインしてください
     permission_denied: 権限がありません
+  paginate:
+    prev_label: "&laquo; 前へ"
+    next_label: "次へ &raquo;"
+

@@ -19,6 +19,9 @@ class Reminder < ActiveRecord::Base
   belongs_to :user
   belongs_to :schedule
 
+  cattr_reader :per_page
+  @@per_page = 20
+  
   validates_presence_of :title, :body
   
   acts_as_taggable
@@ -28,7 +31,7 @@ class Reminder < ActiveRecord::Base
   named_scope :list, :conditions => ["completed is null OR completed = ?", false]
   named_scope :today, :conditions => ["next_learn_date <= ?", Date.today]
   named_scope :tagged_with, lambda{|tags| find_options_for_find_tagged_with(tags) }
-  named_scope :order_create, :order => "'created_at' DESC"
+  named_scope :order_by_created, :order => "'created_at' DESC"
 
   def attributes=(params, gard=true)
     super
@@ -40,15 +43,15 @@ class Reminder < ActiveRecord::Base
 
   # get today reminders
   def self.todays(user_id, tag=nil)
-    return user(user_id).tagged_with(tag).list.today.order_create
+    return user(user_id).tagged_with(tag).list.today.order_by_created
   end
 
   def self.completeds(user_id, tag=nil)
-    return user(user_id).tagged_with(tag).completed.order_create
+    return user(user_id).tagged_with(tag).completed.order_by_created
   end
 
   def self.lists(user_id, tag=nil)
-    return user(user_id).tagged_with(tag).list.order_create
+    return user(user_id).tagged_with(tag).list.order_by_created
   end
   
   def today_remind?

@@ -1,5 +1,8 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
+  ::WillPaginate::ViewHelpers.pagination_options[:prev_label] = I18n.t(:prev_label, :scope => :paginate)
+  ::WillPaginate::ViewHelpers.pagination_options[:next_label] = I18n.t(:next_label, :scope => :paginate)
+  
   def action_path(action, options={})
     return {:user => (params["user"] || @user.login), :controller => :reminders, :action => action, :tag => nil}.merge(options)
   end

@@ -18,6 +18,9 @@
     <ul class="show">
       <%= render :partial => "reminder" %>
     </ul>
+    <div class="flickr_pagination" align="center">
+      <%= will_paginate(@nodes).untaint %>
+    </div>
   </div>
   <%= render :partial => "sidebar" %>
 </div>
