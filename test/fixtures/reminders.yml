@@ -43,3 +43,11 @@ next_level_complete_remind:
   <<: *DEFAULT
   schedule: level_4
   completed: false
+
+completed_reminder:
+  <<: *DEFAULT
+  completed: true
+
+level_2_reminder:
+  <<: *DEFAULT
+  schedule: level_2

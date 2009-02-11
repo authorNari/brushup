@@ -22,6 +22,13 @@ class Reminder < ActiveRecord::Base
   validates_presence_of :title, :body
   
   acts_as_taggable
+  
+  named_scope :user, lambda{|user_id| {:conditions => ["#{table_name}.user_id = ?", user_id]} }
+  named_scope :completed, :conditions => {:completed => true}
+  named_scope :list, :conditions => ["completed is null OR completed = ?", false]
+  named_scope :today, :conditions => ["next_learn_date <= ?", Date.today]
+  named_scope :tagged_with, lambda{|tags| find_options_for_find_tagged_with(tags) }
+  named_scope :order_create, :order => "'created_at' DESC"
 
   def attributes=(params, gard=true)
     super
@@ -33,21 +40,15 @@ class Reminder < ActiveRecord::Base
 
   # get today reminders
   def self.todays(user_id, tag=nil)
-    return find_or_find_tagged_with(
-            find_options(:conditions =>
-                         ["next_learn_date <= ? AND (completed is null OR completed = ?) AND user_id = ?",
-                          Date.today,
-                          false,
-                          user_id]),
-           tag)
+    return user(user_id).tagged_with(tag).list.today.order_create
   end
 
   def self.completeds(user_id, tag=nil)
-    return find_or_find_tagged_with(find_options(:conditions => {:completed => true, :user_id => user_id}), tag)
+    return user(user_id).tagged_with(tag).completed.order_create
   end
 
-  def self.list(user_id, tag=nil)
-    return find_or_find_tagged_with(find_options(:conditions => {:user_id => user_id}), tag)
+  def self.lists(user_id, tag=nil)
+    return user(user_id).tagged_with(tag).list.order_create
   end
   
   def today_remind?
@@ -67,17 +68,19 @@ class Reminder < ActiveRecord::Base
     save!
   end
 
+  def to_complete_count
+    return (Schedule.count - schedule.level + 1) unless completed
+  end
+
+  def tag_list_with_convert=(str)
+    str.gsub!("　", " ")
+    self.tag_list_without_convert=str
+  end
+  alias_method_chain :tag_list=, :convert
+  
+  
   private
   def get_next_learn_date(schedule)
     return Date.today + self.schedule.span
-  end
-
-  def self.find_options(options)
-    return options.merge(:order => "'created_at' DESC")
-  end
-
-  def self.find_or_find_tagged_with(options, tag=nil)
-    return find(:all, options) unless tag
-    return find_tagged_with(tag, options)
   end
 end

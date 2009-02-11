@@ -3,27 +3,22 @@ class RemindersController < ApplicationController
   before_filter :set_user, :except => %w(check)
   before_filter :set_jumpto
 
-  # GET /reminders
   def index
     redirect_to(:action => :today, :user => (params["user"] || @user.login))
   end
 
-  # GET /reminders/1
   def show
     @reminder = Reminder.find(params[:id])
   end
 
-  # GET /reminders/new
   def new
     @reminder = Reminder.new
   end
 
-  # GET /reminders/1/edit
   def edit
     @reminder = Reminder.find(params[:id])
   end
 
-  # POST /reminders
   def create
     @reminder = Reminder.new(params[:reminder].merge!(:user_id => @user.id))
 
@@ -36,7 +31,6 @@ class RemindersController < ApplicationController
     end
   end
 
-  # PUT /reminders/1
   def update
     @reminder = Reminder.find(params[:id])
 
@@ -49,7 +43,6 @@ class RemindersController < ApplicationController
     end
   end
 
-  # DELETE /reminders/1
   def destroy
     @reminder = Reminder.find(params[:id])
     @reminder.destroy
@@ -68,7 +61,7 @@ class RemindersController < ApplicationController
   end
 
   def list
-    @reminders ||=  Reminder.list(@user.id, params["tag"])
+    @reminders ||=  Reminder.lists(@user.id, params["tag"])
     @tags = tag_counts(@reminders)
 
     respond_to do |format|

@@ -34,7 +34,7 @@ class RemindersControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should create reminder" do
+  test "should create" do
     assert_difference('Reminder.count') do
       post :create, :reminder => {:title => "new", :body => "body"}, :user => @user.login
     end
@@ -42,7 +42,7 @@ class RemindersControllerTest < ActionController::TestCase
     assert_redirected_to :action => :list, :user => @user.login
   end
 
-  test "should create reminder fail" do
+  test "should create fail" do
     assert_difference('Reminder.count', 0) do
       post :create, :reminder => {:title => nil}, :user => @user.login
     end
@@ -50,7 +50,7 @@ class RemindersControllerTest < ActionController::TestCase
     assert_template 'new'
   end
 
-  test "should show reminder" do
+  test "should show" do
     get :show, :user => @user.login, :id => reminders(:learned_remined_1).id
     assert_response :success
   end
@@ -60,17 +60,17 @@ class RemindersControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should update reminder" do
+  test "should update" do
     put :update, :id => reminders(:learned_remined_1).id, :reminder => { }, :user => @user.login
     assert_redirected_to :action => :list, :user => @user.login
   end
 
-  test "should update reminder fail" do
+  test "should update fail" do
     put :update, :id => reminders(:learned_remined_1).id, :reminder => {:title => nil}, :user => @user.login
     assert_template 'edit'
   end
 
-  test "should destroy reminder" do
+  test "should destroy" do
     assert_difference('Reminder.count', -1) do
       delete :destroy, :id => reminders(:learned_remined_1).id, :user => @user.login
     end
