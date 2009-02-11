@@ -92,14 +92,9 @@ class RemindersControllerTest < ActionController::TestCase
     assert_template "index"
   end
 
-  test "should xhr list" do
-    xhr :get, :list, :user => @user.login
-    assert_select_rjs :chained_replace, 'reminder'
-  end
-
   test "should xhr check" do
     xhr :get, :check, :id => reminders(:learned_remined_1).id, :user => @user.login
-    assert_select_rjs :replace, "reminders_check_#{reminders(:learned_remined_1).id}"
+    assert_select_rjs :replace, "reminder_#{reminders(:learned_remined_1).id}"
   end
 
   test "should authorize fail" do

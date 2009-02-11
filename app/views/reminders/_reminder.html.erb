@@ -1,46 +1,44 @@
-<% @reminders.each do |reminder| %>
-  <% fields_for reminder do |f| -%>
-  <li class="show">
-    <div class="show">
-      <div class="show-title">
-	<h2><%= h(reminder.title) -%></h2>
-      </div>
-      <div class="show-body">
-        <pre>
-<%=h reminder.body %>
-        </pre>
-      </div>
-      <div class="show-tags">
-        <b><%=h Reminder.human_attribute_name("tag_list") %> : </b><%=h reminder.tag_list %>
-      </div>
-      <% unless reminder.completed? %>
-        <div class="show-date">
-          <b><%=h Reminder.human_attribute_name('learned_at') %> : </b><%=h display_date(reminder.learned_at) %>
-        </div>
-        <div class="show-date">
-          <b><%=h Reminder.human_attribute_name('next_learn_date') %> : </b><%=h display_date(reminder.next_learn_date) %>
-          (<%= t(:to_complete_count, :scope => :text, :count => reminder.to_complete_count) %>)
-        </div>
-      <% end %>
-      <% if current_user? %>
-      <table>
-	<tr>
-	  <td id="reminders_check_<%= reminder.id -%>">
-	    <%= link_to_remote t(:check, :scope => [:railties, :scaffold]), 
-	    :url => {:action => :check, :id => reminder.id} if reminder.today_remind? -%>
-	  </td>
-	  <td class="link">
-	    <%= link_to t(:edit, :scope => [:railties, :scaffold]), action_path(:edit, :id => reminder.id) %>
-	  </td>
-	  <td class="link">
-	    <%= link_to t(:destroy, :scope => [:railties, :scaffold]), action_path(:destroy, :id => reminder.id), 
-                :confirm => t(:confirmation, :scope => [:railties, :scaffold],
-	                      :value => t(:destroy, :scope => [:railties, :scaffold])) -%>
-	  </td>
-	</tr>
-      </table>
-      <% end %>
+<% fields_for reminder do |f| -%>
+<li id="reminder_<%= reminder.id -%>" class="show">
+  <div class="show">
+    <div class="show-title">
+      <h2><%= h(reminder.title) -%></h2>
+        <span id="reminders_check_<%= reminder.id -%>">
+          <%= link_to_remote t(:check, :scope => [:railties, :scaffold]), 
+          :url => {:action => :check, :id => reminder.id} if reminder.today_remind? -%>
+        </span>
     </div>
-  </li>
-  <% end -%>
+    <div class="show-body">
+      <pre>
+<%=h reminder.body %>
+      </pre>
+    </div>
+    <div class="show-tags">
+      <b><%=h Reminder.human_attribute_name("tag_list") %> : </b><%=h reminder.tag_list %>
+    </div>
+    <% unless reminder.completed? %>
+      <div class="show-date">
+        <b><%=h Reminder.human_attribute_name('learned_at') %> : </b><%=h display_date(reminder.learned_at) %>
+      </div>
+      <div class="show-date">
+        <b><%=h Reminder.human_attribute_name('next_learn_date') %> : </b><%=h display_date(reminder.next_learn_date) %>
+        (<%= t(:to_complete_count, :scope => :text, :count => reminder.to_complete_count) %>)
+      </div>
+    <% end %>
+    <% if current_user? %>
+    <table>
+      <tr>
+        <td class="link">
+          <%= link_to t(:edit, :scope => [:railties, :scaffold]), action_path(:edit, :id => reminder.id) %>
+        </td>
+        <td class="link">
+          <%= link_to t(:destroy, :scope => [:railties, :scaffold]), action_path(:destroy, :id => reminder.id), 
+              :confirm => t(:confirmation, :scope => [:railties, :scaffold],
+                            :value => t(:destroy, :scope => [:railties, :scaffold])) -%>
+        </td>
+      </tr>
+    </table>
+    <% end %>
+  </div>
+</li>
 <% end -%>

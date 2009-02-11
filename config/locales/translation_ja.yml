@@ -44,7 +44,7 @@ ja:
       show: "表示"
       confirmation: "{{value}}しますか？"
       create: "登録"
-      check: "復習が終わったらここをクリック"
+      check: "復習したらココをクリック"
     tag: "タグ"
   controller:
     reminder: 絶対復習
@@ -52,7 +52,7 @@ ja:
       today: 今日の復習
       list: 復習一覧
       memory: 覚えてしまったもの
-      check_ok: 復習完了しました
+      check_ok: OK!
       index: 復習一覧
       completed: 覚えてしまった復習
       new: 新規登録

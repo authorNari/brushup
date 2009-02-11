@@ -16,10 +16,10 @@
 <div id="forget-body">
   <div class="main">
     <ul class="show">
-      <%= render :partial => "reminder" %>
+      <%= render :partial => "reminder", :collection => @reminders %>
     </ul>
     <div class="flickr_pagination" align="center">
-      <%= will_paginate(@nodes).untaint %>
+      <%= will_paginate(@reminders).untaint %>
     </div>
   </div>
   <%= render :partial => "sidebar" %>

@@ -66,21 +66,17 @@ class RemindersController < ApplicationController
     @tags = tag_counts(@reminders)
 
     respond_to do |format|
-      format.html { render :action => :index}
-      format.js do
-        render :update do |page|
-          page['reminder'].reload 
-        end
-      end
+      format.html { render :action => :index }
       format.rss { render :action => :rss }
     end
   end
 
   def check
-    @reminder = Reminder.find(params[:id])
-    if @reminder && @reminder.update_learned!
+    reminder = Reminder.find(params[:id])
+    if reminder && reminder.update_learned!
       render :update do |page|
-        page.replace "reminders_check_#{@reminder.id}", t(:check_ok, :scope => [:controller, :reminders])
+        page.replace "reminder_#{params[:id]}", (render :partial => "reminder", :locals => {:reminder => reminder})
+        page.replace "reminders_check_#{params[:id]}", t(:check_ok, :scope => [:controller, :reminders])
       end
     end
   end
