@@ -28,8 +28,9 @@ class ApplicationController < ActionController::Base
   private
   def authorize
     if !session[:user_id] ||
-        !(same_user = (session[:user_id].id == User.find(params["user"]).id))
-      logger.debug "DEBUG(authorize) : session = <#{(session[:user_id]&&session[:user_id].to_yaml)}>, user = <#{User.find(params["id"] || params["user"]).to_yaml}>"
+        !@user ||
+        !(same_user = (session[:user_id].id == @user.id))
+      logger.debug "DEBUG(authorize) : session = <#{(session[:user_id]&&session[:user_id].to_yaml)}>, user = <#{@user.to_yaml}>"
       flash[:notice] = t("permission_denied", :scope => :notice) unless same_user
       flash[:notice] = t("please_log_in", :scope => :notice) if same_user
       # save the URL the user requested so we can hop back to it
@@ -43,7 +44,12 @@ class ApplicationController < ActionController::Base
   end
   
   def set_user
-    @user = User.find(params[:user])
+    if params[:user]
+      @user = User.find(params[:user])
+    elsif session[:user_id]
+      @user = session[:user_id]
+      params[:user] = @user.login
+    end
   end
 
   def local_request?

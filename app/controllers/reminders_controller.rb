@@ -1,6 +1,6 @@
 class RemindersController < ApplicationController
-  before_filter :authorize, :except => %w(index today list completed show check)
   before_filter :set_user, :except => %w(check)
+  before_filter :authorize, :only => %w(new create destroy edit update check)
   before_filter :set_jumpto
 
   def index
@@ -24,7 +24,8 @@ class RemindersController < ApplicationController
 
     if @reminder.save
       flash[:notice] = I18n.t(:created_success, :model => Reminder.human_name, :scope => [:notice])
-      redirect_to(:action => :list, :user => @user.login)
+      return render(:template => "/share/autoclose") if params[:mode] = "confirm"
+      redirect_to(:action => :list, :user => @user.login) 
     else
       logger.debug "DEBUG(create): @reminder = <#{@reminder.to_yaml}>"
       render(:user => @user.login, :action => "new")

@@ -70,6 +70,7 @@ ja:
     logout: ログアウト
     signup: ユーザー登録
     login: ログイン
+    close_window: ウィンドウを閉じる
   text:
     logged_in: ログイン中
     to_complete_count: "あと {{count}} 回"

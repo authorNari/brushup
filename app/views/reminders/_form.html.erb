@@ -16,11 +16,12 @@
       <%= f.text_area :body %>
     </div>
     <div class="controll_left">
-      <%= f.submit translate(action, :scope => [:railties, :scaffold]) %>
+      <%= hidden_field_tag "mode", params[:mode] -%>
+      <%= f.submit t(action, :scope => [:railties, :scaffold]) %>
     </div>
     <% end %>
     <div>
-      <%= button_to translate(:list, :scope => [:controller, :reminders]), action_path(:list) %>
+      <%= button_to t(:list, :scope => [:controller, :reminders]), action_path(:list) %>
     </div>
   </div>
 </div>
