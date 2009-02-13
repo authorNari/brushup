@@ -4,12 +4,11 @@
     <%= f.error_messages.untaint %>
     <div>
       <%=h Reminder.human_attribute_name("title") %><br/>
-      <%= f.text_field :title %>
+      <%= f.text_field :title %>  <br/>
     </div>
     <div>
-      <%=h Reminder.human_attribute_name("tag_list") %> <br/>
-      <%= f.text_field :tag_list %><br/>
-      <small>※タグはスペース区切り</small>
+      <%=h Reminder.human_attribute_name("tag_list") %> <small>※スペース区切り</small><br/>
+      <%= f.text_field :tag_list %>  <br/>
     </div>
     <div>
       <%=h Reminder.human_attribute_name("body") %><br/>
