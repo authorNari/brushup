@@ -1,5 +1,5 @@
 set :application, "brushup"
-set :repository,  "git://github.com/takaokouji/forget_me_not.git"
+set :repository,  "git://github.com/takaokouji/brushup.git"
 
 # If you aren't deploying to /u/apps/#{application} on the target
 # servers (which is the default), you can specify the actual location

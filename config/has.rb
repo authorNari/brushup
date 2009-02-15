@@ -29,8 +29,8 @@ role :app, $hosts["w101"]
 # 物理的な全てのサーバ
 role :server, $hosts["lv1"], $hosts["lv2"], $hosts["w101"]
 
-# サイト
-server "www.takao7.net", :server, :primary => true
+# deploy 対象のサーバ
+server "www.takao7.net", :web
 
 task :create_shared_files do
   run "mkdir -p #{shared_path}/system/config"

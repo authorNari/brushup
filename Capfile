@@ -1,4 +1,4 @@
 load 'deploy' if respond_to?(:namespace) # cap2 differentiator
 Dir['vendor/plugins/*/recipes/*.rb'].each { |plugin| load(plugin) }
-load 'config/has'
 load 'config/deploy'
+load 'config/has'
