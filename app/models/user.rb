@@ -17,4 +17,6 @@ class User < ActiveRecord::Base
   validates_presence_of :login
   validates_uniqueness_of :openid_url
   validates_uniqueness_of :login, :on => :update
+
+  attr_accessible :openid_url, :login
 end

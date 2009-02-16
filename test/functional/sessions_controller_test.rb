@@ -1,5 +1,12 @@
 require File.join(File.dirname(__FILE__), '../test_helper')
 
+class SessionsController < ApplicationController
+  # for test
+  def authenticate(identity_url = "")
+    after_autenticate(true, params[:openid_url], "OK", "nickname" => "hoge")
+  end
+end
+
 class SessionsControllerTest < ActionController::TestCase
   def setup
     @request.session[:user_id] = users(:nari)

@@ -65,7 +65,7 @@
 <p>復習項目を新規登録する際に便利なブックマークレットです。</p>
 
 <p>
-  <a class="bookmarkleticon" href="javascript:window.open('<%= url_for(:controller => :reminders, :action => :new, :mode => "confirm")-%>', '_blank', 'width=520,height=750,resizable=1,scrollbars=1');undefined;">復習を追加する</a>
+  <a class="bookmarkleticon" href="javascript:window.open('<%= url_for(:only_path => false, :controller => :reminders, :action => :new, :mode => "confirm")-%>', '_blank', 'width=520,height=750,resizable=1,scrollbars=1');undefined;">復習を追加する</a>
 </p>
 <p>また、各一覧画面ではRSSを購読可能です。</p>
 <p>特に「今日の復習」をお好きなRSSリーダで購読しておくと便利です。</p>
@@ -75,7 +75,14 @@
 <p>例えば，パスワードや銀行の暗証番号などです．</p>
 <h2><a name="label-7" id="label-7">新規アカウント作成</a></h2><!-- RDLabel: "新規アカウント作成" -->
 <p>当サイトではOpenIDでのみユーザ認証を行っています。</p>
-<p>OpenIDを所有していない人は新規に作成してください。</p>
+<p>以下サイトのOpenIDで動作を確認しています。</p>
+<ul>
+<li><a href=" http://mixi.jp/">mixi</a></li>
+<li><a href=" http://auth.livedoor.com/openid/">livedoor</a></li>
+<li><a href=" http://www.openid.ne.jp/">openid.ne.jp</a></li>
+<li><a href=" http://www.hatena.ne.jp/info/openid">はてな</a></li>
+</ul>
+<p>OpenIDを所有していない人は上記のいずれかのサイトでアカウントを新規に作成してください。</p>
 <p>OpenIDの作成方法や、仕組みついてはこちらをご覧ください。</p>
 <p><a href=" http://www.openid.ne.jp/">OpenID.ne.jp</a></p>
 <h2><a name="label-8" id="label-8">お問い合わせ</a></h2><!-- RDLabel: "お問い合わせ" -->

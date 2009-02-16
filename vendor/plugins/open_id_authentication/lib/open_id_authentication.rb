@@ -141,6 +141,7 @@ module OpenIdAuthentication
       options[:optional] ||= []
 
       open_id_request = open_id_consumer.begin(identity_url)
+      puts "DEBUG!! open_id_request = <#{open_id_request}>"
       add_simple_registration_fields(open_id_request, options)
       add_ax_fields(open_id_request, options)
       redirect_to(open_id_redirect_url(open_id_request, return_to, method))
@@ -188,6 +189,7 @@ module OpenIdAuthentication
       # filter out AX identifiers (URIs)
       required_fields = fields[:required].collect { |f| f.to_s unless f =~ /^https?:\/\// }.compact
       optional_fields = fields[:optional].collect { |f| f.to_s unless f =~ /^https?:\/\// }.compact
+      puts "DEBUG!! #{required_fields}"
       
       sreg_request.request_fields(required_fields, true) unless required_fields.blank?
       sreg_request.request_fields(optional_fields, false) unless optional_fields.blank?

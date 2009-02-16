@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
-  before_filter :authorize, :except => %w(index new create authenticate destroy)
+  before_filter :set_user, :only => %w(edit update destroy)
+  before_filter :authorize, :only => %w(edit update destroy)
 
   def index
     @user = session[:user_id] if session[:user_id]
@@ -33,19 +34,15 @@ class SessionsController < ApplicationController
 
   protected
   def authenticate(identity_url = "")
-    if RAILS_ENV == "development" || RAILS_ENV == "test"
-      after_autenticate(true, params[:openid_url], "OK", :nickname => "hoge")
-    else
-      authenticate_with_open_id(params[:openid_url], :require => [:email, :nickname]) do |result, identity_url, registration|
-        after_autenticate(result.successful?, identity_url, result.message, :nickname => registration.nickname)
-      end
+    authenticate_with_open_id(params[:openid_url], :required => [:email, :nickname]) do |result, identity_url, registration|
+      after_autenticate(result.successful?, identity_url, result.message, registration)
     end
   end
 
   private
   def setup_user(identity_url, registration)
     @user = User.new(:openid_url => identity_url)
-    @user.login = unique_nickname(registration[:nickname])
+    @user.login = unique_nickname(registration["nickname"])
     @user.save!
     session[:user_id] = @user
     return @user
@@ -69,9 +66,10 @@ class SessionsController < ApplicationController
     redirect_to(:controller => "reminders", :user => @user.login, :action => :today)
   end
 
-  def unique_nickname(nickname)
+  def unique_nickname(nickname=nil)
+    nickname = "anonymous_#{rand(1000000)}" unless nickname
     if User.find_by_login(nickname)
-      return unique_nickname("#{nickname}_#{rand(1000)}")
+      return unique_nickname("#{nickname}_#{rand(1000000)}")
     end
     return nickname
   end

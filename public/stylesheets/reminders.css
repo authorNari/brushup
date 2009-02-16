@@ -5,7 +5,6 @@ input.openid-url {
   padding-left: 18px;
 }
 
-/* for tagging */
 body, h1, h2, h3, h4, h5, h5, ul, ol, li, dl, dt, dd, form, input, select, blockquote {
   -x-system-font:none;
   font-family:"Arial","Helvetica",sans-serif;
@@ -21,6 +20,12 @@ body, h1, h2, h3, h4, h5, h5, ul, ol, li, dl, dt, dd, form, input, select, block
   list-style-type:none;
   margin:0;
   padding:0;
+}
+
+.explain ul, .explain li,
+ .errorExplanation ul, .errorExplanation li {
+  margin-left: 20px;
+  list-style-type:circle;
 }
 
 a {
