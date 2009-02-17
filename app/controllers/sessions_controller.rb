@@ -36,8 +36,8 @@ class SessionsController < ApplicationController
     if RAILS_ENV == "development" || RAILS_ENV == "test"
       after_autenticate(true, params[:openid_url], "OK", :nickname => "hoge")
     else
-      authenticate_with_open_id(params[:openid_url], :require => [:email, :nickname]) do |result, identity_url, registration|
-        after_autenticate(result.successful?, identity_url, result.message, :nickname => registration.nickname)
+      authenticate_with_open_id(params[:openid_url], :required => [:email, :nickname]) do |result, identity_url, registration|
+        after_autenticate(result.successful?, identity_url, result.message, registration)
       end
     end
   end
@@ -45,7 +45,7 @@ class SessionsController < ApplicationController
   private
   def setup_user(identity_url, registration)
     @user = User.new(:openid_url => identity_url)
-    @user.login = unique_nickname(registration[:nickname])
+    @user.login = unique_nickname(registration["nickname"])
     @user.save!
     session[:user_id] = @user
     return @user
