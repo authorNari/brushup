@@ -115,7 +115,7 @@ ul.menu {
 }
 
 ul.menu li {
-  background: transparent url(/images/kakumaru_base.gif) no-repeat scroll left -160px;
+  background: transparent url(../images/kakumaru_base.gif) no-repeat scroll left -160px;
   float:left;
   font-size:90%;
   margin-right:6px;
@@ -256,6 +256,6 @@ div#logo {
 }
 
 .bookmarkleticon {
-  background:transparent url(/images/bookmarkleticon.png) no-repeat scroll 0 50%;
+  background:transparent url(../images/bookmarkleticon.png) no-repeat scroll 0 50%;
   padding: 15px 0 15px 50px;
 }

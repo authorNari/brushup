@@ -51,3 +51,17 @@ completed_reminder:
 level_2_reminder:
   <<: *DEFAULT
   schedule: level_2
+
+list_reminder:
+  <<: *DEFAULT
+  next_learn_date: <%= Date.tomorrow %>
+
+list_reminder_with_tag:
+  <<: *DEFAULT
+  next_learn_date: <%= Date.tomorrow %>
+
+list_reminder:
+  <<: *DEFAULT
+  title: hogehoge
+  next_learn_date: <%= Date.tomorrow %>
+  created_at: <%= Date.yesterday %>

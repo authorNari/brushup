@@ -13,9 +13,9 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 nari:
-  openid_url: http://www.hatena.ne.jp/authorNari
+  openid_url: http://www.hatena.ne.jp/authorNari/
   login: authorNari
 
 aaron:
-  openid_url: http://www.hatena.ne.jp/aaron
+  openid_url: http://www.hatena.ne.jp/aaron/
   login: aaron
