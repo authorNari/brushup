@@ -23,20 +23,20 @@ class ReminderTest < ActiveSupport::TestCase
     size =
       Reminder.find(:all,
                     :conditions =>
-                    ["(completed is null OR completed = ?) AND user_id = ?",
-                     false, users(:nari).id]).size
+                    ["(completed is null OR completed = ?) AND next_learn_date > ? AND user_id = ?",
+                     false, Date.today, users(:nari).id]).size
     
     assert_equal size, Reminder.lists(users(:nari).id).size
   end
   
   test "should lists with tags" do
-    reminders(:learned_remined_1).tag_list = "fuge hoge"
-    reminders(:learned_remined_1).save!
+    reminders(:list_reminder_with_tag).tag_list = "fuge hoge"
+    reminders(:list_reminder_with_tag).save!
     size =
       Reminder.find_tagged_with("fuge",
                                 :conditions =>
-                                ["(completed is null OR completed = ?) AND user_id = ?",
-                                 false, users(:nari).id]).size
+                                ["(completed is null OR completed = ?) AND next_learn_date > ? AND user_id = ?",
+                                 false, Date.today, users(:nari).id]).size
     assert_equal size, Reminder.lists(users(:nari).id, "fuge").size
   end
   
