@@ -68,7 +68,7 @@
 == 便利な使い方
 復習項目を新規登録する際に便利なブックマークレットです。
 
-((<復習を追加する|URL: javascript:window.open('<%= url_for(:controller => :reminders, :action => :new, :mode => "confirm")-%>', '_blank', 'width=520,height=750,resizable=1,scrollbars=1');undefined;>))
+((<復習を追加する|URL: javascript:window.open('<%= url_for(:only_path => false, :controller => :reminders, :action => :new, :mode => "confirm")-%>', '_blank', 'width=520,height=750,resizable=1,scrollbars=1');undefined;>))
 
 また、各一覧画面ではRSSを購読可能です。
 
@@ -84,7 +84,14 @@
 == 新規アカウント作成
 当サイトではOpenIDでのみユーザ認証を行っています。
 
-OpenIDを所有していない人は新規に作成してください。
+以下サイトのOpenIDで動作を確認しています。
+
+* ((<mixi|URL: http://mixi.jp/>))
+* ((<livedoor|URL: http://auth.livedoor.com/openid/>))
+* ((<openid.ne.jp|URL: http://www.openid.ne.jp/>))
+* ((<はてな|URL: http://www.hatena.ne.jp/info/openid>))
+
+OpenIDを所有していない人は上記のいずれかのサイトでアカウントを新規に作成してください。
 
 OpenIDの作成方法や、仕組みついてはこちらをご覧ください。
 
