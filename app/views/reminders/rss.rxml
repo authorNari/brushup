@@ -9,16 +9,12 @@ xml.rss('version' => '2.0') do
     @reminders.each do |r|
       xml.item do
         xml.title(r.title)
-        xml.link(request.protocol + request.host_with_port + url_for(:controller => 'reminders', :action => 'show', :id => r.id))
+        xml.link(request.protocol + request.host_with_port + url_for(action_path(:show, :id => r.id)))
         xml.description(r.body)
         xml.content do
-          e = "<![CDATA[#{r.body}<br/>"
-          e << link_to(t(:check, :scope => [:railties, :scaffold]), url_for(:controller => 'reminders', :action => 'check', :id => r.id)) if r.today_remind?
-          e << "]]>"
-          xml.encoded e
+          xml.encoded "<![CDATA[#{r.body}]]>"
         end
-        xml.guid(request.protocol + request.host_with_port +
-                 url_for(:controller => 'reminders', :action => 'show', :id => r.id))
+        xml.guid(request.protocol + request.host_with_port + url_for(action_path(:show, :id => r.id)))
         xml.pubDate(r.created_at.strftime("%a, %d %b %Y %H:%M:%S %Z"))
       end
     end
