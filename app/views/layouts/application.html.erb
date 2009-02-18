@@ -10,7 +10,7 @@
   </head>
   <body>
     <div id="header">
-      <h1><%= link_to(t("reminder", :scope => "controller"), {:controller => :sessoins, :action => :index}, :class => "not_effect") %></h1>
+      <h1><%= link_to(t("reminder", :scope => "controller"), info_path, :class => "not_effect") %></h1>
       <%= render :partial => "/sessions/user_bar"  -%>
     </div>
 

@@ -68,6 +68,7 @@ ja:
       update: アカウント名設定
   links:
     logout: ログアウト
+    info: このサイトについて
     signup: ユーザー登録
     login: ログイン
     close_window: ウィンドウを閉じる

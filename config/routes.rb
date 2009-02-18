@@ -44,6 +44,7 @@ ActionController::Routing::Routes.draw do |map|
   # consider removing the them or commenting them out if you're using named routes and resources.
   map.openid "login", :controller => "sessions" , :requirements => { :method => :get }
   map.logout 'logout', :controller => "sessions", :action => "destroy", :requirements => { :method => :delete }
+  map.info 'info', :controller => "sessions", :action => "index"
   map.connect ':user/sessions/:action', :controller => "sessions"
   
   map.connect ':user', :controller => "reminders", :action => "index"
