@@ -92,6 +92,12 @@ class RemindersControllerTest < ActionController::TestCase
     assert_template "index"
   end
 
+  test "should get check" do
+    get :check, :id => reminders(:learned_remined_1).id
+    assert_response :redirect
+    assert_redirected_to :action => :today, :user => @user.login
+  end
+
   test "should xhr check" do
     xhr :get, :check, :id => reminders(:learned_remined_1).id, :user => @user.login
     assert_select_rjs :replace, "reminder_#{reminders(:learned_remined_1).id}"
