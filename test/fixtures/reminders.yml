@@ -64,4 +64,3 @@ list_reminder:
   <<: *DEFAULT
   title: hogehoge
   next_learn_date: <%= Date.tomorrow %>
-  created_at: <%= Date.yesterday %>
