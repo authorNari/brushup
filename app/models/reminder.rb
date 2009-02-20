@@ -32,7 +32,7 @@ class Reminder < ActiveRecord::Base
   named_scope :today, :conditions => ["next_learn_date <= ?", Date.today]
   named_scope :without_today, :conditions => ["next_learn_date > ?", Date.today]
   named_scope :tagged_with, lambda{|tags| find_options_for_find_tagged_with(tags) }
-  named_scope :order_by_created, :order => "'created_at' DESC"
+  named_scope :order_by_created, :order => "reminders.created_at DESC"
 
   def attributes=(params, gard=true)
     super

@@ -1,25 +1,24 @@
-xml.instruct! :xml, :version => "1.0", :encoding => "UTF-8"
-xml.rss('version' => '2.0') do
+xml.instruct!
+ 
+xml.rss("version"    => "2.0",
+        "xmlns:dc"   => "http://purl.org/dc/elements/1.1/",
+        "xmlns:atom" => "http://www.w3.org/2005/Atom") do
   xml.channel do
     xml.title t(params["action"], :scope => [:controller, controller_name])
-    xml.link(request.protocol + request.host_with_port + url_for(:rss => nil))
-    xml.description(t(params["action"], :scope => [:controller, controller_name]))
-    xml.language "ja"
-    xml.ttl "40"
+    xml.link info_url
+    xml.pubDate     Time.now.gmtime.rfc822
+    xml.description t(params["action"], :scope => [:controller, controller_name])
+    xml.atom :link, "href" => action_path(params["action"]), "rel" => "self", "type" => "application/rss+xml"
+ 
     @reminders.each do |r|
       xml.item do
-        xml.title(r.title)
-        xml.link(request.protocol + request.host_with_port + url_for(:controller => 'reminders', :action => 'show', :id => r.id))
-        xml.description(r.body)
-        xml.content do
-          e = "<![CDATA[#{r.body}<br/>"
-          e << link_to(t(:check, :scope => [:railties, :scaffold]), url_for(:controller => 'reminders', :action => 'check', :id => r.id)) if r.today_remind?
-          e << "]]>"
-          xml.encoded e
-        end
-        xml.guid(request.protocol + request.host_with_port +
-                 url_for(:controller => 'reminders', :action => 'show', :id => r.id))
-        xml.pubDate(r.created_at.strftime("%a, %d %b %Y %H:%M:%S %Z"))
+        xml.title        r.title
+        xml.link         url_for(action_path(:show, :id => r.id, :only_path => false))
+        xml.guid         url_for(action_path(:show, :id => r.id, :only_path => false))
+        xml.description  r.body.gsub("\r\n", "<br/>")
+        p r.created_at.to_formatted_s(:rfc822)
+        xml.pubDate      r.created_at.gmtime.to_formatted_s(:rfc822)
+        xml.dc :creator, "nari"
       end
     end
   end

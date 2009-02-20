@@ -20,13 +20,17 @@ class ReminderTest < ActiveSupport::TestCase
   end
   
   test "should lists" do
-    size =
+    expect_rems =
       Reminder.find(:all,
                     :conditions =>
                     ["(completed is null OR completed = ?) AND next_learn_date > ? AND user_id = ?",
-                     false, Date.today, users(:nari).id]).size
+                     false, Date.today, users(:nari).id],
+                    :order => "created_at DESC")
     
-    assert_equal size, Reminder.lists(users(:nari).id).size
+    
+    assert_equal expect_rems.size, Reminder.lists(users(:nari).id).size
+    target_rems = Reminder.lists(users(:nari).id)
+    expect_rems.size.times{|i| assert_equal target_rems[i].id, expect_rems[i].id }
   end
   
   test "should lists with tags" do

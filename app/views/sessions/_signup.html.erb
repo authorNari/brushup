@@ -1,5 +1,6 @@
 <% form_tag(:controller => "sessions", :action => "create", :method => :post) do -%>
 <ul>
+  <li><%= link_to t("info", :scope => [:links]), info_path -%></li>
   <li>
     <label for="openid_url" >
       OpenID
