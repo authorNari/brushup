@@ -4,7 +4,7 @@ xml.rss("version"    => "2.0",
         "xmlns:dc"   => "http://purl.org/dc/elements/1.1/",
         "xmlns:atom" => "http://www.w3.org/2005/Atom") do
   xml.channel do
-    xml.title t(params["action"], :scope => [:controller, controller_name])
+    xml.title "#{t(params["action"], :scope => [:controller, controller_name])} - #{@user.login}"
     xml.link info_url
     xml.pubDate     Time.now.gmtime.rfc822
     xml.description t(params["action"], :scope => [:controller, controller_name])
@@ -18,7 +18,7 @@ xml.rss("version"    => "2.0",
         xml.description  r.body.gsub("\r\n", "<br/>")
         p r.created_at.to_formatted_s(:rfc822)
         xml.pubDate      r.created_at.gmtime.to_formatted_s(:rfc822)
-        xml.dc :creator, "nari"
+        xml.dc :creator, r.user.login
       end
     end
   end
