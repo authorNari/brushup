@@ -4,8 +4,7 @@
     <div class="show-title">
       <h2><%= h(reminder.title) -%></h2>
         <span id="reminders_check_<%= reminder.id -%>">
-          <%= link_to_remote t(:check, :scope => [:railties, :scaffold]), 
-          :url => {:action => :check, :id => reminder.id} if reminder.today_remind? -%>
+          <%= check_link(reminder) -%>
         </span>
     </div>
     <div class="show-body">

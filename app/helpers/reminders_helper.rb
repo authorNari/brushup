@@ -21,4 +21,10 @@ module RemindersHelper
       yield tag.first, classes[index]
     end
   end
+
+  def check_link(reminder)
+    if reminder.today_remind? && current_user?
+      return link_to_remote(t(:check, :scope => [:railties, :scaffold]), :url => {:action => :check, :id => reminder.id})
+    end
+  end
 end
