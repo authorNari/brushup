@@ -1,0 +1,41 @@
+= SessionLifetime
+
+SessionLifetime is a plugin which allows you to set a lifetime on your session. You can set it to expire the session 1 hour after the last activity.
+Note: you must also set the cookie expiration time using the Rails 'session' function, as the default is reset session on browser close.
+
+== Example
+  class ApplicationController << ActionController::Base
+    session :session_expires_after => 1.year
+    expires_session :time => 90.days
+    
+    private
+    def on_session_create
+      # welcome flash, database setup etc.
+    end
+
+    def on_session_expiry
+      # flash, database cleanup etc.
+    end
+  end
+  
+Or you can give some options:
+* :time - After how much time of inactivity should the session be invalidated. Default is 1 hour
+* :redirect_to - Where should we redirect the user to once their session has expired
+* :on_session_create - Takes a Proc or a lamba which gives you a callback after the session creation. This is useful for setting a flash message or something in the database which must be set for every session.
+* :on_session_expiry - Takes a Proc or a lamba which gives you a callback after the session invalidation. This is useful for setting a flash message or something in the database.
+
+  class ApplicationController << ActionController::Base
+    expires_session :time => 2.hours, :redirect_to => '/login', :on_session_expiry => lambda {
+      flash[:notice] = "Your session has been expired, and you have been logged out."
+    }
+  end
+
+If you want a controller not to have expiring_session you can use +skip_before_filter+:
+  class SessionController << ApplicationController
+    skip_before_filter :check_session_lifetime, :only => [:new, :create]
+  end
+
+== Missing something?
+I wrote this plugin to solve the problems I had with default Rails session handling. If you have an additional need which you think would be great for this plugin, give me a shout at sessionlifetime@defv.be, or through GitHub, and I'll be more then happy to implement your proposal.
+
+Copyright (c) 2008 Jan De Poorter, released under the MIT license
