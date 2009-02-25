@@ -29,8 +29,8 @@ class Reminder < ActiveRecord::Base
   named_scope :user, lambda{|user_id| {:conditions => ["#{table_name}.user_id = ?", user_id]} }
   named_scope :completed, :conditions => {:completed => true}
   named_scope :list, :conditions => ["completed is null OR completed = ?", false]
-  named_scope :today, :conditions => ["next_learn_date <= ?", Date.today]
-  named_scope :without_today, :conditions => ["next_learn_date > ?", Date.today]
+  named_scope :today, lambda{|date| {:conditions => ["next_learn_date <= ?", date]} }
+  named_scope :without_today, lambda{|date| {:conditions => ["next_learn_date > ?", date]}}
   named_scope :tagged_with, lambda{|tags| find_options_for_find_tagged_with(tags) }
   named_scope :order_by_created, :order => "reminders.created_at DESC"
 
@@ -44,7 +44,7 @@ class Reminder < ActiveRecord::Base
 
   # get today reminders
   def self.todays(user_id, tag=nil)
-    return user(user_id).tagged_with(tag).list.today.order_by_created
+    return user(user_id).tagged_with(tag).list.today(Date.today).order_by_created
   end
 
   def self.completeds(user_id, tag=nil)
@@ -52,7 +52,7 @@ class Reminder < ActiveRecord::Base
   end
 
   def self.lists(user_id, tag=nil)
-    return user(user_id).tagged_with(tag).list.without_today.order_by_created
+    return user(user_id).tagged_with(tag).list.without_today(Date.today).order_by_created
   end
   
   def today_remind?
