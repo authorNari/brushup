@@ -54,6 +54,7 @@ class RemindersController < ApplicationController
   end
 
   def today
+    @show_reminder_detail = true
     @reminders = Reminder.todays(@user.id, params["tag"]).paginate(:page => params[:page])
     list
   end

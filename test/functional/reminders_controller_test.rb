@@ -81,6 +81,7 @@ class RemindersControllerTest < ActionController::TestCase
   test "should get today" do
     get :today, :user => @user.login
     assert_not_nil assigns(:reminders)
+    assert_not_nil assigns(:show_reminder_detail)
     assert_response :success
     assert_template "index"
    end

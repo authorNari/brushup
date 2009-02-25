@@ -27,4 +27,10 @@ module RemindersHelper
       return link_to_remote(t(:check, :scope => [:railties, :scaffold]), :url => {:action => :check, :id => reminder.id})
     end
   end
+
+  def hidden_reminder_detail
+    unless @show_reminder_detail
+      return "style='display:none;'"
+    end
+  end
 end

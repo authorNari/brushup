@@ -72,6 +72,7 @@ ja:
     signup: ユーザー登録
     login: ログイン
     close_window: ウィンドウを閉じる
+    hide_detail: 詳細切替
   text:
     logged_in: ログイン中
     to_complete_count: "あと {{count}} 回"
