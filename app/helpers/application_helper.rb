@@ -22,4 +22,18 @@ module ApplicationHelper
   def display_date(date)
     return date.strftime("%Y年%m月%d日")
   end
+
+  def brushup_text_field_with_auto_complete(field, method, tag_options, completion_options)
+    returning "" do |html|
+      unless completion_options[:skip_style]
+        html << auto_complete_stylesheet
+      end
+
+      html << field.text_field(method, tag_options.update(:id => "tag_name"))
+      html << content_tag("div", "", :id => "tag_name_auto_complete", :class => "auto_complete")
+      html << auto_complete_field("tag_name", 
+        {:url => {:action => "auto_complete_for_tag_name"}}.update(completion_options)
+      )
+    end
+  end
 end

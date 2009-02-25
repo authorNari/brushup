@@ -3,6 +3,8 @@ class RemindersController < ApplicationController
   before_filter :authorize, :only => %w(new create destroy edit update check)
   before_filter :set_jumpto
 
+  auto_complete_for :tag, :name
+  
   def index
     redirect_to(:action => :today, :user => (params["user"] || @user.login))
   end
@@ -90,6 +92,15 @@ class RemindersController < ApplicationController
     end
   end
 
+  def auto_complete_for_tag_name
+    @items = @user.reminders.inject([]) do |r, rm|
+      rm.tags.each{|t| r << t if /\A#{params[:tag][:name].downcase}/ =~ t.name }
+      r
+    end
+
+    render :inline => "<%= auto_complete_result @items, 'name' %>"
+  end
+  
   private
   def tag_counts(reminders)
     tags = {}

@@ -33,6 +33,11 @@ class Reminder < ActiveRecord::Base
   named_scope :without_today, lambda{|date| {:conditions => ["next_learn_date > ?", date]}}
   named_scope :tagged_with, lambda{|tags| find_options_for_find_tagged_with(tags) }
   named_scope :order_by_created, :order => "reminders.created_at DESC"
+  named_scope :complete_tag_name_with, lambda{|tag_name|
+    {:conditions => [ "LOWER(tag.name) LIKE ?", "%#{tag_name.downcase}%"], 
+      :order => "name ASC",
+      :limit => 10}
+  }
 
   def attributes=(params, gard=true)
     super

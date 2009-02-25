@@ -115,10 +115,19 @@ class RemindersControllerTest < ActionController::TestCase
       expires_session :time => 1.second, :redirect_to => '/'
     end
     get :index, :user => @user.login
-    sleep 2
+    sleep 1
     get :index, :user => @user.login
     
     assert_redirected_to '/'
     assert_equal I18n.t(:session_expired, :scope => %w(notice)), flash[:notice]
+  end
+
+  test "auto complete for tag name" do
+    get :auto_complete_for_tag_name, :tag => {:name => "a"}
+
+    assert_response :success
+    assert_select "ul>li" do
+      assert_select "li"
+    end
   end
 end
