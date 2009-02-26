@@ -1,0 +1,9 @@
+reminder_tags_apple:
+  tag: apple
+  taggable: learned_remined_1
+  taggable_type: Reminder
+  
+reminder_tags_orange:
+  tag: orange
+  taggable: learned_remined_1
+  taggable_type: Reminder

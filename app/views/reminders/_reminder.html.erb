@@ -3,20 +3,21 @@
   <div class="show">
     <div class="show-title">
       <h2><%= h(reminder.title) -%></h2>
-        <span id="reminders_check_<%= reminder.id -%>">
-          <%= link_to_remote t(:check, :scope => [:railties, :scaffold]), 
-          :url => {:action => :check, :id => reminder.id} if reminder.today_remind? -%>
-        </span>
+      <%= link_to_function(t(:hide_detail, :scope => %w(links)), "$('reminder_#{reminder.id}_detail').toggle()") unless @show_reminder_detail %>
+      <span id="reminders_check_<%= reminder.id -%>">
+        <%= check_link(reminder) -%>
+      </span>
     </div>
-    <div class="show-body">
-      <pre>
+    <div id="reminder_<%= reminder.id %>_detail" <%= hidden_reminder_detail -%>>
+      <div class="show-body">
+        <pre>
 <%=h reminder.body %>
-      </pre>
-    </div>
-    <div class="show-tags">
-      <b><%=h Reminder.human_attribute_name("tag_list") %> : </b><%=h reminder.tag_list %>
-    </div>
-    <% unless reminder.completed? %>
+        </pre>
+      </div>
+      <div class="show-tags">
+        <b><%=h Reminder.human_attribute_name("tag_list") %> : </b><%=h reminder.tag_list %>
+      </div>
+      <% unless reminder.completed? %>
       <div class="show-date">
         <b><%=h Reminder.human_attribute_name('learned_at') %> : </b><%=h display_date(reminder.learned_at) %>
       </div>
@@ -24,7 +25,8 @@
         <b><%=h Reminder.human_attribute_name('next_learn_date') %> : </b><%=h display_date(reminder.next_learn_date) %>
         (<%= t(:to_complete_count, :scope => :text, :count => reminder.to_complete_count) %>)
       </div>
-    <% end %>
+      <% end %>
+    </div>
     <% if current_user? %>
     <table>
       <tr>

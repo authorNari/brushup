@@ -76,14 +76,15 @@ class RemindersControllerTest < ActionController::TestCase
     end
 
     assert_redirected_to :action => :list, :user => @user.login
-  end
+   end
 
   test "should get today" do
     get :today, :user => @user.login
     assert_not_nil assigns(:reminders)
+    assert_not_nil assigns(:show_reminder_detail)
     assert_response :success
     assert_template "index"
-  end
+   end
 
   test "should get completed" do
     get :completed, :user => @user.login
@@ -108,5 +109,26 @@ class RemindersControllerTest < ActionController::TestCase
     get :edit, :user => @user.login
     assert_equal I18n.t("permission_denied", :scope => :notice), flash[:notice]
     assert_redirected_to openid_path
+  end
+
+  test "should session expired" do
+    RemindersController.class_eval do
+      expires_session :time => 1.second, :redirect_to => '/'
+    end
+    get :index, :user => @user.login
+    sleep 1
+    get :index, :user => @user.login
+    
+    assert_redirected_to '/'
+    assert_equal I18n.t(:session_expired, :scope => %w(notice)), flash[:notice]
+  end
+
+  test "auto complete for tag name" do
+    get :auto_complete_for_tag_name, :tag => {:name => "a"}
+
+    assert_response :success
+    assert_select "ul>li" do
+      assert_select "li"
+    end
   end
 end

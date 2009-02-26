@@ -64,3 +64,7 @@ list_reminder:
   <<: *DEFAULT
   title: hogehoge
   next_learn_date: <%= Date.tomorrow %>
+
+list_reminder:
+  <<: *DEFAULT
+  next_learn_date: <%= Date.today %>

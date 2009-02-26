@@ -25,7 +25,13 @@ class ApplicationController < ActionController::Base
   
   I18n.default_locale = "ja"
 
+  expires_session :time => 30.days, :redirect_to => '/'
+  
   private
+  def on_session_expiry
+    flash[:notice] = t(:session_expired, :scope => %w(notice))
+  end
+  
   def authorize
     if !session[:user_id] ||
         !@user ||
