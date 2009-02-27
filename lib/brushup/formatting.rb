@@ -1,20 +1,21 @@
 module Brushup::Formatting
   @@formatters = {}
-  @@formatter_keys = []
+  @@format_types = []
 
-  def self.formatter_keys
-    @@formatter_keys
+  def self.format_types
+    @@format_types
   end
   
   def self.register(name, formatter)
-    name = name.to_sym
+    name = self.name_to_sym(name)
     raise ArgumentError, "format name '#{name}' is already taken" if @@formatters[name]
     @@formatters[name] = formatter
-    @@formatter_keys << name
+    @@format_types << name
   end
     
   def self.formatter_for(name)
-    formatter = @@formatters[name.to_sym]
+    name = self.name_to_sym(name)
+    formatter = @@formatters[name]
     formatter || Brushup::Formatting::DefaultFormatter
   end
     
@@ -32,5 +33,11 @@ module Brushup::Formatting
     def to_html(*args)
       simple_format(auto_link(CGI::escapeHTML(@text)))
     end
+  end
+
+  private
+  def self.name_to_sym(str)
+    str = "_default" unless str
+    str = str.to_sym
   end
 end

@@ -27,6 +27,7 @@ ja:
         next_learn_date: 次の復習日
         created_at: "作成日"
         updated_at: "更新日"
+        format: ドキュメント形式
       schedules: 
         level: "レベル"
         span: "期間"
@@ -85,4 +86,8 @@ ja:
   paginate:
     prev_label: "&laquo; 前へ"
     next_label: "次へ &raquo;"
+  format_type:
+    default: なし
+    rd: RD
+    textile: Textile
 

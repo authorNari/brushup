@@ -10,9 +10,7 @@
     </div>
     <div id="reminder_<%= reminder.id %>_detail" <%= hidden_reminder_detail -%>>
       <div class="show-body">
-        <pre>
-<%=h reminder.body %>
-        </pre>
+        <%= reminder.body.untaint %>
       </div>
       <div class="show-tags">
         <b><%=h Reminder.human_attribute_name("tag_list") %> : </b><%=h reminder.tag_list %>

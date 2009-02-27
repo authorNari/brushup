@@ -164,8 +164,8 @@ module RD
       anchor = get_anchor(element)
       label = hyphen_escape(element.label)
       title = title.join("")
-      %Q[<h#{element.level}><a name="#{anchor}" id="#{anchor}">#{title}</a>] +
-      %Q[</h#{element.level}><!-- RDLabel: "#{label}" -->]
+      %Q[<h#{element.level}>#{title}] +
+      %Q[</h#{element.level}>]
     end
 
     # RDVisitor#apply_to_Include 
@@ -253,10 +253,10 @@ module RD
       label = hyphen_escape(element.label)
       term = term.join("")
       if description.empty?
-	%Q[<dt><a name="#{anchor}" id="#{anchor}">#{term}</a></dt>] +
+	%Q[<dt>#{term}</dt>] +
 	%Q[<!-- RDLabel: "#{label}" -->]
       else
-        %Q[<dt><a name="#{anchor}" id="#{anchor}">#{term}</a></dt>] +
+        %Q[<dt>#{term}</dt>] +
         %Q[<!-- RDLabel: "#{label}" -->\n] +
         %Q[<dd>\n#{description.join("\n").chomp}\n</dd>]
       end

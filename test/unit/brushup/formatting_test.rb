@@ -15,7 +15,7 @@ class FormattingTest < ActiveSupport::TestCase
   end
 
   test "to html" do
-    assert_equal "<p><a href=\"http://hoge\">http://hoge</a></p>", Brushup::Formatting.to_html("default", "http://hoge")
+    assert_equal "<p>http://hoge</p>", Brushup::Formatting.to_html("default", "http://hoge")
   end
 
   test "to html rd" do

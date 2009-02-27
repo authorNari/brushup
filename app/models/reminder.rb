@@ -19,11 +19,6 @@ class Reminder < ActiveRecord::Base
   belongs_to :user
   belongs_to :schedule
 
-  cattr_reader :per_page
-  @@per_page = 20
-  
-  validates_presence_of :title, :body
-  
   acts_as_taggable
   
   named_scope :user, lambda{|user_id| {:conditions => ["#{table_name}.user_id = ?", user_id]} }
@@ -39,6 +34,11 @@ class Reminder < ActiveRecord::Base
       :limit => 10}
   }
 
+  validates_presence_of :title, :body
+  
+  cattr_reader :per_page
+  @@per_page = 20
+  
   def attributes=(params, gard=true)
     super
     self.schedule = Schedule.first_level
@@ -86,7 +86,10 @@ class Reminder < ActiveRecord::Base
     self.tag_list_without_convert=str
   end
   alias_method_chain :tag_list=, :convert
-  
+
+  def body
+    Brushup::Formatting.to_html(self.format, self["body"])
+  end
   
   private
   def get_next_learn_date(schedule)
