@@ -33,4 +33,18 @@ module RemindersHelper
       return "style='display:none;'"
     end
   end
+
+  def confirm_mode? 
+    return params[:mode] == "confirm"
+  end
+
+  def auto_complete_for_tag(field)
+    if confirm_mode?
+      field.text_field :tag_list
+    else
+      brushup_text_field_with_auto_complete(field, :tag_list,
+                                            {:autocomplete => "off"}, 
+                                            {:param_name => 'tag[name]', :method => 'get', :tokens => ['　',' ']})
+    end
+  end
 end

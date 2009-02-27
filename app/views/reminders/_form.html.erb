@@ -8,10 +8,7 @@
     </div>
     <div>
       <%=h Reminder.human_attribute_name("tag_list") %> <small>※スペース区切り</small><br/>
-      <%= brushup_text_field_with_auto_complete(f, :tag_list,
-            {:autocomplete => "off"}, 
-            {:param_name => 'tag[name]', :method => 'get', :tokens => ['　',' ']})
-      -%>
+      <%= auto_complete_for_tag(f) -%>
       <br/>
     </div>
     <div>
