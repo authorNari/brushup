@@ -2,7 +2,7 @@
 <li id="reminder_<%= reminder.id -%>" class="show">
   <div class="show">
     <div class="show-title">
-      <h2><%= h(reminder.title) -%></h2>
+      <h2><%= link_to(h(reminder.title), action_path(:show, :id => reminder.id)) -%></h2>
       <%= link_to_function(t(:hide_detail, :scope => %w(links)), "$('reminder_#{reminder.id}_detail').toggle()") unless @show_reminder_detail %>
       <span id="reminders_check_<%= reminder.id -%>">
         <%= check_link(reminder) -%>
