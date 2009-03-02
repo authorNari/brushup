@@ -259,3 +259,49 @@ div#logo {
   background:transparent url(../images/bookmarkleticon.png) no-repeat scroll 0 50%;
   padding: 15px 0 15px 50px;
 }
+
+/* for formatter */
+.show-body h1 {
+  font-size: 2em;
+  font-weight: normal;
+}
+
+.show-body h2 {
+  font-size: 1.8em;
+  font-weight: normal;
+}
+
+.show-body h3 {
+  font-size: 1.6em;
+  font-weight: normal;
+}
+
+.show-body h4 {
+  font-size: 1.4em;
+  font-weight: normal;
+}
+
+.show-body h5 {
+  font-size: 1.2em;
+  font-weight: normal;
+}
+
+.show-body h6 {
+  font-size: 1.2em;
+  font-weight: normal;
+}
+
+.show-body ul li {
+  font-size: 1em;
+  list-style: square;
+  margin: 5px 30px;
+  padding: 0px;
+}
+
+.show-body ol li {
+  font-size: 1em;
+  list-style: decimal;
+  margin: 5px 30px;
+  padding: 0px;
+}
+

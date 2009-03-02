@@ -74,4 +74,10 @@ class ReminderTest < ActiveSupport::TestCase
     reminders(:level_2_reminder).tag_list = "hoge　fuge"
     assert_equal 2, reminders(:level_2_reminder).tag_list.size
   end
+
+  test "should body with formatter" do
+    reminders(:level_2_reminder).format = "default"
+    reminders(:level_2_reminder).body = "http://hoge"
+    assert_equal "<p><a href=\"http://hoge\">http://hoge</a></p>", reminders(:level_2_reminder).body
+  end
 end

@@ -26,7 +26,7 @@ class RemindersController < ApplicationController
 
     if @reminder.save
       flash[:notice] = I18n.t(:created_success, :model => Reminder.human_name, :scope => [:notice])
-      return render(:template => "/share/autoclose") if params[:mode] == "confirm"
+      return render(:template => "/share/autoclose") if @template.confirm_mode?
       redirect_to(:action => :list, :user => @user.login) 
     else
       logger.debug "DEBUG(create): @reminder = <#{@reminder.to_yaml}>"
@@ -79,6 +79,7 @@ class RemindersController < ApplicationController
     reminder = Reminder.find(params[:id])
     
     if reminder && reminder.update_learned!
+      @show_reminder_detail = true
       respond_to do |format|
         format.html { index }
         format.js do

@@ -68,3 +68,8 @@ list_reminder:
 list_reminder:
   <<: *DEFAULT
   next_learn_date: <%= Date.today %>
+
+rd_body_reminder:
+  <<: *DEFAULT
+  body: = hoge\n fugefuge
+  format: rd

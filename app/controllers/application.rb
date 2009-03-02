@@ -25,7 +25,8 @@ class ApplicationController < ActionController::Base
   
   I18n.default_locale = "ja"
 
-  expires_session :time => 30.days, :redirect_to => '/'
+  session :session_expires_after => 1.year
+  expires_session :time => 30.days
   
   private
   def on_session_expiry

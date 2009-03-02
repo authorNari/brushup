@@ -42,6 +42,14 @@ class RemindersControllerTest < ActionController::TestCase
     assert_redirected_to :action => :list, :user => @user.login
   end
 
+  test "should create auto close" do
+    assert_difference('Reminder.count') do
+      post :create, :reminder => {:title => "new", :body => "body"}, :user => @user.login, :mode => "confirm"
+    end
+
+    assert_template "share/autoclose.html.erb"
+  end
+
   test "should create fail" do
     assert_difference('Reminder.count', 0) do
       post :create, :reminder => {:title => nil}, :user => @user.login
