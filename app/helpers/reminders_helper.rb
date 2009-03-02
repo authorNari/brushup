@@ -47,4 +47,8 @@ module RemindersHelper
                                             {:param_name => 'tag[name]', :method => 'get', :tokens => ['　',' ']})
     end
   end
+
+  def back_list_url
+    session[:list_referer] ? session[:list_referer] : action_path(:index)
+  end
 end

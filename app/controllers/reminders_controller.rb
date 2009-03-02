@@ -2,6 +2,8 @@ class RemindersController < ApplicationController
   before_filter :set_user
   before_filter :authorize, :only => %w(new create destroy edit update check)
   before_filter :set_jumpto
+  before_filter :save_session_list_referer, :only => %w(show new edit)
+  before_filter :delete_session_list_referer, :only => %w(index)
 
   auto_complete_for :tag, :name
   
@@ -27,7 +29,7 @@ class RemindersController < ApplicationController
     if @reminder.save
       flash[:notice] = I18n.t(:created_success, :model => Reminder.human_name, :scope => [:notice])
       return render(:template => "/share/autoclose") if @template.confirm_mode?
-      redirect_to(:action => :list, :user => @user.login) 
+      redirect_to(:action => :show, :id => @reminder.id, :user => @user.login)
     else
       logger.debug "DEBUG(create): @reminder = <#{@reminder.to_yaml}>"
       render(:user => @user.login, :action => "new")
@@ -39,7 +41,7 @@ class RemindersController < ApplicationController
 
     if @reminder.update_attributes(params[:reminder])
       flash[:notice] = I18n.t(:updated_success, :model => Reminder.human_name, :scope => [:notice])
-      redirect_to(:action => :list, :user => @user.login)
+      redirect_to(:action => :show, :id => @reminder.id, :user => @user.login)
     else
       logger.debug "DEBUG(update): @reminder = <#{@reminder.to_yaml}>"
       render(:user => @user.login, :action => "edit")
@@ -102,8 +104,16 @@ class RemindersController < ApplicationController
 
     render :inline => "<%= auto_complete_result @items, 'name' %>"
   end
-  
+
   private
+  def save_session_list_referer
+    session[:list_referer] = request.referer
+  end
+  
+  def delete_session_list_referer
+    session[:list_referer] = request.referer
+  end
+  
   def tag_counts(reminders)
     tags = {}
     reminders.each{|r| r.tag_counts.each{|t| tags[t.name] ||= []; tags[t.name] << t }}
