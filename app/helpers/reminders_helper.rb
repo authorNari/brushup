@@ -47,4 +47,16 @@ module RemindersHelper
                                             {:param_name => 'tag[name]', :method => 'get', :tokens => ['　',' ']})
     end
   end
+
+  def back_list_url
+    session[:list_referer] ? session[:list_referer] : action_path(:index)
+  end
+
+  def rss_title
+    if params[:tag]
+      "#{t(params[:action], :scope => [:controller, controller_name])}/#{params[:tag]} - #{@user.login}"
+    else
+      "#{t(params[:action], :scope => [:controller, controller_name])} - #{@user.login}"
+    end
+  end
 end

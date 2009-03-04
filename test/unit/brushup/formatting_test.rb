@@ -15,11 +15,11 @@ class FormattingTest < ActiveSupport::TestCase
   end
 
   test "to html" do
-    assert_equal "<p>http://hoge</p>", Brushup::Formatting.to_html("default", "http://hoge")
+    assert_equal "<p><a href=\"http://hoge\">http://hoge</a></p>", Brushup::Formatting.to_html("default", "http://hoge")
   end
 
   test "to html rd" do
-    assert_equal "<h2><a name=\"label-0\" id=\"label-0\">http://hoge</a></h2><!-- RDLabel: \"http://hoge\" -->", Brushup::Formatting.to_html(:rd, "== http://hoge")
+    assert_equal "<h2>http://hoge</h2>", Brushup::Formatting.to_html(:rd, "== http://hoge")
   end
 
   test "to html textile" do

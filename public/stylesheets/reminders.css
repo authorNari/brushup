@@ -217,7 +217,7 @@ div#forget-body div.main div.show-title h2 {
 }
 
 div#forget-body div.main div.show-title h2 a {
-  color:#0000DD;
+  color:#000000;
   text-decoration:none;
 }
 
@@ -262,33 +262,33 @@ div#logo {
 
 /* for formatter */
 .show-body h1 {
-  font-size: 2em;
-  font-weight: normal;
+  font-size: 1.5em;
+  font-weight: bold;
 }
 
 .show-body h2 {
-  font-size: 1.8em;
-  font-weight: normal;
+  font-size: 1.4em;
+  font-weight: bold;
 }
 
 .show-body h3 {
-  font-size: 1.6em;
-  font-weight: normal;
+  font-size: 1.3em;
+  font-weight: bold;
 }
 
 .show-body h4 {
-  font-size: 1.4em;
-  font-weight: normal;
+  font-size: 1.2em;
+  font-weight: bold;
 }
 
 .show-body h5 {
-  font-size: 1.2em;
-  font-weight: normal;
+  font-size: 1.1em;
+  font-weight: bold;
 }
 
 .show-body h6 {
-  font-size: 1.2em;
-  font-weight: normal;
+  font-size: 1em;
+  font-weight: bold;
 }
 
 .show-body ul li {
