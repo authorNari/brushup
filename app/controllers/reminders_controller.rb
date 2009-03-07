@@ -134,7 +134,6 @@ class RemindersController < ApplicationController
   end
 
   def add_crumb_list_action
-    
     add_crumb(t(@template.back_list_path[:action], :scope => [:controller, controller_name]), @template.back_list_path)
   end
   

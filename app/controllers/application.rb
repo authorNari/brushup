@@ -73,6 +73,6 @@ class ApplicationController < ActionController::Base
   end
 
   def add_crumb_current_action
-    add_crumb( h(t(params[:action], :scope => [:controller, controller_name])))
+    add_crumb( ERB::Util.h(t(params[:action], :scope => [:controller, controller_name])))
   end
 end
