@@ -67,7 +67,7 @@ h2 {
 }
 
 #forget-body {
-  border-top:1px solid #DDDDDD;
+  border-top:1px solid #57B3E0;
   margin:-1px 0 0;
   overflow:hidden;
   padding:0 290px 10px 10px;
@@ -115,21 +115,23 @@ ul.menu {
 }
 
 ul.menu li {
-  background: transparent url(../images/kakumaru_base.gif) no-repeat scroll left -160px;
   float:left;
+  border: 1px solid #57B3E0;
+  background-color: #57B3E0;
   font-size:90%;
   margin-right:6px;
   padding-left:4px;
 }
 
 ul.menu li a {
-  background: transparent url(../images/kakumaru_base.gif) no-repeat scroll right -160px;
   display:block;
   padding:5px 10px 5px 6px;
   text-decoration:none;
+  color:#FFFFFF;
 }
 
 ul.menu li.current-menu {
+  background-color: #FFFFFF;
   background-position:left 0;
   border-bottom:1px solid #FFFFFF;
 }
@@ -206,7 +208,7 @@ div#forget-body div.main ul.show li.show {
 }
 
 div#forget-body div.main div.show {
-  border:1px solid #E4E4E4;
+  border:1px solid #57B3E0;
   padding: 7px;
   clear:both;
   color:#505050;
@@ -244,7 +246,7 @@ div#forget-explain-body {
 
 div#forget-explain-body div.explain h2 {
   font-size:1.5em;
-  border-bottom:1px solid #DDDDDD;
+  border-bottom:1px solid #57B3E0;
 }
 
 div#forget-explain-body div.explain h2 a {
@@ -305,3 +307,12 @@ div#logo {
   padding: 0px;
 }
 
+div#crumbs {
+  text-align: left;
+  padding: 10px 0 10px 25px;
+  font-size: 90%;
+}
+
+div.float-clear {
+  clear: both;
+}

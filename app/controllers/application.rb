@@ -71,4 +71,8 @@ class ApplicationController < ActionController::Base
       render :file=>"#{RAILS_ROOT}/public/500.html", :status=>'500 Error'
     end
   end
+
+  def add_crumb_current_action
+    add_crumb( h(t(params[:action], :scope => [:controller, controller_name])))
+  end
 end

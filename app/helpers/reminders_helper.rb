@@ -7,8 +7,9 @@ module RemindersHelper
     return %w(tag-light tag-normal tag-many tag-very-many)
   end
 
-  def title_tag_prefix
-    return h("/ #{params['tag']}(#{@reminders.size})") if params["tag"]
+  def title_tag_prefix(tag=nil)
+    tag = params["tag"] || tag
+    return h("/ #{tag}(#{@reminders.size})") if tag
   end
   
   def tag_cloud(tags, classes)
@@ -48,8 +49,12 @@ module RemindersHelper
     end
   end
 
-  def back_list_url
-    session[:list_referer] ? session[:list_referer] : action_path(:index)
+  def back_list_path
+    return session[:list_referer] ? session[:list_referer] : action_path(:index)
+  end
+  
+  def button_for_back_list
+    return button_to(t(back_list_path[:action], :scope => [:controller, controller_name]), back_list_path)
   end
 
   def rss_title

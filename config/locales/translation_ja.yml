@@ -52,15 +52,16 @@ ja:
     reminders:
       today: 今日の復習
       list: 復習一覧
-      memory: 覚えてしまったもの
       check_ok: OK!
       index: 復習一覧
-      completed: 覚えてしまった復習
-      new: 新規登録
-      create: 新規登録
-      edit: 編集
-      update: 編集
-      show: 表示
+      completed: 復習済み
+      new: 復習新規登録
+      create: 復習新規登録
+      edit: 復習編集
+      update: 復習編集
+      show: 復習表示
+      confirm_create: 復習登録確認
+      confirm_update: 復習編集確認
     sessions:
       new: アカウント新規作成
       create: アカウント新規作成
@@ -81,6 +82,7 @@ ja:
     created_success: "{{model}}を作成しました"
     updated_success: "{{model}}を更新しました"
     please_log_in: ログインしてください
+    fail_login: ログインに失敗しました
     permission_denied: 権限がありません
     session_expired: 30日以上ログインが無かったため、セッションが切れました。再度ログインしてください。
   paginate:

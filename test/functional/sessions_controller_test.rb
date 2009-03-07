@@ -1,15 +1,13 @@
 require File.join(File.dirname(__FILE__), '../test_helper')
 
-class SessionsController < ApplicationController
-  # for test
-  def authenticate(identity_url = "")
-    after_autenticate(true, params[:openid_url], "OK", "nickname" => "hoge")
-  end
-end
-
 class SessionsControllerTest < ActionController::TestCase
   def setup
     @request.session[:user_id] = users(:nari)
+    SessionsController.class_eval do
+      def authenticate(identity_url = "")
+        after_autenticate(true, params[:openid_url], "OK", "nickname" => "hoge")
+      end
+    end
   end
   
   test "shuold get index" do
@@ -39,6 +37,18 @@ class SessionsControllerTest < ActionController::TestCase
     assert_redirected_to sessions_path
   end
 
+  test "shuold create fail with exception" do
+    SessionsController.class_eval do
+      def authenticate(identity_url = "")
+        raise ActiveRecord::RecordNotSaved, "Error"
+      end
+    end
+    @request.session[:user_id] = nil
+    post :create, :user => users(:nari).id, :openid_url => users(:nari).openid_url
+    assert_not_nil flash[:notice]
+    assert_redirected_to :action => "index"
+  end
+
   test "shuold get edit" do
     get :edit, :user => users(:nari).id
     assert_not_nil assigns(:user)
@@ -59,5 +69,4 @@ class SessionsControllerTest < ActionController::TestCase
     assert_nil @request.session[:user_id]
     assert_redirected_to openid_path
   end
-  
 end
