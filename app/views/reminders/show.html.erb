@@ -22,17 +22,15 @@
               (<%= t(:to_complete_count, :scope => :text, :count => @reminder.to_complete_count) %>)
             </div>
           <% end %>
-          <% if current_user? %>
-            <div class="controll_left">
-              <%= button_to t(:check, :scope => [:railties, :scaffold]), action_path(:check, :id => @reminder.id) if @reminder.today_remind? -%>
-            </div>
-            <div class="controll_left">
-              <%= button_to t(:edit, :scope => [:railties, :scaffold]), action_path(:edit, :id => @reminder.id) -%>
-            </div>
-          <% end %>
-          <div>
-            <%= button_for_back_list %>
-          </div>
+          <table>
+            <tr>
+            <% if current_user? %>
+              <td><%= button_to t(:check, :scope => [:railties, :scaffold]), action_path(:check, :id => @reminder.id) if @reminder.today_remind? -%></td>
+              <td><%= button_to t(:edit, :scope => [:railties, :scaffold]), action_path(:edit, :id => @reminder.id) -%></td>
+            <% end %>
+              <td><%= button_for_back_list %></td>
+            </tr>
+          </table>
         </div>
       </li>
     </ul>
