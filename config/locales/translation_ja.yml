@@ -52,15 +52,16 @@ ja:
     reminders:
       today: 今日の復習
       list: 復習一覧
-      memory: 覚えてしまったもの
       check_ok: OK!
       index: 復習一覧
       completed: 復習済み
-      new: 新規登録
-      create: 新規登録
-      edit: 編集
-      update: 編集
-      show: 表示
+      new: 復習新規登録
+      create: 復習新規登録
+      edit: 復習編集
+      update: 復習編集
+      show: 復習表示
+      confirm_create: 復習登録確認
+      confirm_update: 復習編集確認
     sessions:
       new: アカウント新規作成
       create: アカウント新規作成

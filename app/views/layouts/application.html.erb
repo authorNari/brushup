@@ -14,6 +14,12 @@
       <%= render :partial => "/sessions/user_bar"  -%>
     </div>
 
+    <div class="float-clear"></div>
+
+    <div id="crumbs">
+      <%= render_crumbs %>
+    </div>
+
     <div id="annotation">
       <% if flash[:notice] %><p style="color: green"><%= flash[:notice].untaint %></p><% end %>
       <% if flash[:error] %><p style="color: red"><%= flash[:error].untaint %></p><% end %>

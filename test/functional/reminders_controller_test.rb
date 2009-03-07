@@ -39,7 +39,7 @@ class RemindersControllerTest < ActionController::TestCase
       post :create, :reminder => {:title => "new", :body => "body"}, :user => @user.login
     end
 
-    assert_redirected_to :action => :show, :id => assigns(:reminder).id, :user => @user.login
+    assert_redirected_to :action => :confirm_create, :id => assigns(:reminder).id, :user => @user.login
   end
 
   test "should create auto close" do
@@ -70,7 +70,7 @@ class RemindersControllerTest < ActionController::TestCase
 
   test "should update" do
     put :update, :id => reminders(:learned_remined_1).id, :reminder => { }, :user => @user.login
-    assert_redirected_to :action => :show, :id => assigns(:reminder).id, :user => @user.login
+    assert_redirected_to :action => :confirm_update, :id => assigns(:reminder).id, :user => @user.login
   end
 
   test "should update fail" do

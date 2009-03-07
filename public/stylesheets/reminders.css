@@ -307,3 +307,12 @@ div#logo {
   padding: 0px;
 }
 
+div#crumbs {
+  text-align: left;
+  padding: 10px 0 10px 25px;
+  font-size: 90%;
+}
+
+div.float-clear {
+  clear: both;
+}
