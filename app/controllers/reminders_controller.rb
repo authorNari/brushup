@@ -3,7 +3,7 @@ class RemindersController < ApplicationController
   before_filter :authorize, :only => %w(new create destroy edit update check)
   before_filter :set_jumpto
   before_filter :save_session_list_referer, :only => %w(show new edit)
-  before_filter :delete_session_list_referer, :only => %w(index)
+  before_filter :delete_session_list_referer, :only => %w(list)
 
   auto_complete_for :tag, :name
   
@@ -107,11 +107,11 @@ class RemindersController < ApplicationController
 
   private
   def save_session_list_referer
-    session[:list_referer] = request.referer
+    session[:list_referer] = request.referer if session[:list_referer].nil?
   end
   
   def delete_session_list_referer
-    session[:list_referer] = request.referer
+    session[:list_referer] = nil
   end
   
   def tag_counts(reminders)

@@ -1,4 +1,5 @@
 <div id="forget-header">
+  <%= render_crumbs %>
   <%= link_to(image_tag("rss_icon.gif", :style => "float:right;"), :action => params["action"], :format => "rss") %>
   <h2>
     <%= t(params["action"], :scope => [:controller, :reminders]) %>

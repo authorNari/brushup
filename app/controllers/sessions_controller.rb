@@ -42,7 +42,7 @@ class SessionsController < ApplicationController
   private
   def setup_user(identity_url, registration)
     @user = User.new(:openid_url => identity_url)
-    @user.login = unique_nickname(registration["nickname"])
+    @user.login = User.unique_nickname(registration["nickname"])
     @user.save!
     session[:user_id] = @user
     return @user
@@ -64,13 +64,5 @@ class SessionsController < ApplicationController
   def success_login
     session[:user_id] = @user
     redirect_to(:controller => "reminders", :user => @user.login, :action => :today)
-  end
-
-  def unique_nickname(nickname=nil)
-    nickname = "anonymous_#{rand(1000000)}" unless nickname
-    if User.find_by_login(nickname)
-      return unique_nickname("#{nickname}_#{rand(1000000)}")
-    end
-    return nickname
   end
 end
