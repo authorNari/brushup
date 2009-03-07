@@ -81,6 +81,7 @@ ja:
     created_success: "{{model}}を作成しました"
     updated_success: "{{model}}を更新しました"
     please_log_in: ログインしてください
+    fail_login: ログインに失敗しました
     permission_denied: 権限がありません
     session_expired: 30日以上ログインが無かったため、セッションが切れました。再度ログインしてください。
   paginate:
