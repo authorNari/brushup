@@ -36,7 +36,7 @@ class RemindersController < ApplicationController
 
     if @reminder.save
       flash[:notice] = I18n.t(:created_success, :model => Reminder.human_name, :scope => [:notice])
-      return render(:template => "/share/autoclose") if @template.confirm_mode?
+      return render(:template => "/share/autoclose") if @template.bookmarklet_window?
       redirect_to(:action => :confirm_create, :id => @reminder.id, :user => @user.login)
     else
       logger.debug "DEBUG(create): @reminder = <#{@reminder.to_yaml}>"

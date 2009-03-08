@@ -5,12 +5,12 @@ module RemindersHelper
     end
   end
 
-  def confirm_mode? 
-    return params[:mode] == "confirm"
+  def confirm_mode?
+    return bookmarklet_window?
   end
 
   def auto_complete_for_tag(field)
-    if confirm_mode?
+    if bookmarklet_window?
       field.text_field :tag_list
     else
       brushup_text_field_with_auto_complete(field, :tag_list,

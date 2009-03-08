@@ -11,13 +11,13 @@
   <body>
     <div id="header">
       <h1><%= link_to(t("reminder", :scope => "controller"), info_path, :class => "not_effect") %></h1>
-      <%= render :partial => "/sessions/user_bar"  -%>
+      <%= render :partial => "/sessions/user_bar" unless bookmarklet_window? -%>
     </div>
 
     <div class="float-clear"></div>
 
     <div id="crumbs">
-      <%= render_crumbs %>
+      <%= render_crumbs unless bookmarklet_window? %>
     </div>
 
     <div id="annotation">

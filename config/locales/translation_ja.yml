@@ -93,7 +93,7 @@ ja:
     updated_success: "{{model}}を更新しました"
     please_log_in: ログインしてください
     fail_login: ログインに失敗しました
-    permission_denied: 権限がありません
+    permission_denied: 権限がありません。ログインしてから再度試してください。
     session_expired: 30日以上ログインが無かったため、セッションが切れました。再度ログインしてください。
   paginate:
     prev_label: "&laquo; 前へ"

@@ -124,4 +124,8 @@ EOS
   def current_tag(action_name)
     return "current-menu"  if params["action"] == action_name
   end
+
+  def bookmarklet_window?
+    params[:mode] == "confirm"
+  end
 end
