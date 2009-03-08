@@ -6,7 +6,7 @@
       OpenID
     </label>
   </li>
-  <li><%= text_field_tag(:openid_url, {}, :class => "openid-url") -%></li>
+  <li><%= text_field_tag(:openid_url, {}, :class => "openid-url", :value => "ここにOpenIDを入力してください", :style => "color:gray;", :onfocus => "Brushup.clearInputValue($(this))") -%></li>
   <li><%= submit_tag(t("login", :scope => [:links])) -%></li>
 </ul>
 <% end -%>
