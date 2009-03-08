@@ -1,0 +1,31 @@
+<% fields_for reminder do |f| -%>
+<li id="reminder_<%= reminder.id -%>" class="show">
+  <div class="show">
+    <div class="show-username">
+      <%= link_to(h(reminder.user.login), action_path(:index, :user => reminder.user.login)) -%>
+      <%= t(:user_reminders, :scope => :text, :user => "") %>
+    </div>
+    <div class="show-title">
+      <h2><%= link_to(h(reminder.title), action_path(:show, :id => reminder.id)) -%></h2>
+      <%= link_to_function(t(:hide_detail, :scope => %w(links)), "$('reminder_#{reminder.id}_detail').toggle()") unless @show_reminder_detail %>
+    </div>
+    <div id="reminder_<%= reminder.id %>_detail" <%= hidden_reminder_detail -%>>
+      <div class="show-body">
+        <%= reminder.body.untaint %>
+      </div>
+      <div class="show-tags">
+        <b><%=h Reminder.human_attribute_name("tag_list") %> : </b><%=h reminder.tag_list %>
+      </div>
+      <% unless reminder.completed? %>
+      <div class="show-date">
+        <b><%=h Reminder.human_attribute_name('learned_at') %> : </b><%=h display_date(reminder.learned_at) %>
+      </div>
+      <div class="show-date">
+        <b><%=h Reminder.human_attribute_name('next_learn_date') %> : </b><%=h display_date(reminder.next_learn_date) %>
+        (<%= t(:to_complete_count, :scope => :text, :count => reminder.to_complete_count) %>)
+      </div>
+      <% end %>
+    </div>
+  </div>
+</li>
+<% end -%>

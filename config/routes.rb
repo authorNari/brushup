@@ -45,8 +45,16 @@ ActionController::Routing::Routes.draw do |map|
   map.openid "login", :controller => "sessions" , :requirements => { :method => :get }
   map.logout 'logout', :controller => "sessions", :action => "destroy", :requirements => { :method => :delete }
   map.info 'info', :controller => "sessions", :action => "index"
+
   map.connect ':user/sessions/:action', :controller => "sessions"
-  
+
+  map.connect 'timelines', :controller => "timelines", :action => "list"
+  map.connect 'timelines/:action', :controller => "timelines"
+  map.connect 'timelines/:action.:format', :controller => "timelines"
+  map.connect 'timelines/show/:id', :controller => "timelines", :action => "show"
+  map.connect 'timelines/:action/:tag', :controller => "timelines"
+  map.connect 'timelines/:action/:tag.:format', :controller => "timelines"
+
   map.connect ':user', :controller => "reminders", :action => "index"
   map.connect ':user/list/:tag', :controller => "reminders", :action => "list"
   map.connect ':user/today/:tag', :controller => "reminders", :action => "today"

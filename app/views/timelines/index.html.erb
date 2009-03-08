@@ -1,0 +1,26 @@
+<div id="forget-header">
+  <%= link_to(image_tag("rss_icon.gif", :style => "float:right;"), :action => params["action"], :format => "rss") %>
+  <h2>
+    <%= t(params["action"], :scope => [:controller, controller_name]) %>
+    <%= title_tag_prefix %>
+  </h2>
+
+  <ul class="menu">
+    <li class="<%= current_tag('list')-%>"><%= link_to t(:index, :scope => [:controller, controller_name]), action_path(:list) -%></li>
+    <li class="<%= current_tag('today')-%>"><%= link_to t(:today, :scope => [:controller, controller_name]), action_path(:today) -%></li>
+  </ul>
+</div>
+
+
+<div id="forget-body">
+  <div class="main">
+    <ul class="show">
+      <%= render :partial => "reminder", :collection => @reminders %>
+    </ul>
+    <div class="flickr_pagination" align="center">
+      <%= will_paginate(@reminders).untaint %>
+    </div>
+  </div>
+  <%= render :partial => "sidebar" %>
+</div>
+

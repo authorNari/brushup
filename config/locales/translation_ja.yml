@@ -1,4 +1,5 @@
-ja: 
+ja:
+  brushup: "絶対復習"
   activerecord: 
     models: 
       user: "ユーザ"
@@ -62,6 +63,11 @@ ja:
       show: 復習表示
       confirm_create: 復習登録確認
       confirm_update: 復習編集確認
+    timelines:
+      today: みんなの今日の復習
+      list: みんなの復習
+      index: みんなの復習
+      show: 復習表示
     sessions:
       new: アカウント新規作成
       create: アカウント新規作成
@@ -75,9 +81,13 @@ ja:
     login: ログイン
     close_window: ウィンドウを閉じる
     hide_detail: 詳細切替
+    timelines: みんなの復習
+    helps: ヘルプ
   text:
     logged_in: ログイン中
+    user_reminders: "{{user}}さんの復習"
     to_complete_count: "あと {{count}} 回"
+    please_input_openid: "ここにOpenIDを入力してください"
   notice:
     created_success: "{{model}}を作成しました"
     updated_success: "{{model}}を更新しました"

@@ -1,0 +1,25 @@
+xml.instruct!
+ 
+xml.rss("version"    => "2.0",
+        "xmlns:dc"   => "http://purl.org/dc/elements/1.1/",
+        "xmlns:atom" => "http://www.w3.org/2005/Atom") do
+  xml.channel do
+    xml.title rss_title
+    xml.link info_url
+    xml.pubDate     Time.now.gmtime.rfc822
+    xml.description t(params["action"], :scope => [:controller, controller_name])
+    xml.atom :link, "href" => url_for(action_path(params["action"]).merge(:only_path => false)), "rel" => "self", "type" => "application/rss+xml"
+    xml.language     "ja"
+ 
+    @reminders.each do |r|
+      xml.item do |item|
+        xml.title        rss_reminder_title(r)
+        xml.link         url_for(action_path(:show, :id => r.id, :only_path => false))
+        xml.guid         url_for(action_path(:show, :id => r.id, :only_path => false))
+        xml.description{|d| d.cdata!(r.body) }
+        xml.pubDate      rss_reminder_pubDate(r)
+        xml.dc :creator, t(:brushup)
+      end
+    end
+  end
+end

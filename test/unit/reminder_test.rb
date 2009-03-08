@@ -44,6 +44,17 @@ class ReminderTest < ActiveSupport::TestCase
     assert_equal size, Reminder.lists(:user_id => users(:nari).id, :tag => "fuge").size
   end
   
+  test "should lists with not user_id" do
+    reminders(:list_reminder_with_tag).tag_list = "fuge hoge"
+    reminders(:list_reminder_with_tag).save!
+    size =
+      Reminder.find_tagged_with("fuge",
+                                :conditions =>
+                                ["(completed is null OR completed = ?) AND next_learn_date > ?",
+                                 false, Date.today]).size
+    assert_equal size, Reminder.lists(:tag => "fuge").size
+  end
+  
   test "should update learned" do
     reminders(:learned_remined_1).update_learned!
     assert_equal 2, reminders(:learned_remined_1).schedule.level

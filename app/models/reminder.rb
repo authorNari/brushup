@@ -98,6 +98,7 @@ class Reminder < ActiveRecord::Base
   end
 
   def self.refine_reminders(options={})
-    return user(options[:user_id]).tagged_with(options[:tag])
+    return user(options[:user_id]).tagged_with(options[:tag]) if options[:user_id]
+    return tagged_with(options[:tag])
   end
 end
