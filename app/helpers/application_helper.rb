@@ -50,8 +50,27 @@ module ApplicationHelper
   document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
 </script>
 <script type="text/javascript">
-  var pageTracker = _gat._getTracker("#{t(s)}");
+  var pageTracker = _gat._getTracker("#{h(s)}");
   pageTracker._trackPageview();
+</script>
+EOS
+  end
+
+  # Google Adsenseのためのコードを取得する。
+  def google_adsense
+    s = Configuration.instance.google_adsense
+    if s.empty?
+      return ""
+    end
+    return <<EOS
+<script type="text/javascript"><!--
+google_ad_client = "#{h(s)}";
+google_ad_slot = "0703012518";
+google_ad_width = 250;
+google_ad_height = 250;
+//-->
+</script>
+<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 </script>
 EOS
   end
