@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
   ::WillPaginate::ViewHelpers.pagination_options[:prev_label] = I18n.t(:prev_label, :scope => :paginate)
@@ -35,5 +36,23 @@ module ApplicationHelper
         {:url => {:action => "auto_complete_for_tag_name"}}.update(completion_options)
       )
     end
+  end
+
+  # Google Analyticsのためのコードを取得する。
+  def google_analytics
+    s = Configuration.instance.google_analytics
+    if s.empty?
+      return ""
+    end
+    return <<EOS
+<script type="text/javascript">
+  var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+  document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+  var pageTracker = _gat._getTracker("#{t(s)}");
+  pageTracker._trackPageview();
+</script>
+EOS
   end
 end
