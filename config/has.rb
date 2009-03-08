@@ -18,7 +18,7 @@ role :lv, $hosts["lv1"], $hosts["lv2"]
 role :web, $hosts["w101"]
 
 # データベースサーバ
-role :db, $hosts["lv0"], :primary => true
+role :db, $hosts["w101"], :primary => true
 
 # ストレージサーバ
 role :storage, $hosts["lv0"]
