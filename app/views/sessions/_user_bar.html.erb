@@ -3,7 +3,7 @@
   <li><%= link_to t("info", :scope => [:links]), info_path -%></li>
   <li><%= link_to t(:timelines, :scope => :links), :controller => "timelines"  -%></li>
   <% if logged_in? -%>
-    <li><%= link_to(t(:user_reminders, :scope => :text, :user => h(current_user.login)), action_path(:index, :user => current_user.login)) -%></li>
+    <li><%= link_to(t(:user_reminders, :scope => :text, :user => h(current_user.login)), :controller => :reminders, :user => current_user.login) -%></li>
     <li><%= link_to t(:edit, :scope => [:controller, :sessions]), :user => current_user.login, :action => :edit, :controller => :sessions -%></li>
     <li><%= link_to t("logout", :scope => [:links]), logout_path -%></li>
   <% else -%>

@@ -4,6 +4,10 @@
     <ul class="show">
       <li class="show">
         <div class="show">
+          <div class="show-username">
+            <%= link_to(h(@reminder.user.login), :controller => :reminders, :user => @reminder.user.login) -%>
+            <%= t(:user_reminders, :scope => :text, :user => "") %>
+          </div>
           <div class="show-title">
             <h2><%= h(@reminder.title) -%></h2>
           </div>

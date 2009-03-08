@@ -3,8 +3,6 @@ class TimelinesController < ApplicationController
 
   before_filter :add_crumb_list_action, :only => %w(show confirm_update confirm_create edit new create update)
   before_filter :add_crumb_show_action, :only => %w(confirm_update confirm_create edit create update)
-  before_filter :add_crumb_create_action, :only => %w(confirm_create)
-  before_filter :add_crumb_update_action, :only => %w(confirm_update)
   before_filter :add_crumb_current_action
   
   def index
@@ -35,7 +33,6 @@ class TimelinesController < ApplicationController
   private
   def save_current_list
     session[:list_referer] = {
-      :user => params[:user],
       :action => params[:action],
       :id => params[:id],
       :tag => params[:tag],

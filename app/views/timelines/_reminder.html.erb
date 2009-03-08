@@ -2,7 +2,7 @@
 <li id="reminder_<%= reminder.id -%>" class="show">
   <div class="show">
     <div class="show-username">
-      <%= link_to(h(reminder.user.login), action_path(:index, :user => reminder.user.login)) -%>
+      <%= link_to(h(reminder.user.login), :controller => :reminders, :user => reminder.user.login) -%>
       <%= t(:user_reminders, :scope => :text, :user => "") %>
     </div>
     <div class="show-title">
