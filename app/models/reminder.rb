@@ -49,16 +49,16 @@ class Reminder < ActiveRecord::Base
   end
 
   # get today reminders
-  def self.todays(user_id, tag=nil)
-    return user(user_id).tagged_with(tag).list.today(Date.today).order_by_created
+  def self.todays(options={})
+    return refine_reminders(options).list.today(Date.today).order_by_created
   end
 
-  def self.completeds(user_id, tag=nil)
-    return user(user_id).tagged_with(tag).completed.order_by_created
+  def self.completeds(options={})
+    return refine_reminders(options).completed.order_by_created
   end
 
-  def self.lists(user_id, tag=nil)
-    return user(user_id).tagged_with(tag).list.without_today(Date.today).order_by_created
+  def self.lists(options={})
+    return refine_reminders(options).list.without_today(Date.today).order_by_created
   end
   
   def today_remind?
@@ -95,5 +95,9 @@ class Reminder < ActiveRecord::Base
   private
   def get_next_learn_date(schedule)
     return Date.today + self.schedule.span
+  end
+
+  def self.refine_reminders(options={})
+    return user(options[:user_id]).tagged_with(options[:tag])
   end
 end

@@ -65,17 +65,17 @@ class RemindersController < ApplicationController
 
   def today
     @show_reminder_detail = true
-    @reminders = Reminder.todays(@user.id, params["tag"]).paginate(:page => params[:page])
+    @reminders = Reminder.todays(:user_id => @user.id, :tag => params["tag"]).paginate(:page => params[:page])
     list
   end
 
   def completed
-    @reminders = Reminder.completeds(@user.id, params["tag"]).paginate(:page => params[:page])
+    @reminders = Reminder.completeds(:user_id => @user.id, :tag => params["tag"]).paginate(:page => params[:page])
     list
   end
 
   def list
-    @reminders ||=  Reminder.lists(@user.id, params["tag"]).paginate(:page => params[:page])
+    @reminders ||=  Reminder.lists(:user_id => @user.id, :tag => params["tag"]).paginate(:page => params[:page])
     logger.debug "DEBUG(list) : @reminders = <#{@reminders.to_yaml}>"
     @tags = tag_counts(@reminders)
 
