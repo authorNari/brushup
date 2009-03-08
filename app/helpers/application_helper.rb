@@ -65,9 +65,9 @@ EOS
     return <<EOS
 <script type="text/javascript"><!--
 google_ad_client = "#{h(s)}";
-google_ad_slot = "0703012518";
-google_ad_width = 250;
-google_ad_height = 250;
+google_ad_slot = "5027540674";
+google_ad_width = 200;
+google_ad_height = 200;
 //-->
 </script>
 <script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
