@@ -64,4 +64,15 @@ module RemindersHelper
       "#{t(params[:action], :scope => [:controller, controller_name])} - #{@user.login}"
     end
   end
+
+  def rss_reminder_pubDate(reminder)
+    return reminder.updated_at.to_formatted_s(:rfc822) if params[:action] == "today"
+    return reminder.created_at.gmtime.to_formatted_s(:rfc822)
+  end
+
+  def rss_reminder_title(reminder)
+    title = reminder.title
+    return "#{title} (#{t(:to_complete_count, :scope => :text, :count => reminder.to_complete_count)})" if params[:action] == "today"
+    return title
+  end
 end

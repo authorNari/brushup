@@ -13,11 +13,11 @@ xml.rss("version"    => "2.0",
  
     @reminders.each do |r|
       xml.item do |item|
-        xml.title        r.title
+        xml.title        rss_reminder_title(r)
         xml.link         url_for(action_path(:show, :id => r.id, :only_path => false))
         xml.guid         url_for(action_path(:show, :id => r.id, :only_path => false))
         xml.description{|d| d.cdata!(r.body) }
-        xml.pubDate      r.updated_at.gmtime.to_formatted_s(:rfc822)
+        xml.pubDate      rss_reminder_pubDate(r)
         xml.dc :creator, r.user.login
       end
     end
