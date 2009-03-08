@@ -1,9 +1,9 @@
 # == Schema Information
-# Schema version: 20090118140308
+# Schema version: 20090308015337
 #
 # Table name: users
 #
-#  id         :integer       not null, primary key
+#  id         :integer(4)    not null, primary key
 #  openid_url :string(255)   
 #  login      :string(255)   
 #  created_at :datetime      

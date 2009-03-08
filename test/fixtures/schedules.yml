@@ -1,11 +1,11 @@
 # == Schema Information
-# Schema version: 20090118140308
+# Schema version: 20090308015337
 #
 # Table name: schedules
 #
-#  id         :integer       not null, primary key
-#  level      :integer       
-#  span       :integer       
+#  id         :integer(4)    not null, primary key
+#  level      :integer(4)    
+#  span       :integer(4)    
 #  created_at :datetime      
 #  updated_at :datetime      
 #

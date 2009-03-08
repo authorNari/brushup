@@ -1,18 +1,19 @@
 # == Schema Information
-# Schema version: 20090118140308
+# Schema version: 20090308015337
 #
 # Table name: reminders
 #
-#  id              :integer       not null, primary key
-#  user_id         :integer       
-#  schedule_id     :integer       
+#  id              :integer(4)    not null, primary key
+#  user_id         :integer(4)    
+#  schedule_id     :integer(4)    
 #  title           :string(255)   
 #  body            :text          
-#  completed       :boolean       
+#  completed       :boolean(1)    
 #  learned_at      :date          
 #  created_at      :datetime      
 #  updated_at      :datetime      
 #  next_learn_date :date          
+#  format          :string(255)   
 #
 
 class Reminder < ActiveRecord::Base
