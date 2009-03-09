@@ -64,14 +64,6 @@ EOS
   end
 
 
-  def rss_title(reminder)
-    if params[:tag]
-      "#{t(params[:action], :scope => [:controller, controller_name])}/#{params[:tag]} - #{reminder.user.login}"
-    else
-      "#{t(params[:action], :scope => [:controller, controller_name])} - #{reminder.user.login}"
-    end
-  end
-
   def rss_reminder_pubDate(reminder)
     return reminder.updated_at.to_formatted_s(:rfc822) if params[:action] == "today"
     return reminder.created_at.gmtime.to_formatted_s(:rfc822)

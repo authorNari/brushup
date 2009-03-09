@@ -26,4 +26,12 @@ module RemindersHelper
   def button_for_back_list
     return button_to(t(back_list_path[:action], :scope => [:controller, controller_name]), back_list_path)
   end
+  
+  def rss_title
+    if params[:tag]
+      "#{t(params[:action], :scope => [:controller, controller_name])}/#{params[:tag]} - #{reminder_user.login}"
+    else
+      "#{t(params[:action], :scope => [:controller, controller_name])} - #{reminder_user.login}"
+    end
+  end
 end

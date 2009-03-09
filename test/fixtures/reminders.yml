@@ -74,3 +74,8 @@ rd_body_reminder:
   <<: *DEFAULT
   body: = hoge\n fugefuge
   format: rd
+
+list_reminder_aaron:
+  <<: *DEFAULT
+  user: aaron
+  next_learn_date: <%= Date.today %>

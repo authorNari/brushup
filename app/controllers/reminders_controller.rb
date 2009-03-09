@@ -10,6 +10,8 @@ class RemindersController < ApplicationController
   before_filter :add_crumb_update_action, :only => %w(confirm_update)
   before_filter :add_crumb_current_action_with_tag, :only => %w(list today completed index)
   before_filter :add_crumb_current_action, :except => %w(list today completed index)
+
+  helper_method :reminder_user
   
   def index
     redirect_to(:action => :today, :user => (params["user"] || reminder_user.login))
@@ -112,6 +114,13 @@ class RemindersController < ApplicationController
     render :inline => "<%= auto_complete_result @items, 'name' %>"
   end
 
+  def reminder_user
+    if params[:user]
+      return @reminder_user ||= User.find(params[:user])
+    end
+    current_user
+  end
+  
   private
   def save_current_list
     session[:list_referer] = {
@@ -126,9 +135,5 @@ class RemindersController < ApplicationController
     tags = {}
     reminders.each{|r| r.tag_counts.each{|t| tags[t.name] ||= []; tags[t.name] << t }}
     return tags.values
-  end
-
-  def reminder_user
-    current_user || User.find(params[:user])
   end
 end
