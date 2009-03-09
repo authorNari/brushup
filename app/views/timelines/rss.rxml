@@ -18,7 +18,7 @@ xml.rss("version"    => "2.0",
         xml.guid         url_for(action_path(:show, :id => r.id, :only_path => false))
         xml.description{|d| d.cdata!(r.body) }
         xml.pubDate      rss_reminder_pubDate(r)
-        xml.dc :creator, t(:brushup)
+        xml.dc :creator, r.user.login
       end
     end
   end
