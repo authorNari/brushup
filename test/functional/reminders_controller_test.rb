@@ -67,7 +67,10 @@ class RemindersControllerTest < ActionController::TestCase
   end
 
   test "should update" do
-    put :update, :id => reminders(:learned_remined_1).id, :reminder => { }, :user => users(:nari).login
+    next_date = reminders(:list_reminder).next_learn_date
+    put :update, :id => reminders(:list_reminder).id, :reminder => {:title => "update" }, :user => users(:nari).login
+    assert_equal next_date, assigns(:reminder).next_learn_date
+    assert_not_nil assigns(:reminder)
     assert_redirected_to :action => :confirm_update, :id => assigns(:reminder).id, :user => users(:nari).login
   end
 

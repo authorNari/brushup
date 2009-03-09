@@ -42,10 +42,7 @@ class Reminder < ActiveRecord::Base
   
   def attributes=(params, gard=true)
     super
-    self.schedule = Schedule.first_level
-    self.next_learn_date = get_next_learn_date(self.schedule)
-    self.learned_at = Date.today unless self.learned_at
-    self.completed = false unless self.completed
+    normalize
   end
 
   # get today reminders
@@ -100,5 +97,12 @@ class Reminder < ActiveRecord::Base
   def self.refine_reminders(options={})
     return user(options[:user_id]).tagged_with(options[:tag]) if options[:user_id]
     return tagged_with(options[:tag])
+  end
+
+  def normalize
+    self.schedule = Schedule.first_level unless self.next_learn_date
+    self.next_learn_date = get_next_learn_date(self.schedule) unless self.next_learn_date
+    self.learned_at = Date.today unless self.learned_at
+    self.completed = false unless self.completed
   end
 end
