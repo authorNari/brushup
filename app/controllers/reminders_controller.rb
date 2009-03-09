@@ -8,7 +8,8 @@ class RemindersController < ApplicationController
   before_filter :add_crumb_show_action, :only => %w(confirm_update edit create update)
   before_filter :add_crumb_create_action, :only => %w(confirm_create)
   before_filter :add_crumb_update_action, :only => %w(confirm_update)
-  before_filter :add_crumb_current_action
+  before_filter :add_crumb_current_action_with_tag, :only => %w(list today completed index)
+  before_filter :add_crumb_current_action, :except => %w(list today completed index)
   
   def index
     redirect_to(:action => :today, :user => (params["user"] || reminder_user.login))
@@ -125,22 +126,6 @@ class RemindersController < ApplicationController
     tags = {}
     reminders.each{|r| r.tag_counts.each{|t| tags[t.name] ||= []; tags[t.name] << t }}
     return tags.values
-  end
-
-  def add_crumb_show_action
-    add_crumb(t("show", :scope => [:controller, controller_name]), @template.action_path(:show, :id => params[:id]))
-  end
-
-  def add_crumb_list_action
-    add_crumb(t(@template.back_list_path[:action], :scope => [:controller, controller_name]), @template.back_list_path)
-  end
-  
-  def add_crumb_create_action
-    add_crumb(t("create", :scope => [:controller, controller_name]), @template.action_path(:new))
-  end
-  
-  def add_crumb_update_action
-    add_crumb(t("update", :scope => [:controller, controller_name]), @template.action_path(:edit, :id => params[:id]))
   end
 
   def reminder_user

@@ -3,7 +3,8 @@ class TimelinesController < ApplicationController
 
   before_filter :add_crumb_list_action, :only => %w(show confirm_update confirm_create edit new create update)
   before_filter :add_crumb_show_action, :only => %w(confirm_update confirm_create edit create update)
-  before_filter :add_crumb_current_action
+  before_filter :add_crumb_current_action_with_tag, :only => %w(list today completed index)
+  before_filter :add_crumb_current_action, :except => %w(list today completed index)
   
   def index
     redirect_to(:action => :today)
@@ -33,6 +34,7 @@ class TimelinesController < ApplicationController
   private
   def save_current_list
     session[:list_referer] = {
+      :controller => controller_name,
       :action => params[:action],
       :id => params[:id],
       :tag => params[:tag],
@@ -43,13 +45,5 @@ class TimelinesController < ApplicationController
     tags = {}
     reminders.each{|r| r.tag_counts.each{|t| tags[t.name] ||= []; tags[t.name] << t }}
     return tags.values
-  end
-
-  def add_crumb_show_action
-    add_crumb(t("show", :scope => [:controller, controller_name]), @template.action_path(:show, :id => params[:id]))
-  end
-
-  def add_crumb_list_action
-    add_crumb(t(@template.back_list_path[:action], :scope => [:controller, controller_name]), @template.back_list_path)
   end
 end

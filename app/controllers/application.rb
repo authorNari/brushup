@@ -47,6 +47,36 @@ class ApplicationController < ActionController::Base
   end
 
   def add_crumb_current_action
-    add_crumb( ERB::Util.h(t(params[:action], :scope => [:controller, controller_name])))
+    add_crumb(ERB::Util.h(t(params[:action], :scope => [:controller, controller_name])))
+  end
+
+  def add_crumb_show_action
+    add_crumb(t("show", :scope => [:controller, controller_name]), @template.action_path(:show, :id => params[:id]))
+  end
+
+  def add_crumb_list_action
+    path = @template.back_list_path.dup
+    tag = path.delete(:tag)
+    add_crumb(t(path[:action], :scope => [:controller, controller_name]), path)
+    add_crumb(ERB::Util.h(tag), @template.back_list_path) if tag
+  end
+  
+  def add_crumb_current_action_with_tag
+    path = @template.back_list_path.dup
+    tag = path.delete(:tag)
+    if tag
+      add_crumb(t(path[:action], :scope => [:controller, controller_name]), path)
+      add_crumb(ERB::Util.h(tag))
+    else
+      add_crumb(t(path[:action], :scope => [:controller, controller_name]))
+    end
+  end
+  
+  def add_crumb_create_action
+    add_crumb(t("create", :scope => [:controller, controller_name]), @template.action_path(:new))
+  end
+  
+  def add_crumb_update_action
+    add_crumb(t("update", :scope => [:controller, controller_name]), @template.action_path(:edit, :id => params[:id]))
   end
 end
