@@ -1,13 +1,13 @@
 class SessionsController < ApplicationController
-  before_filter :set_user, :only => %w(edit update destroy)
-  before_filter :authorize, :only => %w(edit update destroy)
+  before_filter :login_required, :only => %w(edit update)
 
   def index
-    @user = session[:user_id] if session[:user_id]
+    @user = current_user
   end
   
   def create
     if using_open_id?
+      logout_keeping_session!
       authenticate
     else
       redirect_to sessions_path
@@ -19,20 +19,20 @@ class SessionsController < ApplicationController
   end
   
   def edit
-    @user = session[:user_id]
+    @user = current_user
   end
   
   def update
-    @user = User.find(session[:user_id].id)
+    @user = current_user
     if @user.update_attributes(params[:edit_user])
-      session[:user_id] = @user
-      return success_login
+      success_login
+      return redirect_to(:controller => "reminders", :user => @user.login, :action => :today)
     end
     render :action => :edit
   end
 
   def destroy
-    session[:user_id] = nil
+    logout_killing_session!
     redirect_to openid_path
   end
 
@@ -54,11 +54,12 @@ class SessionsController < ApplicationController
   def after_autenticate(successful, identity_url, message, registration={})
     if successful
       if @user = User.find_by_openid_url(identity_url)
-        return success_login
+        success_login
+        return redirect_to(:controller => "reminders", :user => @user.login, :action => :today)
       end
       @user = create_user(identity_url, registration)
-      session[:user_id] = @user
-      redirect_to(:action => :edit, :user => @user.id)
+      success_login
+      redirect_to(:action => :edit, :user => @user.login)
     else
       flash[:error] = message
       redirect_to :action => "index"
@@ -66,7 +67,7 @@ class SessionsController < ApplicationController
   end
 
   def success_login
-    session[:user_id] = @user
-    redirect_to(:controller => "reminders", :user => @user.login, :action => :today)
+    self.current_user = @user
+    @user.remember_me
   end
 end

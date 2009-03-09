@@ -1,19 +1,17 @@
 class RemindersController < ApplicationController
-  before_filter :set_user
-  before_filter :authorize, :only => %w(new create destroy edit update check)
-  before_filter :set_jumpto
+  before_filter :login_required, :only => %w(new create destroy edit update check)
   before_filter :save_current_list, :only => %w(today completed list)
 
   auto_complete_for :tag, :name
 
   before_filter :add_crumb_list_action, :only => %w(show confirm_update confirm_create edit new create update)
-  before_filter :add_crumb_show_action, :only => %w(confirm_update confirm_create edit create update)
+  before_filter :add_crumb_show_action, :only => %w(confirm_update edit create update)
   before_filter :add_crumb_create_action, :only => %w(confirm_create)
   before_filter :add_crumb_update_action, :only => %w(confirm_update)
   before_filter :add_crumb_current_action
   
   def index
-    redirect_to(:action => :today, :user => (params["user"] || @user.login))
+    redirect_to(:action => :today, :user => (params["user"] || reminder_user.login))
   end
 
   def show
@@ -32,15 +30,15 @@ class RemindersController < ApplicationController
   end
 
   def create
-    @reminder = Reminder.new(params[:reminder].merge!(:user_id => @user.id))
+    @reminder = Reminder.new(params[:reminder].merge!(:user_id => current_user.id))
 
     if @reminder.save
       flash[:notice] = I18n.t(:created_success, :model => Reminder.human_name, :scope => [:notice])
       return render(:template => "/share/autoclose") if @template.bookmarklet_window?
-      redirect_to(:action => :confirm_create, :id => @reminder.id, :user => @user.login)
+      redirect_to(:action => :confirm_create, :id => @reminder.id, :user => current_user.login)
     else
       logger.debug "DEBUG(create): @reminder = <#{@reminder.to_yaml}>"
-      render(:user => @user.login, :action => "new")
+      render(:user => current_user.login, :action => "new")
     end
   end
 
@@ -49,10 +47,10 @@ class RemindersController < ApplicationController
 
     if @reminder.update_attributes(params[:reminder])
       flash[:notice] = I18n.t(:updated_success, :model => Reminder.human_name, :scope => [:notice])
-      redirect_to(:action => :confirm_update, :id => @reminder.id, :user => @user.login)
+      redirect_to(:action => :confirm_update, :id => @reminder.id, :user => current_user.login)
     else
       logger.debug "DEBUG(update): @reminder = <#{@reminder.to_yaml}>"
-      render(:user => @user.login, :action => "edit")
+      render(:user => current_user.login, :action => "edit")
     end
   end
 
@@ -60,22 +58,22 @@ class RemindersController < ApplicationController
     @reminder = Reminder.find(params[:id])
     @reminder.destroy
 
-    redirect_to(:action => :list, :user => @user.login)
+    redirect_to(@template.back_list_path)
   end
 
   def today
     @show_reminder_detail = true
-    @reminders = Reminder.todays(:user_id => @user.id, :tag => params["tag"]).paginate(:page => params[:page])
+    @reminders = Reminder.todays(:user_id => reminder_user.id, :tag => params["tag"]).paginate(:page => params[:page])
     list
   end
 
   def completed
-    @reminders = Reminder.completeds(:user_id => @user.id, :tag => params["tag"]).paginate(:page => params[:page])
+    @reminders = Reminder.completeds(:user_id => reminder_user.id, :tag => params["tag"]).paginate(:page => params[:page])
     list
   end
 
   def list
-    @reminders ||=  Reminder.lists(:user_id => @user.id, :tag => params["tag"]).paginate(:page => params[:page])
+    @reminders ||=  Reminder.lists(:user_id => reminder_user.id, :tag => params["tag"]).paginate(:page => params[:page])
     logger.debug "DEBUG(list) : @reminders = <#{@reminders.to_yaml}>"
     @tags = tag_counts(@reminders)
 
@@ -105,7 +103,7 @@ class RemindersController < ApplicationController
   end
 
   def auto_complete_for_tag_name
-    @items = @user.reminders.inject([]) do |r, rm|
+    @items = reminder_user.reminders.inject([]) do |r, rm|
       rm.tags.each{|t| r << t if /\A#{params[:tag][:name].downcase}/ =~ t.name }
       r
     end
@@ -143,5 +141,9 @@ class RemindersController < ApplicationController
   
   def add_crumb_update_action
     add_crumb(t("update", :scope => [:controller, controller_name]), @template.action_path(:edit, :id => params[:id]))
+  end
+
+  def reminder_user
+    current_user || User.find(params[:user])
   end
 end

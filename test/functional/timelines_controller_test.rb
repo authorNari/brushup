@@ -2,9 +2,7 @@ require File.join(File.dirname(__FILE__), '../test_helper')
 
 class TimelinesControllerTest < ActionController::TestCase
   def setup
-    @user = users(:nari)
-    @request.session[:user_id] = @user
-    RemindersController.skip_filter :set_jumpto
+    login_as(:nari)
   end
   
   test "should get index" do
@@ -19,8 +17,8 @@ class TimelinesControllerTest < ActionController::TestCase
   end
 
   test "should get list with tag" do
-    @user.reminders.each{|r| r.tag_list = "hoge fuge"}
-    @user.reminders.each(&:save!)
+    users(:nari).reminders.each{|r| r.tag_list = "hoge fuge"}
+    users(:nari).reminders.each(&:save!)
     get :list, :tag => "hoge"
     assert_response :success
     assert_not_nil assigns(:reminders)

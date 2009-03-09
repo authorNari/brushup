@@ -2,7 +2,7 @@ require File.join(File.dirname(__FILE__), '../test_helper')
 
 class SessionsControllerTest < ActionController::TestCase
   def setup
-    @request.session[:user_id] = users(:nari)
+    login_as(:nari)
     SessionsController.class_eval do
       def authenticate(identity_url = "")
         after_autenticate(true, params[:openid_url], "OK", "nickname" => "hoge")
@@ -50,23 +50,45 @@ class SessionsControllerTest < ActionController::TestCase
   end
 
   test "shuold get edit" do
-    get :edit, :user => users(:nari).id
+    get :edit, :user => users(:nari).login
     assert_not_nil assigns(:user)
   end
 
   test "shuold update" do
-    get :update, :user => users(:nari).id, :edit_user => {:login => "update"}
+    get :update, :user => users(:nari).login, :edit_user => {:login => "update"}
     assert_equal "update", assigns(:user).login
   end
 
   test "shuold update fail" do
-    get :update, :user => users(:nari).id, :edit_user => {:login => nil}
+    get :update, :user => users(:nari).login, :edit_user => {:login => nil}
     assert_template "edit"
   end
 
   test "shuold destroy" do
-    delete :destroy, :user => users(:nari).id
-    assert_nil @request.session[:user_id]
+    delete :destroy, :user => users(:nari).login
+    assert_nil session[:user_id]
     assert_redirected_to openid_path
   end
+  
+  test "should_login_with_cookie" do
+    users(:nari).remember_me
+    @request.session["user_id"] = nil
+    @request.cookies["auth_token"] = cookie_for(:nari)
+    get :index
+    assert @controller.send(:logged_in?)
+  end
+  
+  protected
+    def create_user(options = {})
+      post :signup, :user => { :login => 'quire', :email => 'quire@example.com', 
+        :password => 'quire', :password_confirmation => 'quire' }.merge(options)
+    end
+    
+    def auth_token(token)
+      CGI::Cookie.new('name' => 'auth_token', 'value' => token)
+    end
+    
+    def cookie_for(user)
+      auth_token users(user).remember_token
+    end
 end

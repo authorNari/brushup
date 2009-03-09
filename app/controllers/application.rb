@@ -2,7 +2,7 @@
 # Likewise, all the methods added will be available for all controllers.
 
 class ApplicationController < ActionController::Base
-  # helper :all # include all helpers, all the time
+  include AuthenticatedSystem
 
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store
@@ -33,32 +33,6 @@ class ApplicationController < ActionController::Base
     flash[:notice] = t(:session_expired, :scope => %w(notice))
   end
   
-  def authorize
-    if !session[:user_id] ||
-        !@user ||
-        !(same_user = (session[:user_id].id == @user.id))
-      logger.debug "DEBUG(authorize) : session = <#{(session[:user_id]&&session[:user_id].to_yaml)}>, user = <#{@user.to_yaml}>"
-      flash[:notice] = t("permission_denied", :scope => :notice) unless same_user
-      flash[:notice] = t("please_log_in", :scope => :notice) if same_user
-      # save the URL the user requested so we can hop back to it
-      # after login
-      redirect_to(openid_path)
-    end
-  end
-
-  def set_jumpto
-    session[:jumpto] = request.parameters
-  end
-  
-  def set_user
-    if params[:user]
-      @user = User.find(params[:user])
-    elsif session[:user_id]
-      @user = session[:user_id]
-      params[:user] = @user.login
-    end
-  end
-
   def local_request?
     false
   end

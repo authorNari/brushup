@@ -11,25 +11,30 @@
 #
 
 class User < ActiveRecord::Base
+  include Authentication
+  include Authentication::ByCookieToken
+  
   has_many :reminders
   has_friendly_id :login
 
-  @@login_format = /\A\w[\w\.\-_@]+\z/  # ASCII, strict
-  
   validates_presence_of :login
-  validates_format_of :login, :with => @@login_format
+  validates_format_of :login, :with => Authentication.login_regex
   validates_uniqueness_of :openid_url
   validates_uniqueness_of :login, :on => :update
 
   attr_accessible :openid_url, :login
   
   def self.unique_nickname(nickname=nil)
-    if nickname.to_s.blank? || !(@@login_format =~ nickname.to_s)
+    if nickname.to_s.blank? || !(Authentication.login_regex =~ nickname.to_s)
       nickname = "anonymous_#{rand(1000000)}"
     end
     if User.find_by_login(nickname)
       return unique_nickname("#{nickname}_#{rand(1000000)}")
     end
     return nickname
+  end
+  
+  def remember_me
+    remember_me_for 1.year
   end
 end
