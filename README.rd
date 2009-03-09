@@ -96,7 +96,9 @@ OpenIDの作成方法や、仕組みついてはこちらをご覧ください�
 ((<OpenID.ne.jp|URL: http://www.openid.ne.jp/>))
 
 == お問い合わせ
-感想や要望などはauthorNari at gmail.comにメールしてください。
+感想などはauthorNari at gmail.comにメールしてください。
+
+要望、バグ報告は ((<brushup - Redmine|URL: http://www.takao7.net/redmine/projects/show/brushup>)) にお願いします。
 
 作者は((<nari|URL: http://d.hatena.ne.jp/authorNari/>))です。
 
