@@ -39,6 +39,15 @@
       </tr>
     </table>
     <% end %>
+    <% if copiable_reminder?(reminder) %>
+    <table>
+      <tr>
+        <td class="link">
+          <%= link_to t(:copy, :scope => [:controller, :reminders]), :controller => :reminder, :action => :copy, :id => reminder %>
+        </td>
+      </tr>
+    </table>
+    <% end %>
   </div>
 </li>
 <% end -%>

@@ -79,3 +79,16 @@ list_reminder_aaron:
   <<: *DEFAULT
   user: aaron
   next_learn_date: <%= Date.today %>
+
+deep_clone:
+  <<: *DEFAULT
+  user: aaron
+  schedule: level_2
+  completed: true
+  format: rd
+
+deep_clone_fail:
+  <<: *DEFAULT
+  user: aaron
+  title:
+  body:

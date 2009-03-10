@@ -91,4 +91,12 @@ class ReminderTest < ActiveSupport::TestCase
     reminders(:level_2_reminder).body = "http://hoge"
     assert_equal "<p><a href=\"http://hoge\">http://hoge</a></p>", reminders(:level_2_reminder).body
   end
+
+  test "deep clone" do
+    rem = reminders(:deep_clone).deep_clone(users(:nari))
+    assert_equal users(:nari).login, rem.user.login
+    assert_equal schedules(:level_1).level, rem.schedule.level
+    assert_equal false, rem.completed
+    assert_equal reminders(:deep_clone).format, rem.format
+  end
 end

@@ -113,6 +113,22 @@ class RemindersControllerTest < ActionController::TestCase
     assert_template "index"
   end
 
+  test "should get copy" do
+    assert_difference(["Reminder.count"]) do
+      get :copy, :user => users(:aaron).login, :id => reminders(:learned_remined_1).id
+    end
+    assert_not_nil flash[:notice]
+    assert_response :redirect
+  end
+  
+  test "should get copy fail" do
+    assert_difference(["Reminder.count"], 0) do
+      get :copy, :user => users(:aaron).login, :id => reminders(:deep_clone_fail).id
+    end
+    assert_not_nil flash[:error]
+    assert_response :redirect
+  end
+
   test "should get check" do
     get :check, :id => reminders(:learned_remined_1).id, :user => users(:nari).login
     assert_response :redirect

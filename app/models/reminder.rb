@@ -88,6 +88,10 @@ class Reminder < ActiveRecord::Base
   def body
     Brushup::Formatting.to_html(self.format, self["body"])
   end
+
+  def deep_clone(user)
+    return Reminder.new(:title => self.title, :body => self[:body], :user => user, :format => self.format)
+  end
   
   private
   def get_next_learn_date(schedule)

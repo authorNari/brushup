@@ -63,6 +63,7 @@ ja:
       show: 復習表示
       confirm_create: 復習登録確認
       confirm_update: 復習編集確認
+      copy: 自分の復習に追加
     timelines:
       today: みんなの今日の復習
       list: みんなの復習
@@ -91,10 +92,13 @@ ja:
   notice:
     created_success: "{{model}}を作成しました"
     updated_success: "{{model}}を更新しました"
+    copyed_success: "{{model}}をコピーしました"
     please_log_in: ログインしてください
     fail_login: ログインに失敗しました
     permission_denied: 権限がありません。ログインしてから再度試してください。
     session_expired: 30日以上ログインが無かったため、セッションが切れました。再度ログインしてください。
+  error:
+    copyed_fail: "{{model}}のコピーに失敗しました"
   paginate:
     prev_label: "&laquo; 前へ"
     next_label: "次へ &raquo;"

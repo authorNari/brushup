@@ -1,6 +1,6 @@
 class RemindersController < ApplicationController
-  before_filter :login_required, :only => %w(new create destroy edit update check)
-  before_filter :check_login_user_writable, :only => %w(create destroy edit update check)
+  before_filter :login_required, :only => %w(new create destroy edit update check copy)
+  before_filter :same_login_user_required, :only => %w(create destroy edit update check)
   before_filter :save_current_list, :only => %w(today completed list)
 
   auto_complete_for :tag, :name
@@ -87,6 +87,17 @@ class RemindersController < ApplicationController
     end
   end
 
+  def copy
+    reminder = Reminder.find(params[:id])
+    if reminder.deep_clone(current_user).save
+      flash[:notice] = I18n.t(:copyed_success, :model => Reminder.human_name, :scope => :notice)
+    else
+      flash[:error] = I18n.t(:copyed_fail, :model => Reminder.human_name, :scope => :error)
+      logger.debug "DEBUG(create): @reminder = <#{@reminder.to_yaml}>"
+    end
+    redirect_to(@template.back_list_path)
+  end
+
   def check
     reminder = Reminder.find(params[:id])
     
@@ -138,7 +149,7 @@ class RemindersController < ApplicationController
     return tags.values
   end
 
-  def check_login_user_writable
+  def same_login_user_required
     unless current_user?
       flash[:notice] = t("permission_denied", :scope => :notice)
       access_denied

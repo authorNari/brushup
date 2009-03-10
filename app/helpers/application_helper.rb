@@ -108,4 +108,8 @@ EOS
   def bookmarklet_window?
     params[:mode] == "confirm"
   end
+
+  def copiable_reminder?(reminder)
+    logged_in? && reminder.user.login != current_user.login
+  end
 end
