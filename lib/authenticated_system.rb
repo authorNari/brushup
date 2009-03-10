@@ -40,10 +40,6 @@ module AuthenticatedSystem
         flash[:notice] = t("please_log_in", :scope => :notice)
         return false
       end
-      unless current_user?
-        flash[:notice] = t("permission_denied", :scope => :notice)
-        return false
-      end
       return true
     end
 

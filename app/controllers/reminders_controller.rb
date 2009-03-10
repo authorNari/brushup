@@ -1,5 +1,6 @@
 class RemindersController < ApplicationController
-  before_filter :login_required, :only => %w(create destroy edit update check)
+  before_filter :login_required, :only => %w(new create destroy edit update check)
+  before_filter :check_login_user_writable, :only => %w(create destroy edit update check)
   before_filter :save_current_list, :only => %w(today completed list)
 
   auto_complete_for :tag, :name
@@ -135,5 +136,12 @@ class RemindersController < ApplicationController
     tags = {}
     reminders.each{|r| r.tag_counts.each{|t| tags[t.name] ||= []; tags[t.name] << t }}
     return tags.values
+  end
+
+  def check_login_user_writable
+    unless current_user?
+      flash[:notice] = t("permission_denied", :scope => :notice)
+      access_denied
+    end
   end
 end
