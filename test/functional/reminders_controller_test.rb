@@ -32,6 +32,11 @@ class RemindersControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "should get new with bookmarklet" do
+    get :new, :mode => "confirm"
+    assert_response :success
+  end
+
   test "should create" do
     assert_difference('Reminder.count') do
       post :create, :reminder => {:title => "new", :body => "body"}, :user => users(:nari).login
@@ -40,9 +45,9 @@ class RemindersControllerTest < ActionController::TestCase
     assert_redirected_to :action => :confirm_create, :id => assigns(:reminder).id, :user => users(:nari).login
   end
 
-  test "should create auto close" do
+  test "should create with bookmarklet" do
     assert_difference('Reminder.count') do
-      post :create, :reminder => {:title => "new", :body => "body"}, :user => users(:nari).login, :mode => "confirm"
+      post :create, :reminder => {:title => "new", :body => "body"}, :mode => "confirm", :user => users(:nari).login
     end
 
     assert_template "share/autoclose.html.erb"
@@ -64,6 +69,12 @@ class RemindersControllerTest < ActionController::TestCase
   test "should get edit" do
     get :edit, :user => users(:nari).login, :id => reminders(:learned_remined_1).id
     assert_response :success
+  end
+
+  test "should get edit fail with authority" do
+    get :edit, :id => reminders(:learned_remined_1).id
+    assert_not_nil flash[:notice]
+    assert_response :redirect
   end
 
   test "should update" do

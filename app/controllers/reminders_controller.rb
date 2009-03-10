@@ -1,5 +1,5 @@
 class RemindersController < ApplicationController
-  before_filter :login_required, :only => %w(new create destroy edit update check)
+  before_filter :login_required, :only => %w(create destroy edit update check)
   before_filter :save_current_list, :only => %w(today completed list)
 
   auto_complete_for :tag, :name
