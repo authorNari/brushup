@@ -69,5 +69,6 @@ class SessionsController < ApplicationController
   def success_login
     self.current_user = @user
     @user.remember_me
+    send_remember_cookie!
   end
 end

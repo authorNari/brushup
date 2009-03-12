@@ -123,7 +123,7 @@ module AuthenticatedSystem
     # Called from #current_user.  Finaly, attempt to login by an expiring token in the cookie.
     # for the paranoid: we _should_ be storing user_token = hash(cookie_token, request IP)
     def login_from_cookie
-      user = cookies[:auth_token] && User.find_by_remember_token(cookies[:auth_token])
+      user = cookies[:brushup_auth_token] && User.find_by_remember_token(cookies[:brushup_auth_token])
       if user && user.remember_token?
         self.current_user = user
         handle_remember_cookie! false # freshen cookie token (keeping date)
@@ -163,7 +163,7 @@ module AuthenticatedSystem
     def valid_remember_cookie?
       return nil unless @current_user
       (@current_user.remember_token?) && 
-        (cookies[:auth_token] == @current_user.remember_token)
+        (cookies[:brushup_auth_token] == @current_user.remember_token)
     end
     
     # Refresh the cookie auth token if it exists, create it otherwise
@@ -178,11 +178,11 @@ module AuthenticatedSystem
     end
   
     def kill_remember_cookie!
-      cookies.delete :auth_token
+      cookies.delete :brushup_auth_token
     end
     
     def send_remember_cookie!
-      cookies[:auth_token] = {
+      cookies[:brushup_auth_token] = {
         :value   => @current_user.remember_token,
         :expires => @current_user.remember_token_expires_at }
     end

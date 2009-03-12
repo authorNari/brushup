@@ -71,9 +71,17 @@ class SessionsControllerTest < ActionController::TestCase
   end
   
   test "should_login_with_cookie" do
-    users(:nari).remember_me
-    @request.session["user_id"] = nil
-    @request.cookies["auth_token"] = cookie_for(:nari)
+    get :create, :openid_url => users(:nari).openid_url
+    assert_not_nil cookies["brushup_auth_token"]
+
+    # cookie copy
+    users(:nari).remember_token = cookies["brushup_auth_token"][0]
+    @request.cookies["brushup_auth_token"] = cookie_for(:nari)
+
+    # session clear
+    @request.session[:user_id] = nil
+    @controller.instance_eval("@current_user = nil")
+    
     get :index
     assert @controller.send(:logged_in?)
   end
@@ -85,7 +93,7 @@ class SessionsControllerTest < ActionController::TestCase
     end
     
     def auth_token(token)
-      CGI::Cookie.new('name' => 'auth_token', 'value' => token)
+      CGI::Cookie.new('name' => 'brushup_auth_token', 'value' => token)
     end
     
     def cookie_for(user)
