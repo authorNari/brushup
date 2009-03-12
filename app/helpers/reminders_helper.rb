@@ -30,4 +30,13 @@ module RemindersHelper
       "#{t(params[:action], :scope => [:controller, controller_name])} - #{reminder_user.login}"
     end
   end
+  
+  def back_list_path
+    if(session[:list_referer] &&
+       session[:list_referer][:controller] == controller_name &&
+       session[:list_referer][:user] == params[:user])
+      return session[:list_referer]
+    end
+    return action_path(:index)
+  end
 end
