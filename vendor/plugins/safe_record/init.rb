@@ -1,4 +1,4 @@
-unless Rails.env == "production"
+if %w(development test).include?(RAILS_ENV)
   require_dependency "safe_record"
 
   ActiveRecord::ConnectionAdapters.constants.each do |name|

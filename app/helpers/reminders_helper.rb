@@ -19,10 +19,6 @@ module RemindersHelper
     end
   end
 
-  def back_list_path
-    return session[:list_referer] ? session[:list_referer] : action_path(:index)
-  end
-  
   def button_for_back_list
     return button_to(t(back_list_path[:action], :scope => [:controller, controller_name]), back_list_path)
   end

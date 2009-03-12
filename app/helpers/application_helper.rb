@@ -112,4 +112,11 @@ EOS
   def copiable_reminder?(reminder)
     logged_in? && reminder.user.login != current_user.login
   end
+  
+  def back_list_path
+    if session[:list_referer] && session[:list_referer][:controller] == controller_name
+      return session[:list_referer]
+    end
+    return action_path(:index)
+  end
 end
