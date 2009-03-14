@@ -316,3 +316,7 @@ div#crumbs {
 div.float-clear {
   clear: both;
 }
+
+textarea#reminder_body {
+  width: 100%;
+}
