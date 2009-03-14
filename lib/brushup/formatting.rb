@@ -31,7 +31,13 @@ module Brushup::Formatting
     end
     
     def to_html(*args)
-      simple_format(auto_link(CGI::escapeHTML(@text).gsub(" ", "&nbsp;")))
+      simple_format(auto_link(self.class.escapeHTML(CGI::escapeHTML(@text))))
+    end
+
+    private
+    
+    def self.escapeHTML(text)
+      return text.gsub(" ", "&nbsp;")
     end
   end
 
