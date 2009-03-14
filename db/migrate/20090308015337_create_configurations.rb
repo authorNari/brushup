@@ -12,7 +12,6 @@ class CreateConfigurations < ActiveRecord::Migration
     end
 
     Configuration.reset_column_information
-    Configuration.create!
   end
   
   def self.down
