@@ -70,6 +70,13 @@ h2 {
   border-top:1px solid #57B3E0;
   margin:-1px 0 0;
   overflow:hidden;
+  padding:0 290px 10px 10px;
+}
+
+#forget-body-not-sidebar {
+  border-top:1px solid #57B3E0;
+  margin:-1px 0 0;
+  overflow:hidden;
   padding:0 10% 10px 10px;
 }
 
@@ -189,7 +196,9 @@ div.sidebar div.body {
   line-height:1.5em;
 }
 
-div#forget-body div.main {
+div#forget-body div.main,
+div#forget-body-not-sidebar div.main
+{
   background:#FFFFFF none repeat scroll 0 0;
   float:left;
   margin:0 0 0 0;
@@ -197,33 +206,45 @@ div#forget-body div.main {
   width:100%;
 }
 
-div#forget-body div.main ul.show {
+div#forget-body div.main ul.show,
+div#forget-body-not-sidebar div.main ul.show
+{
   overflow:hidden;
   padding-left:20px;
 }
 
-div#forget-body div.main ul.show li.show {
+div#forget-body div.main ul.show li.show,
+div#forget-body-not-sidebar div.main ul.show li.show
+{
   clear:both;
   margin:0 0 1.8em;
 }
 
-div#forget-body div.main div.show {
+div#forget-body div.main div.show,
+div#forget-body-not-sidebar div.main div.show
+{
   border:1px solid #57B3E0;
   padding: 7px;
   clear:both;
   color:#505050;
 }
 
-div#forget-body div.main div.show-title h2 {
+div#forget-body div.main div.show-title h2
+div#forget-body-not-sidebar div.main div.show-title h2
+{
   font-size:1.5em;
 }
 
-div#forget-body div.main div.show-title h2 a {
+div#forget-body div.main div.show-title h2 a
+div#forget-body-not-sidebar div.main div.show-title h2 a
+{
   color:#000000;
   text-decoration:none;
 }
 
-div#forget-body div.main div.show td.link {
+div#forget-body div.main div.show td.link
+div#forget-body-not-sidebar div.main div.show td.link
+{
   padding-right: 15px;
 }
 
