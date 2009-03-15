@@ -312,6 +312,14 @@ div#logo {
   padding-left: 5px; 
 }
 
+.show-body cite {
+  background-color: #DFF5FF;
+  padding-top:5px;
+  padding-bottom:5px;
+  padding-right:5px;
+  margin:5px;
+}
+
 div#crumbs {
   text-align: left;
   padding: 10px 0 10px 25px;
