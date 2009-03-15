@@ -75,6 +75,19 @@ rd_body_reminder:
   body: = hoge\n fugefuge
   format: rd
 
+style_check:
+  <<: *DEFAULT
+  title: style_check_reminder
+  body: |
+    <pre>
+    Pre style
+    </pre>
+
+    ??cite?? by Vonnegut
+
+    bq. A block quotation.
+  format: textile
+
 list_reminder_aaron:
   <<: *DEFAULT
   user: aaron

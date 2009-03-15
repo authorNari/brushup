@@ -70,7 +70,7 @@ h2 {
   border-top:1px solid #57B3E0;
   margin:-1px 0 0;
   overflow:hidden;
-  padding:0 290px 10px 10px;
+  padding:0 10% 10px 10px;
 }
 
 #annotation {
@@ -318,6 +318,12 @@ div#logo {
   padding-bottom:5px;
   padding-right:5px;
   margin:5px;
+}
+
+.show-body pre {
+  background-color: #F0F0F0;
+  margin: 1em 0;
+  padding: 1em;
 }
 
 div#crumbs {
