@@ -307,6 +307,11 @@ div#logo {
   padding: 0px;
 }
 
+.show-body blockquote {
+  border: 1px solid #57B3E0;
+  padding-left: 5px; 
+}
+
 div#crumbs {
   text-align: left;
   padding: 10px 0 10px 25px;
