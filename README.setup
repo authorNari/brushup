@@ -1,4 +1,7 @@
 = DB構築手順
 
-(1) rake db:migrate
-(2) rake db:load_master
+(1) cp config/database.yml.{自分のDB環境} config/database.yml
+(2) rake gems:install
+(3) rake db:migrate
+(4) rake db:load_master
+
