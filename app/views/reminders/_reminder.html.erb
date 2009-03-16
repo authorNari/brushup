@@ -39,15 +39,7 @@
       </tr>
     </table>
     <% end %>
-    <% if copiable_reminder?(reminder) %>
-    <table>
-      <tr>
-        <td class="link">
-          <%= link_to t(:copy, :scope => [:controller, :reminders]), :controller => :reminder, :action => :copy, :id => reminder %>
-        </td>
-      </tr>
-    </table>
-    <% end %>
+    <%= render :partial => "/share/reminder_copy_link", :locals => {:reminder => reminder} %>
   </div>
 </li>
 <% end -%>

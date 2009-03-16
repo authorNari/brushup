@@ -95,7 +95,7 @@ class RemindersController < ApplicationController
       flash[:error] = I18n.t(:copyed_fail, :model => Reminder.human_name, :scope => :error)
       logger.debug "DEBUG(create): @reminder = <#{@reminder.to_yaml}>"
     end
-    redirect_to(@template.back_list_path)
+    redirect_to :user => current_user.login, :action => :list
   end
 
   def check

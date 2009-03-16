@@ -119,6 +119,7 @@ class RemindersControllerTest < ActionController::TestCase
     end
     assert_not_nil flash[:notice]
     assert_response :redirect
+    assert_redirected_to :user => users(:nari).login, :action => :list
   end
   
   test "should get copy fail" do

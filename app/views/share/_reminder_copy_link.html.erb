@@ -1,0 +1,9 @@
+<% if copiable_reminder?(reminder) %>
+<table>
+  <tr>
+    <td class="link">
+      <%= link_to t(:copy, :scope => [:controller, :reminders]), :controller => :reminders, :user => current_user.login, :action => :copy, :id => reminder.id %>
+    </td>
+  </tr>
+</table>
+<% end %>

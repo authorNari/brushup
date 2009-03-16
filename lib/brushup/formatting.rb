@@ -37,7 +37,7 @@ module Brushup::Formatting
     private
     
     def self.escapeHTML(text)
-      return text.gsub(" ", "&nbsp;")
+      return text.to_s.gsub(" ", "&nbsp;")
     end
   end
 
