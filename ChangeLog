@@ -1,0 +1,10 @@
+2009-03-16  Narihiro Nakamura  <authorNari@gmail.com>
+
+	* lib/tasks/db_init.rake: マスタ読み込み前のDB設定用タスク
+
+	* public/stylesheets/reminders.css: <pre><cite><blockquote>等のスタイル設定
+
+	* app/views/share/*: copyアクションへのリンク修正．
+
+	* app/controller/reminders_controller.rb: copyアクション後の遷移先変更
+
