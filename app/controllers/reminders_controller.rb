@@ -20,7 +20,6 @@ class RemindersController < ApplicationController
 
   def show
     @reminder = Reminder.find(params[:id])
-    render :action => :show
   end
   alias :confirm_create :show
   alias :confirm_update :show
@@ -136,6 +135,7 @@ class RemindersController < ApplicationController
   private
   def save_current_list
     session[:list_referer] = {
+      :controller => controller_name,
       :user => params[:user],
       :action => params[:action],
       :id => params[:id],

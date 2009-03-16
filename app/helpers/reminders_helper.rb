@@ -19,7 +19,8 @@ module RemindersHelper
     end
   end
 
-  def button_for_back_list
+  def button_for_back_list(options={})
+    return button_to(t(options[:action], :scope => [:controller, controller_name]), options) unless options.empty?
     return button_to(t(back_list_path[:action], :scope => [:controller, controller_name]), back_list_path)
   end
   

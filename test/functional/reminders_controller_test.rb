@@ -20,11 +20,14 @@ class RemindersControllerTest < ActionController::TestCase
     users(:nari).reminders.each{|r| r.tag_list = "hoge fuge"}
     users(:nari).reminders.each(&:save!)
     get :list, :user => users(:nari).login, :tag => "hoge"
+    
     assert_response :success
     assert_not_nil assigns(:reminders)
     assigns(:reminders).each do |r|
       assert_equal true, r.tag_list.include?("hoge")
     end
+
+    assert_select "div#crumbs a", I18n.t(:list, :scope => [:controller, :reminders])
   end
 
   test "should get new" do

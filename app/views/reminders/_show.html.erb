@@ -1,0 +1,24 @@
+<% back_button_options ||= {} %>
+<div id="forget-body">
+  <div class="main">
+    <ul class="show">
+      <li class="show">
+        <div class="show">
+          <div class="show-title">
+            <h2><%= h(@reminder.title) -%></h2>
+          </div>
+          <%= render :partial => "/share/reminder_show_detail", :locals => {:reminder => @reminder} %>
+          <table>
+            <tr>
+            <% if current_user? %>
+              <td><%= button_to t(:check, :scope => [:railties, :scaffold]), action_path(:check, :id => @reminder.id) if @reminder.today_remind? -%></td>
+              <td><%= button_to t(:edit, :scope => [:railties, :scaffold]), action_path(:edit, :id => @reminder.id) -%></td>
+            <% end %>
+              <td><%= button_for_back_list(back_button_options) %></td>
+            </tr>
+          </table>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
