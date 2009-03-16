@@ -9,7 +9,7 @@
       </span>
     </div>
     <div id="reminder_<%= reminder.id %>_detail" <%= hidden_reminder_detail -%>>
-      <%= render :partial => "/share/reminder_show_detail", :locals => {:reminder => reminder} %>
+      <%= render :partial => "show_detail", :locals => {:reminder => reminder} %>
     </div>
     <% if current_user? %>
     <table>
@@ -25,7 +25,7 @@
       </tr>
     </table>
     <% end %>
-    <%= render :partial => "/share/reminder_copy_link", :locals => {:reminder => reminder} %>
+    <%= render :partial => "show_copy_link", :locals => {:reminder => reminder} %>
   </div>
 </li>
 <% end -%>

@@ -56,13 +56,13 @@ ja:
       check_ok: OK!
       index: 復習一覧
       completed: 復習済み
-      new: 復習新規登録
-      create: 復習新規登録
-      edit: 復習編集
-      update: 復習編集
+      new: 復習登録
+      create: 復習登録
+      edit: 復習修正
+      update: 復習修正
       show: 復習表示
       confirm_create: 復習登録確認
-      confirm_update: 復習編集確認
+      confirm_update: 復習修正確認
       copy: 自分の復習に追加
     timelines:
       today: みんなの今日の復習
@@ -87,6 +87,7 @@ ja:
   text:
     logged_in: ログイン中
     user_reminders: "{{user}}さんの復習"
+    of_user: "{{user}}さんの"
     to_complete_count: "あと {{count}} 回"
     please_input_openid: "ここにOpenIDを入力してください"
   notice:

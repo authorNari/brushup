@@ -1,7 +1,7 @@
 <div id="forget-header">
   <%= link_to(image_tag("rss_icon.gif", :style => "float:right;"), :action => params["action"], :format => "rss") %>
   <h2>
-    <%= t(params["action"], :scope => [:controller, :reminders]) %>
+    <%= message_of_user(params["action"], :scope => [:controller, :reminders]) %>
     <%= title_tag_prefix %>
   </h2>
 

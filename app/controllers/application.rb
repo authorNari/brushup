@@ -27,6 +27,8 @@ class ApplicationController < ActionController::Base
 
   session :session_expires_after => 1.year
   expires_session :time => 30.days
+
+  helper_method :message_of_user
   
   private
   def on_session_expiry
@@ -57,7 +59,7 @@ class ApplicationController < ActionController::Base
   def add_crumb_list_action
     path = @template.back_list_path.dup
     tag = path.delete(:tag)
-    add_crumb(t(path[:action], :scope => [:controller, controller_name]), path)
+    add_crumb(message_of_user(path[:action], :scope => [:controller, controller_name]), path)
     add_crumb(ERB::Util.h(tag), @template.back_list_path) if tag
   end
   
@@ -65,10 +67,10 @@ class ApplicationController < ActionController::Base
     path = @template.back_list_path.dup
     tag = path.delete(:tag)
     if tag
-      add_crumb(t(path[:action], :scope => [:controller, controller_name]), path)
+      add_crumb(message_of_user(path[:action], :scope => [:controller, controller_name]), path)
       add_crumb(ERB::Util.h(tag))
     else
-      add_crumb(t(path[:action], :scope => [:controller, controller_name]))
+      add_crumb(message_of_user(path[:action], :scope => [:controller, controller_name]))
     end
   end
   
@@ -78,5 +80,13 @@ class ApplicationController < ActionController::Base
   
   def add_crumb_update_action
     add_crumb(t("update", :scope => [:controller, controller_name]), @template.action_path(:edit, :id => params[:id]))
+  end
+
+  def message_of_user(id, options={})
+    if params[:user] && !(params[:user].empty?)
+      return ERB::Util.h(I18n.t(:of_user, :scope => :text, :user => ERB::Util.h(params[:user])) +
+        I18n.t(ERB::Util.h(id), options))
+    end
+    ERB::Util.h(I18n.t(id, options))
   end
 end

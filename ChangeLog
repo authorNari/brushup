@@ -4,7 +4,12 @@
 
 	* public/stylesheets/reminders.css: <pre><cite><blockquote>等のスタイル設定
 
-	* app/views/share/*: copyアクションへのリンク修正．
+	* app/views/reminders/_show_copy_link.html.erb: copyアクションへのリンク修正．
 
-	* app/controller/reminders_controller.rb: copyアクション後の遷移先変更
+	* app/views/reminders/_show_detail.html.erb: 復習登録日の表示．
 
+	* app/controller/reminders_controller.rb: copyアクション後の遷移先変更．パンくずリンクにタグが反映されないバグ修正
+
+	* app/views/reminders/confirm_create.html.erb: 復習新規登録後に「復習一覧」に遷移させる
+
+	* app/controller/application.rb: ユーザ名を画面タイトルに表示

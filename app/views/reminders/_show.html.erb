@@ -7,7 +7,7 @@
           <div class="show-title">
             <h2><%= h(@reminder.title) -%></h2>
           </div>
-          <%= render :partial => "/share/reminder_show_detail", :locals => {:reminder => @reminder} %>
+          <%= render :partial => "show_detail", :locals => {:reminder => @reminder} %>
           <table>
             <tr>
             <% if current_user? %>

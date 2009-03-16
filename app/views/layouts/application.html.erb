@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
     <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-    <title><%= t("reminder", :scope => "controller") %>：<%= t(controller.action_name, :scope => ['controller', controller_name]) %></title>
+    <title><%= t("reminder", :scope => "controller") %>：<%= message_of_user(controller.action_name, :scope => ['controller', controller_name]) %></title>
     <%= stylesheet_link_tag 'scaffold', 'reminders', 'pagination' %>
     <%= javascript_include_tag :all %>
   </head>
