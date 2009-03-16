@@ -107,4 +107,10 @@ ja:
     default: なし
     rd: RD
     textile: Textile
-
+  open_id:
+    errors:
+      missing: "指定されたOpenIDは見つかりませんでした。もう一度OpenIDをお確かめの上、お試しください．"
+      invalid: "指定されたOpenIDは不正な値です。"
+      canceled: "OpenID認証はキャンセルされました。"
+      faild: "OpenID認証に失敗しました。"
+      setup_needed: "OpenID認証に必要な設定がされていません。ご自分のOpenIDに必要な設定を行ってください。"

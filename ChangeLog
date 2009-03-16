@@ -13,3 +13,5 @@
 	* app/views/reminders/confirm_create.html.erb: 復習新規登録後に「復習一覧」に遷移させる
 
 	* app/controller/application.rb: ユーザ名を画面タイトルに表示
+
+	* lib/open_id_authentication_to_i18n.rb: OpenID認証失敗時等のメッセージを日本語化
