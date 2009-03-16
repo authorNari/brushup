@@ -229,20 +229,20 @@ div#forget-body-not-sidebar div.main div.show
   color:#505050;
 }
 
-div#forget-body div.main div.show-title h2
+div#forget-body div.main div.show-title h2,
 div#forget-body-not-sidebar div.main div.show-title h2
 {
   font-size:1.5em;
 }
 
-div#forget-body div.main div.show-title h2 a
+div#forget-body div.main div.show-title h2 a,
 div#forget-body-not-sidebar div.main div.show-title h2 a
 {
   color:#000000;
   text-decoration:none;
 }
 
-div#forget-body div.main div.show td.link
+div#forget-body div.main div.show td.link,
 div#forget-body-not-sidebar div.main div.show td.link
 {
   padding-right: 15px;
