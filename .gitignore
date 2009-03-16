@@ -7,3 +7,6 @@ config/database.yml
 log/*.log
 db/*.sqlite3
 db/schema.rb
+TAGS
+coverage
+public/stylesheets/trace.txt
