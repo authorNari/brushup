@@ -1,0 +1,31 @@
+# == Schema Information
+# Schema version: 20090118140308
+#
+# Table name: schedules
+#
+#  id         :integer       not null, primary key
+#  level      :integer       
+#  span       :integer       
+#  created_at :datetime      
+#  updated_at :datetime      
+#
+
+level_1:
+  id: 1
+  level: 1
+  span: 1
+
+level_2:
+  id: 2
+  level: 2
+  span: 7
+
+level_3:
+  id: 3
+  level: 3
+  span: 30
+
+level_4:
+  id: 4
+  level: 4
+  span: 182
