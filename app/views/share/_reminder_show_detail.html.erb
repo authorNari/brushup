@@ -1,0 +1,18 @@
+<div class="show-body">
+  <%= reminder.body.untaint %>
+</div>
+<div class="show-tags">
+  <b><%=h Reminder.human_attribute_name("tag_list") %> : </b><%=h reminder.tag_list %>
+</div>
+<div class="show-date">
+  <b><%=h Reminder.human_attribute_name('created_at') %> : </b><%=h display_date(reminder.created_at) %>
+</div>
+<% unless reminder.completed? %>
+  <div class="show-date">
+    <b><%=h Reminder.human_attribute_name('learned_at') %> : </b><%=h display_date(reminder.learned_at) %>
+  </div>
+  <div class="show-date">
+    <b><%=h Reminder.human_attribute_name('next_learn_date') %> : </b><%=h display_date(reminder.next_learn_date) %>
+    (<%= t(:to_complete_count, :scope => :text, :count => reminder.to_complete_count) %>)
+  </div>
+<% end %>

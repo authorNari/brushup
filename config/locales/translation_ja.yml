@@ -26,8 +26,8 @@ ja:
         tag_list: タグ
         completed: 覚えましたか？
         next_learn_date: 次の復習日
-        created_at: "作成日"
-        updated_at: "更新日"
+        created_at: "復習登録日"
+        updated_at: "復習更新日"
         format: ドキュメント形式
       schedules: 
         level: "レベル"

@@ -9,21 +9,7 @@
       </span>
     </div>
     <div id="reminder_<%= reminder.id %>_detail" <%= hidden_reminder_detail -%>>
-      <div class="show-body">
-        <%= reminder.body.untaint %>
-      </div>
-      <div class="show-tags">
-        <b><%=h Reminder.human_attribute_name("tag_list") %> : </b><%=h reminder.tag_list %>
-      </div>
-      <% unless reminder.completed? %>
-      <div class="show-date">
-        <b><%=h Reminder.human_attribute_name('learned_at') %> : </b><%=h display_date(reminder.learned_at) %>
-      </div>
-      <div class="show-date">
-        <b><%=h Reminder.human_attribute_name('next_learn_date') %> : </b><%=h display_date(reminder.next_learn_date) %>
-        (<%= t(:to_complete_count, :scope => :text, :count => reminder.to_complete_count) %>)
-      </div>
-      <% end %>
+      <%= render :partial => "/share/reminder_show_detail", :locals => {:reminder => reminder} %>
     </div>
     <% if current_user? %>
     <table>
