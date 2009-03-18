@@ -75,6 +75,14 @@ EOS
     return title
   end
   
+  def rss_reminder_link(reminder)
+    if params[:action] == "today"
+      url_for(action_path(:show, :id => reminder.id, :brushup_date => reminder.next_learn_date, :only_path => false))
+    else
+      url_for(action_path(:show, :id => reminder.id, :only_path => false))
+    end
+  end
+  
   def tag_cloud_styles
     return %w(tag-light tag-normal tag-many tag-very-many)
   end
