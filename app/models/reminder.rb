@@ -90,7 +90,12 @@ class Reminder < ActiveRecord::Base
   end
 
   def deep_clone(user)
-    return Reminder.new(:title => self.title, :body => self[:body], :user => user, :format => self.format)
+    r = Reminder.new(:title => self.title,
+                     :body => self[:body],
+                     :user => user,
+                     :format => self.format,
+                     :tag_list => self.tag_list.join(" ")
+                     )
   end
   
   private

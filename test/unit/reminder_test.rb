@@ -98,5 +98,11 @@ class ReminderTest < ActiveSupport::TestCase
     assert_equal schedules(:level_1).level, rem.schedule.level
     assert_equal false, rem.completed
     assert_equal reminders(:deep_clone).format, rem.format
+    assert_equal reminders(:deep_clone).tag_list, rem.tag_list
+
+    reminders(:deep_clone).tag_list = ""
+    reminders(:deep_clone).save!
+    rem = reminders(:deep_clone).deep_clone(users(:nari))
+    assert_equal true, rem.tag_list.empty?
   end
 end

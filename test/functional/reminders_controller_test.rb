@@ -27,7 +27,7 @@ class RemindersControllerTest < ActionController::TestCase
       assert_equal true, r.tag_list.include?("hoge")
     end
 
-    assert_select "div#crumbs a", I18n.t(:list, :scope => [:controller, :reminders])
+    assert_select "div#crumbs a", @controller.instance_variable_get("@template").message_of_user(:list, :scope => [:controller, :reminders])
   end
 
   test "should get new" do
