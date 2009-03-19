@@ -4,7 +4,8 @@ module TimelinesHelper
   end
 
   def button_for_back_list
-    return button_to(t(back_list_path[:action], :scope => [:controller, controller_name]), back_list_path)
+    link = t(back_list_path[:action], :scope => [:controller, controller_name])
+    return button_to(t(:to, :scope => :links, :link => link), back_list_path)
   end
   
   def rss_title

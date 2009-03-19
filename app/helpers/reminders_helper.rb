@@ -20,8 +20,9 @@ module RemindersHelper
   end
 
   def button_for_back_list(options={})
-    return button_to(t(options[:action], :scope => [:controller, controller_name]), options) unless options.empty?
-    return button_to(t(back_list_path[:action], :scope => [:controller, controller_name]), back_list_path)
+    options = back_list_path if options.empty?
+    link = t(options[:action], :scope => [:controller, controller_name])
+    return button_to(t(:to, :scope => :links, :link => link), options) 
   end
   
   def rss_title

@@ -84,6 +84,7 @@ ja:
     hide_detail: 詳細切替
     timelines: みんなの復習
     helps: ヘルプ
+    to: "{{link}}へ"
   text:
     logged_in: ログイン中
     user_reminders: "{{user}}さんの復習"

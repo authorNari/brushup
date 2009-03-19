@@ -10,11 +10,14 @@
           <%= render :partial => "show_detail", :locals => {:reminder => @reminder} %>
           <table>
             <tr>
+              <td><%= button_for_back_list(back_button_options) %></td>
+            <% if copiable_reminder?(@reminder) %>
+              <td><%= button_to t(:copy, :scope => [:controller, :reminders]), action_path(:copy, :controller => :reminders, :user => current_user.login, :id => @reminder.id) -%></td>
+            <% end %>
             <% if current_user? %>
               <td><%= button_to t(:check, :scope => [:railties, :scaffold]), action_path(:check, :id => @reminder.id) if @reminder.today_remind? -%></td>
               <td><%= button_to t(:edit, :scope => [:railties, :scaffold]), action_path(:edit, :id => @reminder.id) -%></td>
             <% end %>
-              <td><%= button_for_back_list(back_button_options) %></td>
             </tr>
           </table>
         </div>
