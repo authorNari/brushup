@@ -16,14 +16,15 @@ class TimelinesController < ApplicationController
   end
   
   def today
-    @reminders = Reminder.todays(:tag => params["tag"]).paginate(:page => params[:page])
+    @reminders = Reminder.todays(:tag => params["tag"])
     list
   end
 
   def list
-    @reminders ||=  Reminder.lists(:tag => params["tag"]).paginate(:page => params[:page])
+    @reminders ||=  Reminder.lists(:tag => params["tag"])
     logger.debug "DEBUG(list) : @reminders = <#{@reminders.to_yaml}>"
     @tags = tag_counts(@reminders)
+    @reminders = @reminders.paginate(:page => params[:page])
 
     respond_to do |format|
       format.html { render :action => :index }
