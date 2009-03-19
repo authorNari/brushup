@@ -128,4 +128,9 @@ EOS
     return action_path(:index)
   end
 
+  def reminder_delay_date_count(reminder)
+    cnt = Date.today - reminder.next_learn_date
+    return "(#{t(:reminder_delay, :scope => :text, :count => h(cnt))})" if cnt > 5
+    ""
+  end
 end

@@ -14,5 +14,6 @@
   <div class="show-date">
     <b><%=h Reminder.human_attribute_name('next_learn_date') %> : </b><%=h display_date(reminder.next_learn_date) %>
     (<%= t(:to_complete_count, :scope => :text, :count => reminder.to_complete_count) %>)
+    <%= reminder_delay_date_count(reminder) %> 
   </div>
 <% end %>

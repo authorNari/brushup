@@ -91,6 +91,7 @@ ja:
     of_user: "{{user}}さんの"
     to_complete_count: "あと {{count}} 回"
     please_input_openid: "ここにOpenIDを入力してください"
+    reminder_delay: "{{count}}日遅れ"
   notice:
     created_success: "{{model}}を作成しました"
     updated_success: "{{model}}を更新しました"
