@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090308015337
+# Schema version: 20090315062618
 #
 # Table name: schedules
 #
