@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :openid_url
   validates_uniqueness_of :login, :on => :update
 
-  attr_accessible :openid_url, :login
+  attr_accessible :openid_url, :login, :default_format
   
   def self.unique_nickname(nickname=nil)
     if nickname.to_s.blank? || !(Authentication.login_regex =~ nickname.to_s)

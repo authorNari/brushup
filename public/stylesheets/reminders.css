@@ -283,6 +283,10 @@ div#logo {
   padding: 15px 0 15px 50px;
 }
 
+table.buttons {
+  padding: 20px 0 20px 0;
+}
+
 /* for formatter */
 .show-body h1 {
   font-size: 1.5em;

@@ -36,7 +36,8 @@ class Reminder < ActiveRecord::Base
   }
 
   validates_presence_of :title, :body
-  
+
+  attr_accessor :change_default_format
   cattr_reader :per_page
   @@per_page = 20
   
@@ -97,7 +98,17 @@ class Reminder < ActiveRecord::Base
                      :tag_list => self.tag_list.join(" ")
                      )
   end
-  
+
+  def save_with_update_user!
+    Reminder.transaction do
+      self.save!
+      if self.change_default_format
+        self.user.default_format = self.format
+        self.user.save!
+      end
+    end
+  end
+
   private
   def get_next_learn_date(schedule)
     return Date.today + self.schedule.span

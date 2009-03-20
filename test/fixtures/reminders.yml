@@ -27,6 +27,10 @@ DEFAULT: &DEFAULT
   body: don_t forget one
   completed: false
   
+template:
+  <<: *DEFAULT
+  title: template
+  body: template
 
 learned_remined_1:
   <<: *DEFAULT

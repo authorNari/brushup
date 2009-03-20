@@ -3,9 +3,9 @@ module TimelinesHelper
     return {:controller => :timelines, :action => action, :tag => nil}.merge(options)
   end
 
-  def button_for_back_list
+  def link_to_back_list
     link = t(back_list_path[:action], :scope => [:controller, controller_name])
-    return button_to(t(:to, :scope => :links, :link => link), back_list_path)
+    return link_to(t(:to, :scope => :links, :link => link), back_list_path)
   end
   
   def rss_title

@@ -19,10 +19,10 @@ module RemindersHelper
     end
   end
 
-  def button_for_back_list(options={})
+  def link_to_back_list(options={})
     options = back_list_path if options.empty?
     link = t(options[:action], :scope => [:controller, controller_name])
-    return button_to(t(:to, :scope => :links, :link => link), options) 
+    return link_to(t(:to, :scope => :links, :link => link), options) 
   end
   
   def rss_title
@@ -52,5 +52,13 @@ module RemindersHelper
     else
       url_for(action_path(:show, :id => reminder.id, :only_path => false))
     end
+  end
+
+  def format_selectbox(f, reminder)
+    options = {}
+    options = {:selected => current_user.default_format} if reminder.new_record?
+    f.select(:format,
+             Brushup::Formatting.format_types.map{|k| [t(k, :scope => :format_type), k.to_s]},
+             options)
   end
 end

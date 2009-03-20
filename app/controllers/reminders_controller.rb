@@ -35,7 +35,9 @@ class RemindersController < ApplicationController
   def create
     @reminder = Reminder.new(params[:reminder].merge!(:user_id => current_user.id))
 
-    if @reminder.save
+    if @reminder.valid?
+      @reminder.save_with_update_user!
+    
       flash[:notice] = I18n.t(:created_success, :model => Reminder.human_name, :scope => [:notice])
       return render(:template => "/share/autoclose") if @template.bookmarklet_window?
       redirect_to(:action => :confirm_create, :id => @reminder.id, :user => current_user.login)
@@ -43,18 +45,29 @@ class RemindersController < ApplicationController
       logger.debug "DEBUG(create): @reminder = <#{@reminder.to_yaml}>"
       render(:user => current_user.login, :action => "new")
     end
+  rescue ActiveRecord::ActiveRecordError => ex
+    logger.error "ERROR(create): ex = <#{ex.inspect}>"
+    render(:user => current_user.login, :action => "new")
   end
 
   def update
     @reminder = Reminder.find(params[:id])
 
-    if @reminder.update_attributes(params[:reminder])
+    @reminder.attributes = params[:reminder]
+
+    if @reminder.valid?
+      @reminder.save_with_update_user!
+      
+      @reminder.user.update_attributes(:default_format => @reminder.format) if params[:change_default_format]
       flash[:notice] = I18n.t(:updated_success, :model => Reminder.human_name, :scope => [:notice])
       redirect_to(:action => :confirm_update, :id => @reminder.id, :user => current_user.login)
     else
       logger.debug "DEBUG(update): @reminder = <#{@reminder.to_yaml}>"
       render(:user => current_user.login, :action => "edit")
     end
+  rescue ActiveRecord::ActiveRecordError => ex
+    logger.error "ERROR(create): ex = <#{ex.inspect}>"
+    render(:user => current_user.login, :action => "edit")
   end
 
   def destroy

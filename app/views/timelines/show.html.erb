@@ -12,9 +12,8 @@
             <h2><%= h(@reminder.title) -%></h2>
           </div>
           <%= render :partial => "/reminders/show_detail", :locals => {:reminder => @reminder} %>
-          <table>
+          <table class="buttons">
             <tr>
-              <td><%= button_for_back_list %></td>
             <% if copiable_reminder?(@reminder) %>
               <td><%= button_to t(:copy, :scope => [:controller, :reminders]), action_path(:copy, :controller => :reminders, :user => current_user.login, :id => @reminder.id) -%></td>
             <% end %>
@@ -24,6 +23,7 @@
             <% end %>
             </tr>
           </table>
+          <div><%= link_to_back_list %></div>
         </div>
       </li>
     </ul>

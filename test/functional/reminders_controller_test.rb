@@ -45,6 +45,22 @@ class RemindersControllerTest < ActionController::TestCase
       post :create, :reminder => {:title => "new", :body => "body"}, :user => users(:nari).login
     end
 
+    assert_nil User.find(users(:nari).id).default_format
+    assert_redirected_to :action => :confirm_create, :id => assigns(:reminder).id, :user => users(:nari).login
+  end
+
+  test "should create with change_default_format" do
+    assert_difference('Reminder.count') do
+      post(:create,
+           :id => reminders(:list_reminder).id,
+           :reminder => {:title => "new",
+             :body => "body",
+             :format => "rd",
+             :change_default_format => "t"},
+           :user => users(:nari).login)
+    end
+
+    assert_equal "rd", User.find(users(:nari).id).default_format
     assert_redirected_to :action => :confirm_create, :id => assigns(:reminder).id, :user => users(:nari).login
   end
 
@@ -82,7 +98,27 @@ class RemindersControllerTest < ActionController::TestCase
 
   test "should update" do
     next_date = reminders(:list_reminder).next_learn_date
-    put :update, :id => reminders(:list_reminder).id, :reminder => {:title => "update" }, :user => users(:nari).login
+    put(:update,
+        :id => reminders(:list_reminder).id,
+        :reminder => {:title => "update"},
+        :user => users(:nari).login)
+    
+    assert_nil User.find(users(:nari).id).default_format
+    assert_equal next_date, assigns(:reminder).next_learn_date
+    assert_not_nil assigns(:reminder)
+    assert_redirected_to :action => :confirm_update, :id => assigns(:reminder).id, :user => users(:nari).login
+  end
+
+  test "should update with change_default_format" do
+    next_date = reminders(:list_reminder).next_learn_date
+    put(:update,
+        :id => reminders(:list_reminder).id,
+        :reminder => {:title => "update",
+          :format => "rd",
+          :change_default_format => "t"},
+        :user => users(:nari).login)
+    
+    assert_equal "rd", User.find(users(:nari).id).default_format
     assert_equal next_date, assigns(:reminder).next_learn_date
     assert_not_nil assigns(:reminder)
     assert_redirected_to :action => :confirm_update, :id => assigns(:reminder).id, :user => users(:nari).login

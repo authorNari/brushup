@@ -105,4 +105,12 @@ class ReminderTest < ActiveSupport::TestCase
     rem = reminders(:deep_clone).deep_clone(users(:nari))
     assert_equal true, rem.tag_list.empty?
   end
+
+  test "save with update user" do
+    rem = reminders(:template)
+    rem.change_default_format = "true"
+    rem.format = "rd"
+    rem.save_with_update_user!
+    assert_equal "rd", rem.user.default_format
+  end
 end

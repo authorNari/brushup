@@ -17,7 +17,9 @@
     </div>
     <div>
       <%=h Reminder.human_attribute_name("format") %>
-      <%= f.select :format, Brushup::Formatting.format_types.map{|k| [t(k, :scope => :format_type), k.to_s]} %>
+      <%= format_selectbox(f, @reminder) %>
+      <%= f.check_box :change_default_format, {}, true %>
+      <%= f.label :change_default_format, t(:change_default_format, :scope => :text) %>
     </div>
     <div class="controll_left">
       <%= hidden_field_tag "mode", params[:mode] -%>
