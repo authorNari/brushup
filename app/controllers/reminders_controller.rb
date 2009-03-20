@@ -38,8 +38,8 @@ class RemindersController < ApplicationController
     if @reminder.valid?
       @reminder.save_with_update_user!
     
-      flash[:notice] = I18n.t(:created_success, :model => Reminder.human_name, :scope => [:notice])
       return render(:template => "/share/autoclose") if @template.bookmarklet_window?
+      flash[:notice] = I18n.t(:created_success, :model => Reminder.human_name, :scope => [:notice])
       redirect_to(:action => :confirm_create, :id => @reminder.id, :user => current_user.login)
     else
       logger.debug "DEBUG(create): @reminder = <#{@reminder.to_yaml}>"
@@ -58,7 +58,6 @@ class RemindersController < ApplicationController
     if @reminder.valid?
       @reminder.save_with_update_user!
       
-      @reminder.user.update_attributes(:default_format => @reminder.format) if params[:change_default_format]
       flash[:notice] = I18n.t(:updated_success, :model => Reminder.human_name, :scope => [:notice])
       redirect_to(:action => :confirm_update, :id => @reminder.id, :user => current_user.login)
     else
