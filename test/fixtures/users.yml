@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090315062618
+# Schema version: 20090319165641
 #
 # Table name: users
 #
@@ -10,6 +10,7 @@
 #  updated_at                :datetime      
 #  remember_token            :string(40)    
 #  remember_token_expires_at :datetime      
+#  default_format            :string(255)   
 #
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html

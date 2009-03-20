@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090315062618
+# Schema version: 20090319165641
 #
 # Table name: reminders
 #
