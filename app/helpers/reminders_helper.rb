@@ -61,4 +61,9 @@ module RemindersHelper
              Brushup::Formatting.format_types.map{|k| [t(k, :scope => :format_type), k.to_s]},
              options)
   end
+
+  def today_tag_label_link
+    label = "#{t(:today, :scope => [:controller, :reminders])}(#{Reminder.todays(:user_id => User.find(params[:user]).id).size})"
+    link_to(label, action_path(:today))
+  end
 end

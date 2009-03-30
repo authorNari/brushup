@@ -6,7 +6,7 @@
   </h2>
 
   <ul class="menu">
-    <li class="<%= current_tag('today')-%>"><%= link_to t(:today, :scope => [:controller, :reminders]), action_path(:today) -%></li>
+    <li class="<%= current_tag('today')-%>"><span id="tag_today"><%= today_tag_label_link -%></span></li>
     <li class="<%= current_tag('list')-%>"><%= link_to t(:index, :scope => [:controller, :reminders]), action_path(:list) -%></li>
     <li class="<%= current_tag('completed')-%>"><%= link_to t(:completed, :scope => [:controller, :reminders]), action_path(:completed) -%></li>
   </ul>

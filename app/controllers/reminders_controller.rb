@@ -121,6 +121,7 @@ class RemindersController < ApplicationController
           render :update do |page|
             page.replace "reminder_#{params[:id]}", (render :partial => "reminder", :locals => {:reminder => reminder})
             page.replace "reminders_check_#{params[:id]}", t(:check_ok, :scope => [:controller, :reminders])
+            page.replace_html "tag_today", @template.today_tag_label_link
             page.visual_effect :highlight, "reminder_#{params[:id]}"
             page.visual_effect :fade, "reminder_#{params[:id]}"
           end
