@@ -133,4 +133,13 @@ EOS
     return "(#{t(:reminder_delay, :scope => :text, :count => h(cnt))})" if cnt > 5
     ""
   end
+
+  def link_to_menu(show_actions, label, link)
+    if show_actions == :all
+      return link_to_unless(link[:controller].to_s == controller_name, label, link)
+    end
+    link_to_unless(((link[:controller].to_s == controller_name) &&
+                    show_actions.map(&:to_s).include?(params[:action])),
+                   label, link)
+  end
 end

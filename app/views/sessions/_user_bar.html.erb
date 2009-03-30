@@ -1,11 +1,11 @@
 <ul>
 <% form_tag(:controller => "sessions", :action => "create", :method => :post) do -%>
-  <li><%= link_to t("info", :scope => [:links]), "/" -%></li>
-  <li><%= link_to t(:timelines, :scope => :links), :controller => "timelines"  -%></li>
+  <li><%= link_to_unless_current(t("info", :scope => [:links]), "/") -%></li>
+  <li><%= link_to_menu(:all, t(:timelines, :scope => :links), :controller => "timelines") -%></li>
   <% if logged_in? -%>
-    <li><%= link_to(t(:user_reminders, :scope => :text, :user => h(current_user.login)), :controller => :reminders, :user => current_user.login) -%></li>
-    <li><%= link_to t(:edit, :scope => [:controller, :sessions]), :user => current_user.login, :action => :edit, :controller => :sessions -%></li>
-    <li><%= link_to t("logout", :scope => [:links]), logout_path -%></li>
+    <li><%= link_to_menu(:all, t(:user_reminders, :scope => :text, :user => h(current_user.login)), :controller => :reminders, :user => current_user.login) -%></li>
+    <li><%= link_to_menu([:edit, :update], t(:edit, :scope => [:controller, :sessions]), :user => current_user.login, :action => :edit, :controller => :sessions) -%></li>
+    <li><%= link_to(t("logout", :scope => [:links]), logout_path) -%></li>
   <% else -%>
     <li>
       <label for="openid_url" >
