@@ -101,6 +101,7 @@ ja:
     fail_login: ログインに失敗しました
     permission_denied: 権限がありません。ログインしてから再度試してください。
     session_expired: 30日以上ログインが無かったため、セッションが切れました。再度ログインしてください。
+    today_reminder: "今日の復習が{{cnt}}件あります"
   error:
     copyed_fail: "{{model}}のコピーに失敗しました"
   paginate:

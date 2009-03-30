@@ -142,4 +142,10 @@ EOS
                     show_actions.map(&:to_s).include?(params[:action])),
                    label, link)
   end
+
+  def today_reminder_notice_link
+    if logged_in?
+      link_to(flash[:reminder_notice], action_path(:today, :user => current_user.login, :controller => :reminders))
+    end
+  end
 end

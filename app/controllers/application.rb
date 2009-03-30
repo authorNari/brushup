@@ -30,6 +30,7 @@ class ApplicationController < ActionController::Base
   expires_session :time => 30.days
 
   helper_method :message_of_user
+  before_filter :notice_today_reminder
   
   private
   def on_session_expiry
@@ -89,5 +90,11 @@ class ApplicationController < ActionController::Base
         I18n.t(ERB::Util.h(id), options))
     end
     ERB::Util.h(I18n.t(id, options))
+  end
+
+  def notice_today_reminder
+    if logged_in?
+      flash[:reminder_notice] = t(:today_reminder, :scope => %w(notice), :cnt => Reminder.todays(:user_id => current_user.id).size)
+    end
   end
 end
