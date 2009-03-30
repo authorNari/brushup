@@ -94,7 +94,10 @@ class ApplicationController < ActionController::Base
 
   def notice_today_reminder
     if logged_in?
-      flash[:reminder_notice] = t(:today_reminder, :scope => %w(notice), :cnt => Reminder.todays(:user_id => current_user.id).size)
+      size = Reminder.todays(:user_id => current_user.id).size
+      if size > 0
+        flash[:reminder_notice] = t(:today_reminder, :scope => %w(notice), :cnt => size)
+      end
     end
   end
 end

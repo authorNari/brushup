@@ -21,9 +21,11 @@
     </div>
 
     <div id="annotation">
-      <% if flash[:notice] %><p style="color: green;"><%= flash[:notice].untaint %></p><% end %>
-      <% if flash[:error] %><p style="color: red;"><%= flash[:error].untaint %></p><% end %>
-      <% if flash[:reminder_notice] %><p style="color: gree;"><%= today_reminder_notice_link %></p><% end %>
+      <% unless bookmarklet_window? %>
+        <% if flash[:notice] %><p style="color: green;"><%= flash[:notice].untaint %></p><% end %>
+        <% if flash[:error] %><p style="color: red;"><%= flash[:error].untaint %></p><% end %>
+        <% if flash[:reminder_notice] %><p style="color: gree;"><%= today_reminder_notice_link %></p><% end %>
+      <% end %>
     </div>
 
     <%= yield  %>
