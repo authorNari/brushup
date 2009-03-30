@@ -291,31 +291,37 @@ table.buttons {
 .show-body h1 {
   font-size: 1.5em;
   font-weight: bold;
+  margin: 10px 0;
 }
 
 .show-body h2 {
   font-size: 1.4em;
   font-weight: bold;
+  margin: 10px 0;
 }
 
 .show-body h3 {
   font-size: 1.3em;
   font-weight: bold;
+  margin: 10px 0;
 }
 
 .show-body h4 {
   font-size: 1.2em;
   font-weight: bold;
+  margin: 10px 0;
 }
 
 .show-body h5 {
   font-size: 1.1em;
   font-weight: bold;
+  margin: 10px 0;
 }
 
 .show-body h6 {
   font-size: 1em;
   font-weight: bold;
+  margin: 10px 0;
 }
 
 .show-body ul li {
