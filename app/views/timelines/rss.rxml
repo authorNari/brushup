@@ -5,7 +5,7 @@ xml.rss("version"    => "2.0",
         "xmlns:atom" => "http://www.w3.org/2005/Atom") do
   xml.channel do
     xml.title rss_title
-    xml.link info_url
+    xml.link rss_link
     xml.pubDate     Time.now.gmtime.rfc822
     xml.description t(params["action"], :scope => [:controller, controller_name])
     xml.atom :link, "href" => url_for(action_path(params["action"]).merge(:only_path => false)), "rel" => "self", "type" => "application/rss+xml"

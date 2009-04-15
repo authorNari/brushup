@@ -148,4 +148,10 @@ EOS
       link_to(flash[:reminder_notice], action_path(:today, :user => current_user.login, :controller => :reminders))
     end
   end
+
+  def rss_link
+    rss_link = params.dup
+    rss_link.delete(:format)
+    url_for(rss_link.merge(:only_path => false))
+  end
 end
