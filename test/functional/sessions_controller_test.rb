@@ -60,8 +60,11 @@ class SessionsControllerTest < ActionController::TestCase
   end
 
   test "shuold update fail" do
-    get :update, :user => users(:nari).login, :edit_user => {:login => nil}
+    get :update, :user => users(:nari).login, :edit_user => {:login => "aaron"}
+
     assert_template "edit"
+    assert_equal "aaron", assigns(:user).login
+    assert_not_equal "aaron", @controller.instance_eval("@current_user.login")
   end
 
   test "shuold destroy" do
