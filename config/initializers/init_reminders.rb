@@ -2,6 +2,7 @@ begin
   require 'translate_untaint'
   require 'date'
   require 'friendly_id'
+  require 'fixed_sting_to_xs'
   
   # tag init
   TagList.delimiter = " "
