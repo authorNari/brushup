@@ -65,12 +65,12 @@ list_reminder_with_tag:
   <<: *DEFAULT
   next_learn_date: <%= Date.tomorrow %>
 
-list_reminder:
+list_reminder_2:
   <<: *DEFAULT
   title: hogehoge
   next_learn_date: <%= Date.tomorrow %>
 
-list_reminder:
+list_reminder_3:
   <<: *DEFAULT
   next_learn_date: <%= Date.today %>
 

@@ -89,8 +89,8 @@ class RemindersController < ApplicationController
 
   def list
     @reminders ||=  Reminder.lists(:user_id => reminder_user.id, :tag => params["tag"])
-    logger.debug "DEBUG(list) : @reminders = <#{@reminders.to_yaml}>"
-    @tags = tag_counts(@reminders)
+    logger.debug{ "DEBUG(list) : @reminders = <#{@reminders.to_yaml}>" }
+    @tags = Reminder.tag_counts(:conditions => ["reminders.id IN (?)", @reminders.map(&:id)])
     @reminders = @reminders.paginate(:page => params[:page])
 
     respond_to do |format|
@@ -157,12 +157,6 @@ class RemindersController < ApplicationController
     }
   end
   
-  def tag_counts(reminders)
-    tags = {}
-    reminders.each{|r| r.tag_counts.each{|t| tags[t.name] ||= []; tags[t.name] << t }}
-    return tags.values
-  end
-
   def same_login_user_required
     unless current_user?
       flash[:notice] = t("permission_denied", :scope => :notice)

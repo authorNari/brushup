@@ -20,3 +20,8 @@ config.action_controller.allow_forgery_protection    = false
 # The :test delivery method accumulates sent emails in the
 # ActionMailer::Base.deliveries array.
 config.action_mailer.delivery_method = :test
+
+config.action_controller.session = {
+  :session_key => '_brushup_session',
+  :secret      => "58fc61a60e884d69905c41303193ce06"
+}

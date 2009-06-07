@@ -22,8 +22,7 @@ class TimelinesController < ApplicationController
 
   def list
     @reminders ||=  Reminder.lists(:tag => params["tag"])
-    logger.debug "DEBUG(list) : @reminders = <#{@reminders.to_yaml}>"
-    @tags = tag_counts(@reminders)
+    @tags = Reminder.tag_counts(:conditions => ["reminders.id IN (?)", @reminders.map(&:id)])
     @reminders = @reminders.paginate(:page => params[:page])
 
     respond_to do |format|
@@ -40,11 +39,5 @@ class TimelinesController < ApplicationController
       :id => params[:id],
       :tag => params[:tag],
     }
-  end
-  
-  def tag_counts(reminders)
-    tags = {}
-    reminders.each{|r| r.tag_counts.each{|t| tags[t.name] ||= []; tags[t.name] << t }}
-    return tags.values
   end
 end

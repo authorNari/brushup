@@ -3,6 +3,7 @@
 module ApplicationHelper
   ::WillPaginate::ViewHelpers.pagination_options[:prev_label] = I18n.t(:prev_label, :scope => :paginate)
   ::WillPaginate::ViewHelpers.pagination_options[:next_label] = I18n.t(:next_label, :scope => :paginate)
+  include TagsHelper
   
   def action_path(action, options={})
     return {:user => (params["user"] || current_user.login), :controller => :reminders, :action => action, :tag => nil}.merge(options)
@@ -90,17 +91,6 @@ EOS
   def title_tag_prefix(tag=nil)
     tag = params["tag"] || tag
     return h("/ #{tag}(#{@reminders.size})") if tag
-  end
-  
-  def tag_cloud(tags, classes)
-    return if tags.empty?
-    
-    max_count = tags.sort_by(&:size).last.size.to_f
-    
-    tags.each do |tag|
-      index = ((tag.size / max_count) * (classes.size - 1)).round
-      yield tag.first, classes[index]
-    end
   end
   
   def hidden_reminder_detail
