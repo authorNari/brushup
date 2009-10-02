@@ -7,3 +7,17 @@ var Brushup ={
     input_text.style.color = "black";
   }
 };
+
+/* shows and hides ajax indicator(by redmine) */
+Ajax.Responders.register({
+    onCreate: function(){
+        if ($('ajax-indicator') && Ajax.activeRequestCount > 0) {
+            Element.show('ajax-indicator');
+        }
+    },
+    onComplete: function(){
+        if ($('ajax-indicator') && Ajax.activeRequestCount == 0) {
+            Element.hide('ajax-indicator');
+        }
+    }
+});
