@@ -1,3 +1,5 @@
+# I18n.t の文字変換時に taint されるため，safe_erb, safe_record でエラー
+# に引っかかります．そのため translate 時にオブジェクトを untaint します．
 module ActionView
   module Helpers
     module TranslationHelper
