@@ -1,7 +1,7 @@
 class RemindersController < ApplicationController
   before_filter :login_required, :only => %w(new create destroy edit update check copy)
   before_filter :same_login_user_required, :only => %w(create destroy edit update check)
-  before_filter :save_current_list, :only => %w(today completed list)
+  before_filter :save_current_list, :only => %w(today completed list search)
 
   auto_complete_for :tag, :name
 
@@ -9,8 +9,8 @@ class RemindersController < ApplicationController
   before_filter :add_crumb_show_action, :only => %w(confirm_update edit create update)
   before_filter :add_crumb_create_action, :only => %w(confirm_create)
   before_filter :add_crumb_update_action, :only => %w(confirm_update)
-  before_filter :add_crumb_current_action_with_tag, :only => %w(list today completed index)
-  before_filter :add_crumb_current_action, :except => %w(list today completed index)
+  before_filter :add_crumb_current_action_with_tag, :only => %w(list today completed index search)
+  before_filter :add_crumb_current_action, :except => %w(list today completed index search)
 
   helper_method :reminder_user
   
@@ -88,7 +88,11 @@ class RemindersController < ApplicationController
   end
 
   def list
-    @reminders ||=  Reminder.lists(:user_id => reminder_user.id, :tag => params["tag"])
+    @reminder = Reminder.new(params[:reminder])
+    @reminders ||= Reminder.lists(:user_id => reminder_user.id, :tag => params["tag"])
+    if @reminder.search_word
+      @reminders = @reminders.search(@reminder.search_word)
+    end
     logger.debug{ "DEBUG(list) : @reminders = <#{@reminders.to_yaml}>" }
     @tags = Reminder.tag_counts(:conditions => ["reminders.id IN (?)", @reminders.map(&:id)])
     @reminders = @reminders.paginate(:page => params[:page])

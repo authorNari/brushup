@@ -132,3 +132,16 @@ deep_clone_fail:
   user: aaron
   title:
   body: a
+
+list_search:
+  <<: *DEFAULT
+  title: search_title
+  body: search_body
+  next_learn_date: <%= Date.tomorrow %>
+
+list_search_aaron:
+  <<: *DEFAULT
+  user: aaron
+  title: search_title
+  body: search_body
+  next_learn_date: <%= Date.tomorrow %>

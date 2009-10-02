@@ -75,6 +75,17 @@ class ApplicationController < ActionController::Base
       add_crumb(message_of_user(path[:action], :scope => [:controller, controller_name]))
     end
   end
+
+  def add_crumb_current_action_with_tag_and_search
+    path = @template.back_list_path.dup
+    tag = path.delete(:tag)
+    if tag
+      add_crumb(message_of_user(path[:action], :scope => [:controller, controller_name]), path)
+      add_crumb(ERB::Util.h(tag))
+    else
+      add_crumb(message_of_user(path[:action], :scope => [:controller, controller_name]))
+    end
+  end
   
   def add_crumb_create_action
     add_crumb(t("create", :scope => [:controller, controller_name]), @template.action_path(:new))

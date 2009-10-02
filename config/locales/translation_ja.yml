@@ -47,6 +47,7 @@ ja:
       confirmation: "{{value}}しますか？"
       create: "登録"
       check: "復習したらココをクリック"
+      search: "検索"
     tag: "タグ"
   controller:
     reminder: 絶対復習
@@ -90,7 +91,7 @@ ja:
     user_reminders: "{{user}}さんの復習"
     of_user: "{{user}}さんの"
     to_complete_count: "あと {{count}} 回"
-    please_input_openid: "ここにOpenIDを入力してください"
+    please_input_openid: "ここにOpenIDを入力。例：http://www.hatena.ne.jp/authorNari/"
     reminder_delay: "{{count}}日遅れ"
     change_default_format: "標準のフォーマットに設定"
   notice:

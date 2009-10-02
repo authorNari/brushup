@@ -16,6 +16,18 @@ class RemindersControllerTest < ActionController::TestCase
     assert_not_nil assigns(:reminders)
   end
 
+  test "should get list for search" do
+    get :list, :user => users(:nari).login, :reminder => {:search_word => "search_title"}
+    assert_response :success
+    assert_equal 1, assigns(:reminders).size
+  end
+
+  test "should get list for search for other user" do
+    get :list, :user => users(:aaron).login, :reminder => {:search_word => "search_title"}
+    assert_response :success
+    assert_equal 1, assigns(:reminders).size
+  end
+
   test "should get list with tag" do
     users(:nari).reminders.each{|r| r.tag_list = "hoge fuge"}
     users(:nari).reminders.each(&:save!)

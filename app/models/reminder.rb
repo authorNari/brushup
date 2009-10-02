@@ -34,12 +34,15 @@ class Reminder < ActiveRecord::Base
       :order => "name ASC",
       :limit => 10}
   }
+  named_scope :search, lambda{|search_word|
+    {:conditions => ["(title LIKE ?) OR (body LIKE ?)", search_word, search_word] }
+  }
 
   validates_presence_of :title, :body
 
-  attr_accessor :change_default_format
-  cattr_reader :per_page
   @@per_page = 20
+  attr_accessor :change_default_format, :search_word
+  cattr_reader :per_page
   
   def attributes=(params, gard=true)
     super
