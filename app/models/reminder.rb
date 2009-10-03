@@ -35,7 +35,7 @@ class Reminder < ActiveRecord::Base
       :limit => 10}
   }
   named_scope :search, lambda{|search_word|
-    {:conditions => ["(title LIKE ?) OR (body LIKE ?)", search_word, search_word] }
+    {:conditions => ["(title LIKE ?) OR (body LIKE ?)", "%#{search_word}%", "%#{search_word}%"] }
   }
 
   validates_presence_of :title, :body
