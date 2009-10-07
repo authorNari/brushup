@@ -9,7 +9,7 @@ begin
   Tag.destroy_unused = true
   
 rescue Exception => ex
-  puts "\nSigmas initialization failure."
+  puts "\nBrushup initialization failure."
   puts "\nPlease check config/initializers/inflections.rb"
   puts "\nError Class:\n\n #{ex.class}"
   puts "\nError Messages:\n\n  #{ex.message}"
