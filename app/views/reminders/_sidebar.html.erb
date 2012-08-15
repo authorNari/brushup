@@ -2,11 +2,11 @@
 <div class="sidebar">
   <% if current_user? %>
   <div class="clearness-box">
-    <%= button_to(t(:new, :model => Reminder.human_name, :scope => [:railties, :scaffold]), action_path(:new)) -%>
+    <%= button_to(t(:new, :model => Reminder.model_name.human, :scope => [:railties, :scaffold]), action_path(:new)) -%>
   </div>
   <% end %>
   <div class="box">
-    <% form_for @reminder, :url => action_path(params[:action], :tag => params[:tag]) do |f| %>
+    <%= form_for @reminder, :url => action_path(params[:action], :tag => params[:tag]) do |f| %>
       <%= f.text_field :search_word, :size => 20 %>
       <%= f.submit t("railties.scaffold.search") %>
     <% end %>

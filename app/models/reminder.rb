@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # == Schema Information
 # Schema version: 20090319165641
 #
@@ -22,32 +23,30 @@ class Reminder < ActiveRecord::Base
 
   acts_as_taggable
   
-  named_scope :user, lambda{|user_id| {:conditions => ["#{table_name}.user_id = ?", user_id]} }
-  named_scope :completed, :conditions => {:completed => true}
-  named_scope :list, :conditions => ["completed is null OR completed = ?", false]
-  named_scope :today, lambda{|date| {:conditions => ["next_learn_date <= ?", date]} }
-  named_scope :without_today, lambda{|date| {:conditions => ["next_learn_date > ?", date]}}
-  named_scope :tagged_with, lambda{|tags| find_options_for_find_tagged_with(tags) }
-  named_scope :order_by_created, :order => "reminders.created_at DESC"
-  named_scope :complete_tag_name_with, lambda{|tag_name|
+  scope :user, lambda{|user_id| {:conditions => ["#{table_name}.user_id = ?", user_id]} }
+  scope :completed, :conditions => {:completed => true}
+  scope :list, :conditions => ["completed is null OR completed = ?", false]
+  scope :today, lambda{|date| {:conditions => ["next_learn_date <= ?", date]} }
+  scope :without_today, lambda{|date| {:conditions => ["next_learn_date > ?", date]}}
+  scope :order_by_created, :order => "reminders.created_at DESC"
+  scope :complete_tag_name_with, lambda{|tag_name|
     {:conditions => [ "LOWER(tag.name) LIKE ?", "%#{tag_name.downcase}%"], 
       :order => "name ASC",
       :limit => 10}
   }
-  named_scope :search, lambda{|search_word|
+  scope :search, lambda{|search_word|
     {:conditions => ["(title LIKE ?) OR (body LIKE ?)", "%#{search_word}%", "%#{search_word}%"] }
   }
 
+  attr_accessible :title, :body, :user, :format,
+                  :tag_list, :search_word, :change_default_format
   validates_presence_of :title, :body
 
   @@per_page = 20
   attr_accessor :change_default_format, :search_word
   cattr_reader :per_page
-  
-  def attributes=(params, gard=true)
-    super
-    normalize
-  end
+
+  after_initialize :normalize
 
   # get today reminders
   def self.todays(options={})
@@ -94,12 +93,13 @@ class Reminder < ActiveRecord::Base
   end
 
   def deep_clone(user)
-    r = Reminder.new(:title => self.title,
-                     :body => self[:body],
-                     :user => user,
-                     :format => self.format,
-                     :tag_list => self.tag_list.join(" ")
-                     )
+    r = Reminder.new(
+      :title => self.title,
+      :body => self[:body],
+      :user => user,
+      :format => self.format,
+      :tag_list => self.tag_list.join(" ")
+    )
   end
 
   def save_with_update_user!
@@ -118,8 +118,10 @@ class Reminder < ActiveRecord::Base
   end
 
   def self.refine_reminders(options={})
-    return user(options[:user_id]).tagged_with(options[:tag]) if options[:user_id]
-    return tagged_with(options[:tag])
+    res = self
+    res = res.user(options[:user_id]) if options[:user_id]
+    res = res.tagged_with(options[:tag]) if options[:tag]
+    return res
   end
 
   def normalize

@@ -22,12 +22,12 @@ class TimelinesController < ApplicationController
 
   def list
     @reminders ||=  Reminder.lists(:tag => params["tag"])
-    @tags = Reminder.tag_counts(:conditions => ["reminders.id IN (?)", @reminders.map(&:id)])
+    @tags = Reminder.all_tag_counts(tagging_conditions: ["reminders.id IN (?)", @reminders.map(&:id)])
     @reminders = @reminders.paginate(:page => params[:page])
 
     respond_to do |format|
       format.html { render :action => :index }
-      format.rss { render :action => :rss }
+      format.rss { render :action => :rss, :formats => [:xml], :layout => false }
     end
   end
 

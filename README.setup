@@ -1,7 +1,7 @@
 = DB構築手順
 
 (1) cp config/database.yml.{自分のDB環境} config/database.yml
-(2) rake gems:install
+(2) bundle install
 (3) rake db:init
 (4) rake db:load_master
 

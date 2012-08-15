@@ -1,19 +1,23 @@
 reminder_tags_apple:
-  tag: apple
-  taggable: learned_remined_1
+  tag_id: 1
+  taggable_id: 2
   taggable_type: Reminder
+  context: tags
   
 reminder_tags_orange:
-  tag: orange
-  taggable: learned_remined_1
+  tag_id: 2
+  taggable_id: 2
   taggable_type: Reminder
+  context: tags
 
 reminder_tags_orange_1:
-  tag: orange
-  taggable: deep_clone
+  tag_id: 2
+  taggable_id: 14
   taggable_type: Reminder
+  context: tags
 
 reminder_tags_apple_1:
-  tag: apple
-  taggable: deep_clone
+  tag_id: 1
+  taggable_id: 14
   taggable_type: Reminder
+  context: tags

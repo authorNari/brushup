@@ -31,7 +31,7 @@ module Brushup::Formatting
     end
     
     def to_html(*args)
-      simple_format(auto_link(self.class.escapeHTML(CGI::escapeHTML(@text))))
+      simple_format(auto_link(self.class.escapeHTML(CGI::escapeHTML(@text.to_s))))
     end
 
     private

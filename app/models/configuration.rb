@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # == Schema Information
 # Schema version: 20090319165641
 #
@@ -11,12 +12,12 @@
 #  updated_at       :datetime      
 #
 
-# -*- coding: utf-8 -*-
 # システム全体の設定を表現する。
 class Configuration < ActiveRecord::Base
-  # システム全体の設定のインスタンスはひとつであることを想定しているた
-  # め、IDが1のものを取得して使用する。
+  attr_accessible :email, :google_analytics, :google_adsense
+
+  # システム全体の設定のインスタンスはひとつであることを想定している
   def self.instance
-    return find(1)
+    return find(:all).first
   end
 end

@@ -44,7 +44,7 @@ ja:
       destroy: "削除"
       update: "更新"
       show: "表示"
-      confirmation: "{{value}}しますか？"
+      confirmation: "%{value}しますか？"
       create: "登録"
       check: "復習したらココをクリック"
       search: "検索"
@@ -85,26 +85,26 @@ ja:
     hide_detail: 詳細切替
     timelines: みんなの復習
     helps: ヘルプ
-    to: "{{link}}へ"
+    to: "%{link}へ"
   text:
     logged_in: ログイン中
-    user_reminders: "{{user}}さんの復習"
-    of_user: "{{user}}さんの"
-    to_complete_count: "あと {{count}} 回"
+    user_reminders: "%{user}さんの復習"
+    of_user: "%{user}さんの"
+    to_complete_count: "あと %{count} 回"
     please_input_openid: "ここにOpenIDを入力。例：http://www.hatena.ne.jp/authorNari/"
-    reminder_delay: "{{count}}日遅れ"
+    reminder_delay: "%{count}日遅れ"
     change_default_format: "標準のフォーマットに設定"
   notice:
-    created_success: "{{model}}を作成しました"
-    updated_success: "{{model}}を更新しました"
-    copyed_success: "{{model}}をコピーしました"
+    created_success: "%{model}を作成しました"
+    updated_success: "%{model}を更新しました"
+    copyed_success: "%{model}をコピーしました"
     please_log_in: ログインしてください
     fail_login: ログインに失敗しました
     permission_denied: 権限がありません。ログインしてから再度試してください。
     session_expired: 30日以上ログインが無かったため、セッションが切れました。再度ログインしてください。
-    today_reminder: "今日の復習が{{cnt}}件あります"
+    today_reminder: "今日の復習が%{cnt}件あります"
   error:
-    copyed_fail: "{{model}}のコピーに失敗しました"
+    copyed_fail: "%{model}のコピーに失敗しました"
   paginate:
     prev_label: "&laquo; 前へ"
     next_label: "次へ &raquo;"
@@ -117,5 +117,5 @@ ja:
       missing: "指定されたOpenIDは見つかりませんでした。もう一度OpenIDをお確かめの上、お試しください．"
       invalid: "指定されたOpenIDは不正な値です。"
       canceled: "OpenID認証はキャンセルされました。"
-      faild: "OpenID認証に失敗しました。"
+      failed: "OpenID認証に失敗しました。"
       setup_needed: "OpenID認証に必要な設定がされていません。ご自分のOpenIDに必要な設定を行ってください。"

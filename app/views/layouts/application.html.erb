@@ -6,7 +6,7 @@
     <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
     <title><%= t("reminder", :scope => "controller") %>：<%= message_of_user(controller.action_name, :scope => ['controller', controller_name]) %></title>
     <%= stylesheet_link_tag 'scaffold', 'reminders', 'pagination' %>
-    <%= javascript_include_tag :all %>
+    <%= javascript_include_tag "application" %>
   </head>
   <body>
     <div id="header">

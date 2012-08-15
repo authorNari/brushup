@@ -1,0 +1,4 @@
+$("#reminder_<%= @reminder.id %>").html("<%= j render :partial => "reminder", :locals => {:reminder => @reminder} %>")
+$("#reminders_check_<%= @reminder.id %>").html("<%= j  t(:check_ok, :scope => [:controller, :reminders]) %>")
+$("#tag_today").html("<%= j today_tag_label_link %>")
+$("#reminder_<%= @reminder.id %>").hide(2000)

@@ -1,6 +1,6 @@
 <div id="forget-body-not-sidebar">
   <div class="main">
-    <% form_for(@reminder, :url => action_path(action, :id => @reminder.id)) do |f| %>
+    <%= form_for(@reminder, :url => action_path(action, :id => @reminder.id)) do |f| %>
     <%= f.error_messages.untaint %>
     <div>
       <%=h Reminder.human_attribute_name("title") %><br/>
@@ -8,7 +8,6 @@
     </div>
     <div>
       <%=h Reminder.human_attribute_name("tag_list") %> <small>※スペース区切り</small><br/>
-      <%= auto_complete_for_tag(f) -%>
       <br/>
     </div>
     <div>

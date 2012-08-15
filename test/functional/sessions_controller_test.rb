@@ -28,7 +28,7 @@ class SessionsControllerTest < ActionController::TestCase
     post :create, :user => users(:nari).id, :openid_url => "update_url"
     assert_not_nil @request.session[:user_id]
     assert_not_nil assigns(:user)
-    assert_redirected_to :action => :edit
+    assert_redirected_to "/#{assigns(:user).login}/sessions/edit"
   end
   
   test "shuold create fail" do
@@ -70,7 +70,7 @@ class SessionsControllerTest < ActionController::TestCase
   test "shuold destroy" do
     delete :destroy, :user => users(:nari).login
     assert_nil session[:user_id]
-    assert_redirected_to openid_path
+    assert_redirected_to "/login"
   end
   
   test "should_login_with_cookie" do

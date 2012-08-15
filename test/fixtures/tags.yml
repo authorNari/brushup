@@ -1,8 +1,11 @@
 apple:
+  id: 1
   name: apple
 
 orange:
+  id: 2
   name: orange
 
 grape:
+  id: 3
   name: grape

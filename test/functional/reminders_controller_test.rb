@@ -39,7 +39,7 @@ class RemindersControllerTest < ActionController::TestCase
       assert_equal true, r.tag_list.include?("hoge")
     end
 
-    assert_select "div#crumbs a", @controller.instance_variable_get("@template").message_of_user(:list, :scope => [:controller, :reminders])
+    assert_select "div#crumbs a", @controller.view_context.message_of_user(:list, :scope => [:controller, :reminders])
   end
 
   test "should get new" do
@@ -81,7 +81,7 @@ class RemindersControllerTest < ActionController::TestCase
       post :create, :reminder => {:title => "new", :body => "body"}, :mode => "confirm", :user => users(:nari).login
     end
 
-    assert_template "share/autoclose.html.erb"
+    assert_template "share/autoclose"
   end
 
   test "should create fail" do
@@ -146,7 +146,7 @@ class RemindersControllerTest < ActionController::TestCase
       delete :destroy, :id => reminders(:learned_remined_1).id, :user => users(:nari).login
     end
 
-    assert_redirected_to :user => users(:nari).login
+    assert_redirected_to "/#{users(:nari).login}"
    end
 
   test "should get today" do
@@ -189,33 +189,12 @@ class RemindersControllerTest < ActionController::TestCase
 
   test "should xhr check" do
     xhr :get, :check, :id => reminders(:learned_remined_1).id, :user => users(:nari).login
-    assert_select_rjs :replace, "reminder_#{reminders(:learned_remined_1).id}"
+    assert_response :success
   end
 
   test "should authorize fail" do
     get :edit, :user => users(:aaron).login
     assert_equal I18n.t("permission_denied", :scope => :notice), flash[:notice]
-    assert_redirected_to openid_path
-  end
-
-  test "should session expired" do
-    RemindersController.class_eval do
-      expires_session :time => 1.second, :redirect_to => '/'
-    end
-    get :index, :user => users(:nari).login
-    sleep 2
-    get :index, :user => users(:nari).login
-    
-    assert_redirected_to '/'
-    assert_equal I18n.t(:session_expired, :scope => %w(notice)), flash[:notice]
-  end
-
-  test "auto complete for tag name" do
-    get :auto_complete_for_tag_name, :tag => {:name => "a"}
-
-    assert_response :success
-    assert_select "ul>li" do
-      assert_select "li"
-    end
+    assert_redirected_to "/login"
   end
 end

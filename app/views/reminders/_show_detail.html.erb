@@ -1,5 +1,5 @@
 <div class="show-body">
-  <%= reminder.body.untaint %>
+  <%=raw reminder.body %>
 </div>
 <div class="show-tags">
   <b><%=h Reminder.human_attribute_name("tag_list") %> : </b><%=h reminder.tag_list %>

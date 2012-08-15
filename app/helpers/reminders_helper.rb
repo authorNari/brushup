@@ -1,22 +1,13 @@
+# -*- coding: utf-8 -*-
 module RemindersHelper
   def check_link(reminder)
     if reminder.today_remind? && current_user?
-      return link_to_remote(t(:check, :scope => [:railties, :scaffold]), :url => {:action => :check, :id => reminder.id})
+      return link_to(t(:check, :scope => [:railties, :scaffold]), {:action => :check, :id => reminder.id, :user => current_user.login}, remote: true, method: :get)
     end
   end
 
   def confirm_mode?
     return bookmarklet_window?
-  end
-
-  def auto_complete_for_tag(field)
-    if bookmarklet_window?
-      field.text_field :tag_list
-    else
-      brushup_text_field_with_auto_complete(field, :tag_list,
-                                            {:autocomplete => "off"}, 
-                                            {:param_name => 'tag[name]', :method => 'get', :tokens => ['　',' ']})
-    end
   end
 
   def link_to_back_list(options={})

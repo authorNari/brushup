@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require File.join(File.dirname(__FILE__), '../test_helper')
 
 class ReminderTest < ActiveSupport::TestCase
@@ -12,9 +13,7 @@ class ReminderTest < ActiveSupport::TestCase
 
   test "should completeds" do
     size =
-      Reminder.find(:all,
-                    :conditions => ["completed = ? AND user_id = ?",
-                                    true, users(:nari).id]).size
+      Reminder.where("completed = ? AND user_id = ?", true, users(:nari).id).count
     
     assert_equal size, Reminder.completeds(:user_id => users(:nari).id).size
   end
@@ -37,10 +36,10 @@ class ReminderTest < ActiveSupport::TestCase
     reminders(:list_reminder_with_tag).tag_list = "fuge hoge"
     reminders(:list_reminder_with_tag).save!
     size =
-      Reminder.find_tagged_with("fuge",
-                                :conditions =>
-                                ["(completed is null OR completed = ?) AND next_learn_date > ? AND user_id = ?",
-                                 false, Date.today, users(:nari).id]).size
+      Reminder.tagged_with("fuge").where(
+      "(completed is null OR completed = ?) AND " +
+      "next_learn_date > ? AND user_id = ?",
+        false, Date.today, users(:nari).id).size
     assert_equal size, Reminder.lists(:user_id => users(:nari).id, :tag => "fuge").size
   end
   
@@ -48,10 +47,9 @@ class ReminderTest < ActiveSupport::TestCase
     reminders(:list_reminder_with_tag).tag_list = "fuge hoge"
     reminders(:list_reminder_with_tag).save!
     size =
-      Reminder.find_tagged_with("fuge",
-                                :conditions =>
-                                ["(completed is null OR completed = ?) AND next_learn_date > ?",
-                                 false, Date.today]).size
+      Reminder.tagged_with("fuge").where(
+      "(completed is null OR completed = ?) AND next_learn_date > ?",
+          false, Date.today).size
     assert_equal size, Reminder.lists(:tag => "fuge").size
   end
   

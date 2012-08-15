@@ -1,9 +1,8 @@
+# -*- coding: utf-8 -*-
 class RemindersController < ApplicationController
   before_filter :login_required, :only => %w(new create destroy edit update check copy)
   before_filter :same_login_user_required, :only => %w(create destroy edit update check)
   before_filter :save_current_list, :only => %w(today completed list search)
-
-  auto_complete_for :tag, :name
 
   before_filter :add_crumb_list_action, :only => %w(show confirm_update confirm_create edit new create update)
   before_filter :add_crumb_show_action, :only => %w(confirm_update edit create update)
@@ -12,10 +11,12 @@ class RemindersController < ApplicationController
   before_filter :add_crumb_current_action_with_tag, :only => %w(list today completed index search)
   before_filter :add_crumb_current_action, :except => %w(list today completed index search)
 
+  helper :reminders
   helper_method :reminder_user
   
   def index
-    redirect_to(:action => :today, :user => (params["user"] || reminder_user.login))
+    user = params["user"] || reminder_user.login
+    redirect_to "/#{user}/today"
   end
 
   def show
@@ -33,13 +34,14 @@ class RemindersController < ApplicationController
   end
 
   def create
-    @reminder = Reminder.new(params[:reminder].merge!(:user_id => current_user.id))
+    @reminder = Reminder.new(params[:reminder])
+    @reminder.user_id = current_user.id
 
     if @reminder.valid?
       @reminder.save_with_update_user!
     
-      return render(:template => "/share/autoclose") if @template.bookmarklet_window?
-      flash[:notice] = I18n.t(:created_success, :model => Reminder.human_name, :scope => [:notice])
+      return render(:template => "/share/autoclose") if view_context.bookmarklet_window?
+      flash[:notice] = I18n.t(:created_success, :model => Reminder.model_name.human, :scope => [:notice])
       redirect_to(:action => :confirm_create, :id => @reminder.id, :user => current_user.login)
     else
       logger.debug "DEBUG(create): @reminder = <#{@reminder.to_yaml}>"
@@ -58,7 +60,7 @@ class RemindersController < ApplicationController
     if @reminder.valid?
       @reminder.save_with_update_user!
       
-      flash[:notice] = I18n.t(:updated_success, :model => Reminder.human_name, :scope => [:notice])
+      flash[:notice] = I18n.t(:updated_success, :model => Reminder.model_name.human, :scope => [:notice])
       redirect_to(:action => :confirm_update, :id => @reminder.id, :user => current_user.login)
     else
       logger.debug "DEBUG(update): @reminder = <#{@reminder.to_yaml}>"
@@ -73,7 +75,7 @@ class RemindersController < ApplicationController
     @reminder = Reminder.find(params[:id])
     @reminder.destroy
 
-    redirect_to(@template.back_list_path)
+    redirect_to(view_context.back_list_path)
   end
 
   def today
@@ -93,54 +95,39 @@ class RemindersController < ApplicationController
     if @reminder.search_word
       @reminders = @reminders.search(@reminder.search_word)
     end
-    logger.debug{ "DEBUG(list) : @reminders = <#{@reminders.to_yaml}>" }
-    @tags = Reminder.tag_counts(:conditions => ["reminders.id IN (?)", @reminders.map(&:id)])
+    @tags = Reminder.all_tag_counts(tagging_conditions: ["reminders.id IN (?)", @reminders.map(&:id)])
     @reminders = @reminders.paginate(:page => params[:page])
+    logger.debug{ "DEBUG(reminders#list) : @reminders = <#{@reminders.inspect}>" }
 
     respond_to do |format|
       format.html { render :action => :index }
-      format.rss { render :action => :rss }
+      format.rss {
+        render :action => :rss, :formats => [:xml], :layout => false
+      }
     end
   end
 
   def copy
     reminder = Reminder.find(params[:id])
     if reminder.deep_clone(current_user).save
-      flash[:notice] = I18n.t(:copyed_success, :model => Reminder.human_name, :scope => :notice)
+      flash[:notice] = I18n.t(:copyed_success, :model => Reminder.model_name.human, :scope => :notice)
     else
-      flash[:error] = I18n.t(:copyed_fail, :model => Reminder.human_name, :scope => :error)
-      logger.debug "DEBUG(create): @reminder = <#{@reminder.to_yaml}>"
+      flash[:error] = I18n.t(:copyed_fail, :model => Reminder.model_name.human, :scope => :error)
+      logger.error "reminders#copy: #{reminder.errors.inspect}"
     end
     redirect_to :user => current_user.login, :action => :list
   end
 
   def check
-    reminder = Reminder.find(params[:id])
+    @reminder = Reminder.find(params[:id])
     
-    if reminder && reminder.update_learned!
+    if @reminder && @reminder.update_learned!
       @show_reminder_detail = true
       respond_to do |format|
         format.html { index }
-        format.js do
-          render :update do |page|
-            page.replace "reminder_#{params[:id]}", (render :partial => "reminder", :locals => {:reminder => reminder})
-            page.replace "reminders_check_#{params[:id]}", t(:check_ok, :scope => [:controller, :reminders])
-            page.replace_html "tag_today", @template.today_tag_label_link
-            page.visual_effect :highlight, "reminder_#{params[:id]}"
-            page.visual_effect :fade, "reminder_#{params[:id]}"
-          end
-        end
+        format.js { render :check }
       end
     end
-  end
-
-  def auto_complete_for_tag_name
-    @items = reminder_user.reminders.inject([]) do |r, rm|
-      rm.tags.each{|t| r << t if /\A#{params[:tag][:name].downcase}/ =~ t.name }
-      r
-    end
-
-    render :inline => "<%= auto_complete_result @items, 'name' %>"
   end
 
   def reminder_user

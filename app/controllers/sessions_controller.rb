@@ -14,8 +14,8 @@ class SessionsController < ApplicationController
     end
   rescue ActiveRecord::ActiveRecordError => ex
     logger.error "ERROR: exception =<#{ex.class}> message =<#{ex.message}>"
-    flash[:notice] = t(:fail_login, :scope => :notice)
-    redirect_to :action => "index"
+    flash[:notice] = t(:fail_login, :scope => :notisce)
+    redirect_to :action => :index
   end
   
   def edit
@@ -33,7 +33,7 @@ class SessionsController < ApplicationController
 
   def destroy
     logout_killing_session!
-    redirect_to openid_path
+    redirect_to "/login"
   end
 
   protected
@@ -53,6 +53,8 @@ class SessionsController < ApplicationController
 
   def after_autenticate(successful, identity_url, message, registration={})
     if successful
+#    if true
+#      identity_url = "http://www.hatena.ne.jp/authorNari/"
       if @user = User.find_by_openid_url(identity_url)
         success_login
         return redirect_to(:controller => "reminders", :user => @user.login, :action => :today)
@@ -62,6 +64,7 @@ class SessionsController < ApplicationController
       redirect_to(:action => :edit, :user => @user.login)
     else
       flash[:error] = message
+      logger.error "[OPENID_RESPONSE] #{request.env[Rack::OpenID::RESPONSE].message}"
       redirect_to :action => "index"
     end
   end

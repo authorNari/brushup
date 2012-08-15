@@ -29,58 +29,70 @@ DEFAULT: &DEFAULT
   
 template:
   <<: *DEFAULT
+  id: 1
   title: template
   body: template
 
 learned_remined_1:
   <<: *DEFAULT
+  id: 2
   title: Memo1
   body: don_t forget one
   completed: false
 
 not_learned_remind_2:
   <<: *DEFAULT
+  id: 3
   title: Memo2
   body: don_t forget two
   completed: true
 
 next_level_complete_remind:
   <<: *DEFAULT
+  id: 4
   schedule: level_4
   completed: false
 
 completed_reminder:
   <<: *DEFAULT
+  id: 5
   completed: true
 
 level_2_reminder:
   <<: *DEFAULT
+  id: 6
   schedule: level_2
 
 list_reminder:
   <<: *DEFAULT
+  id: 7
   next_learn_date: <%= Date.tomorrow %>
 
 list_reminder_with_tag:
   <<: *DEFAULT
+  id: 8
   next_learn_date: <%= Date.tomorrow %>
 
 list_reminder_2:
   <<: *DEFAULT
+  id: 9
   title: hogehoge
   next_learn_date: <%= Date.tomorrow %>
 
 list_reminder_3:
   <<: *DEFAULT
+  id: 10
   next_learn_date: <%= Date.today %>
 
 rd_body_reminder:
   <<: *DEFAULT
+  id: 11
   body: = hoge\n fugefuge
   format: rd
 
 style_check:
   <<: *DEFAULT
+  id: 12
   title: style_check_reminder
   body: |
     h1. H1
@@ -117,11 +129,13 @@ style_check:
 
 list_reminder_aaron:
   <<: *DEFAULT
+  id: 13
   user: aaron
   next_learn_date: <%= Date.today %>
 
 deep_clone:
   <<: *DEFAULT
+  id: 14
   user: aaron
   schedule: level_2
   completed: true
@@ -129,18 +143,21 @@ deep_clone:
 
 deep_clone_fail:
   <<: *DEFAULT
+  id: 15
   user: aaron
   title:
   body: a
 
 list_search:
   <<: *DEFAULT
+  id: 16
   title: search_title
   body: search_body
   next_learn_date: <%= Date.tomorrow %>
 
 list_search_aaron:
   <<: *DEFAULT
+  id: 17
   user: aaron
   title: search_title
   body: search_body

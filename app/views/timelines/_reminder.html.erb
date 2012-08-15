@@ -1,4 +1,4 @@
-<% fields_for reminder do |f| -%>
+<%= fields_for reminder do |f| -%>
 <li id="reminder_<%= reminder.id -%>" class="show">
   <div class="show">
     <div class="show-username">
@@ -7,9 +7,9 @@
     </div>
     <div class="show-title">
       <h2><%= link_to(h(reminder.title), action_path(:show, :id => reminder.id)) -%></h2>
-      <%= link_to_function(t(:hide_detail, :scope => %w(links)), "$('reminder_#{reminder.id}_detail').toggle()") unless @show_reminder_detail %>
+      <%= link_to_function(t(:hide_detail, :scope => %w(links)), "$('#reminder_#{reminder.id}_detail').toggle()") unless @show_reminder_detail %>
     </div>
-    <div id="reminder_<%= reminder.id %>_detail" <%= hidden_reminder_detail -%>>
+    <div id="reminder_<%= reminder.id %>_detail" <%=raw hidden_reminder_detail -%>>
       <%= render :partial => "/reminders/show_detail", :locals => {:reminder => reminder} %>
     </div>
     <%= render :partial => "/reminders/show_copy_link", :locals => {:reminder => reminder} %>

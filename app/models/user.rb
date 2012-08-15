@@ -16,9 +16,10 @@
 class User < ActiveRecord::Base
   include Authentication
   include Authentication::ByCookieToken
-  
+  extend FriendlyId
+
   has_many :reminders
-  has_friendly_id :login
+  friendly_id :login
 
   validates_presence_of :login
   validates_format_of :login, :with => Authentication.login_regex
