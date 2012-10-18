@@ -30,6 +30,7 @@ begin
   end
 
   OpenIdAuthentication.store = OpenID::Store::ActiveRecord.new
+  OpenID::fetcher_use_env_http_proxy
 
   # https://github.com/openid/ruby-openid/issues/1#commits-ref-aad1c5f
   module OpenID
