@@ -77,7 +77,7 @@ ActiveRecord::Schema.define(:version => 20120815151905) do
     t.integer  "taggable_id"
     t.string   "taggable_type"
     t.datetime "created_at"
-    t.string   "context",       :limit => 128
+    t.string   "context",       :limit => 128, :default => "tags"
     t.integer  "tagger_id"
     t.string   "tagger_type"
   end
