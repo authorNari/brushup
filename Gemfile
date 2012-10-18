@@ -6,7 +6,7 @@ gem 'rails', '3.2.8'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'friendly_id'
-gem 'sqlite3'
+gem 'mysql2'
 gem 'crummy'
 gem 'acts-as-taggable-on'
 gem 'ar_fixtures'
