@@ -106,8 +106,10 @@ ja:
   error:
     copyed_fail: "%{model}のコピーに失敗しました"
   paginate:
-    prev_label: "&laquo; 前へ"
     next_label: "次へ &raquo;"
+  will_paginate:
+    previous_label: "&laquo; 前へ"
+    page_gap: "..."
   format_type:
     default: なし
     rd: RD
